@@ -7,16 +7,16 @@
         <!-- Sidebar Section -->
         <div class="w-80 flex-col justify-start items-start flex-grow-0 flex-shrink-0 inline-flex">
             <div class="w-full h-44 py-7 flex-col justify-start items-start flex">
-                 <div class="w-full px-[18px] py-2 bg-[#344578]/20 rounded-xl flex items-center gap-4 hover:bg-[#344578]/30 transition-colors duration-200">
+                <div class="w-full px-[18px] py-2 rounded-xl flex items-center gap-4 hover:bg-[#e5e9f1] transition-colors duration-200">
                     <a href="{% url 'paw_n_care:appointments' %}" class="flex items-center gap-4">
-                        <i class="fi fi-sr-calendar-clock text-[#344578] text-lg"></i>
-                        <div class="text-[#344578] text-[15px] font-medium font-['Poppins'] leading-tight">Appointments</div>
+                        <i class="fi fi-sr-calendar-clock text-[#1b1e28] text-lg"></i>
+                        <div class="text-[#1b1e28] text-[15px] font-medium font-['Poppins'] leading-tight">Appointments</div>
                     </a>
                 </div>
-                <div class="w-full px-[18px] py-2 rounded-xl flex items-center gap-4 hover:bg-[#e5e9f1] transition-colors duration-200">
+                <div class="w-full px-[18px] py-2 bg-[#344578]/20 rounded-xl flex items-center gap-4 hover:bg-[#344578]/30 transition-colors duration-200">
                     <a href="{% url 'paw_n_care:medical-records' %}" class="flex items-center gap-4">
-                        <i class="fi fi-sr-document text-[#1b1e28] text-lg"></i>
-                        <div class="text-[#1b1e28] text-[15px] font-medium font-['Poppins'] leading-tight">Medical Records</div>
+                        <i class="fi fi-sr-document text-[#344578] text-lg"></i>
+                        <div class="text-[#344578] text-[15px] font-medium font-['Poppins'] leading-tight">Medical Records</div>
                     </a>
                 </div>
                 <div class="w-full px-[18px] py-2 rounded-xl flex items-center gap-4 hover:bg-[#e5e9f1] transition-colors duration-200">
@@ -25,16 +25,16 @@
                 </div>
             </div>
         </div>
-        <!-- Appointments Section -->
+        <!-- Medical Records Section -->
         <div class="flex-grow flex flex-col justify-start items-start">
             <div class="w-full h-auto py-7 flex flex-col justify-start items-start gap-7">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex items-center gap-4">
-                        <div class="text-[#1b1e28] text-[34px] font-semibold font-['Poppins'] leading-10">Appointments</div>
+                        <div class="text-[#1b1e28] text-[34px] font-semibold font-['Poppins'] leading-10">Medical Records</div>
                     </div>
                 </div>
                 <div class="w-full py-7 flex flex-col justify-start items-start gap-[18px]">
-                    <div class="text-[#1a2227] text-xl font-bold font-['Poppins'] leading-normal">Add appointment</div>
+                    <div class="text-[#1a2227] text-xl font-bold font-['Poppins'] leading-normal">Add Medical Record</div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Pet Name</label>
@@ -47,71 +47,89 @@
                     </div>
                     <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment Date</label>
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Record Date</label>
                             <input type="date" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment Time</label>
-                            <input type="time" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Record Details</label>
+                            <input type="text" placeholder="Enter record details" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
-                        Add appointment
+                        Add Record
                     </button>
                 </div>
             </div>
             <div class="w-full pb-7 flex flex-wrap justify-start items-start gap-[18px]">
+                <!-- Medical Record Details Section -->
                 <div class="flex-grow flex flex-col gap-4">
                     <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Pet Name</label>
+                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Appointment ID</label>
                         <i class="fi fi-sr-caret-down text-[#49526e]"></i>
                     </div>
                     <ul class="w-full">
                         {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Fluffy</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Bella</li>
-                        <!-- Add other pet names here -->
+                            <li class="py-2 border-t border-[#49526e]/20">#1</li>
                         {% endfor %}
+<!--                    {% for record in records %}-->
+<!--                        <li class="py-2 border-t border-[#49526e]/20">{{ record.appointment_id }}</li>-->
+<!--                    {% endfor %}-->
                     </ul>
                 </div>
                 <div class="flex-grow flex flex-col gap-4">
                     <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Owner Name</label>
+                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Pet name</label>
                         <i class="fi fi-sr-caret-down text-[#49526e]"></i>
                     </div>
                     <ul class="w-full">
                         {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Emma Johnson</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Olivia Brown</li>
-                        <!-- Add other pet names here -->
+                            <li class="py-2 border-t border-[#49526e]/20">Java</li>
                         {% endfor %}
+<!--                    {% for record in records %}-->
+<!--                        <li class="py-2 border-t border-[#49526e]/20">{{ record.pet_name }}</li>-->
+<!--                    {% endfor %}-->
                     </ul>
                 </div>
                 <div class="flex-grow flex flex-col gap-4">
                     <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Veterinarian</label>
+                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Diagnosis</label>
                         <i class="fi fi-sr-caret-down text-[#49526e]"></i>
                     </div>
                     <ul class="w-full">
                         {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Dr. Alice</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Dr. Bob</li>
-                        <!-- Add other veterinarians here -->
+                            <li class="py-2 border-t border-[#49526e]/20">Arthritis</li>
                         {% endfor %}
+<!--                    {% for record in records %}-->
+<!--                        <li class="py-2 border-t border-[#49526e]/20">{{ record.diagnosis }}</li>-->
+<!--                    {% endfor %}-->
                     </ul>
                 </div>
-
                 <div class="flex-grow flex flex-col gap-4">
                     <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Appointment Date</label>
+                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Treatment</label>
                         <i class="fi fi-sr-caret-down text-[#49526e]"></i>
                     </div>
                     <ul class="w-full">
                         {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">2023-10-01</li>
-                        <li class="py-2 border-t border-[#49526e]/20">2023-10-02</li>
-                        <!-- Add other dates here -->
+                            <li class="py-2 border-t border-[#49526e]/20">Pain Relief</li>
                         {% endfor %}
+<!--                    {% for record in records %}-->
+<!--                        <li class="py-2 border-t border-[#49526e]/20">{{ record.treatment }}</li>-->
+<!--                    {% endfor %}-->
+                    </ul>
+                </div>
+                <div class="flex-grow flex flex-col gap-4">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Medications</label>
+                        <i class="fi fi-sr-caret-down text-[#49526e]"></i>
+                    </div>
+                    <ul class="w-full">
+                        {% for i in '012' %}
+                            <li class="py-2 border-t border-[#49526e]/20">Carprofen</li>
+                        {% endfor %}
+<!--                    {% for record in records %}-->
+<!--                        <li class="py-2 border-t border-[#49526e]/20">{{ record.medications }}</li>-->
+<!--                    {% endfor %}-->
                     </ul>
                 </div>
             </div>
