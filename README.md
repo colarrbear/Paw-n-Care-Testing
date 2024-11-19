@@ -11,3 +11,6 @@ PetCare Assistant is a Django-based application designed to manage a pet care bu
 - **Medical Records**: Keep detailed medical records, including diagnoses, treatments, and prescribed medications.  
 - **Billing System**: Record payments for appointments with the total amount, payment status, and method.  
 - **Medication Management**: Maintain a list of medications, their descriptions, and dosages.  
+
+## Database Schema
+![image](https://github.com/user-attachments/assets/5661a3fe-6a89-4891-a951-78d7447b7ec3)
