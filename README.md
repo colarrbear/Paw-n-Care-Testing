@@ -1,6 +1,6 @@
-# PetCare Assistant
+# PetCare
 
-PetCare Assistant is a Django-based application designed to manage a pet care business efficiently. It allows clinics to organize pet, owner, and veterinarian information, schedule appointments, maintain medical records, and handle billing.  
+PetCare is a Django-based application designed to manage a pet care business efficiently. It allows clinics to organize pet, owner, and veterinarian information, schedule appointments, maintain medical records, and handle billing.  
 
 ## Features
 
