@@ -1,0 +1,64 @@
+# Python-specific
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+*.env
+
+# Django-specific
+db.sqlite3
+*.log
+media/
+staticfiles/
+
+# PyCharm-specific
+.idea/
+
+# VS Code-specific
+.vscode/
+*.code-workspace
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Test files
+.coverage
+.tox/
+.nox/
+*.coverage
+*.cache
+*.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# System-specific
+.DS_Store
+Thumbs.db
+desktop.ini
