@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{% static 'css/uicons-solid-rounded.css' %}" rel="stylesheet">
+    <title>Paw n Care</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        main {
+            flex: 1;
+            padding-top: 6rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="w-full bg-white shadow-sm max-w-[1350px] h-auto flex flex-col">
+        <div class="h-14 py-3 justify-between items-center inline-flex">
+            <div class="justify-start items-center gap-7 flex">
+                <div class="w-6 h-6 relative"></div>
+                    <i class="fi fi-sr-menu-burger"></i>
+                    <div class="justify-start items-center gap-1 flex">
+                        <div class="relative items-center mr-2">
+                            <i class="fi fi-sr-dog-bowl-empty text-[#3e65dc] text-3xl"></i>
+                        </div>
+                        <div class="text-[#3e65dc] text-2xl font-semibold font-['Poppins'] leading-7">Paw n Care</div>
+                    </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="w-full bg-white text-[#344578] py-4">
+        <div class="container mx-auto flex flex-col">
+            <div class="font-normal font-['Poppins']">
+                2024 Paw n Care. All rights reserved. Licensed under MIT.
+            </div>
+        </div>
+    </footer>
+</body>
+
+
