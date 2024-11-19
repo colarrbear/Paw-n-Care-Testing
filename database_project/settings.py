@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "paw_n_care",
+    'django.contrib.humanize',
+    'tailwind',
+    # 'theme',
+    # all-auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'database_project.urls'
@@ -54,7 +63,11 @@ ROOT_URLCONF = 'database_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+            BASE_DIR / 'theme' / 'templates',
+            str(BASE_DIR.joinpath('templates')),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
