@@ -9,3 +9,7 @@ class Appointments(TemplateView):
 
 class MedRec(TemplateView):
     template_name = 'medical-records.html'
+
+
+class Billing(TemplateView):
+    template_name = 'billing.html'
