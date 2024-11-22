@@ -13,3 +13,7 @@ class MedRec(TemplateView):
 
 class Billing(TemplateView):
     template_name = 'billing.html'
+
+
+class Statistic(TemplateView):
+    template_name = 'statistic.html'

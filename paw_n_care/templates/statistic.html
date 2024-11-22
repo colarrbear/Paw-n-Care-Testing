@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-[1550px] h-auto mx-auto">
+    <div class="h-auto flex flex-wrap justify-start items-start gap-12">
+        <div class="flex-grow flex flex-col justify-start items-start">
+            <div class="w-full h-auto py-7 flex flex-col justify-start items-start gap-7">
+                <div class="w-full flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                    <div class="text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">Statistic</div>
+                </div>
+            </div>
+        </div>
+        <div class="self-stretch h-96 py-7 flex-col justify-start items-start gap-[18px] flex">
+            <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Individual Statistic</div>
+            <div class="self-stretch h-[286px] pl-5 flex-col justify-start items-start gap-[18px] flex">
+                <div class="self-stretch justify-start items-start gap-4 inline-flex">
+                    <div class="grow shrink basis-0 flex-col justify-start items-start gap-1 inline-flex">
+                        <div class="self-stretch text-[#1b1e28] text-base font-medium font-['Plus Jakarta Sans'] leading-none">Veterinarian</div>
+                            <div class="relative w-full">
+                                <!-- Button -->
+                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="flex w-full pl-[18px] pr-3 py-2 bg-[#25597e]/10 rounded-2xl border border-black/0 justify-between items-center gap-2" type="button">
+                                    <div class="text-[#1b1e28] text-base font-normal font-[poppins] leading-tight">Dr. Thorung Boonkaew</div>
+                                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown menu -->
+                                <div id="dropdown" class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-full top-full mt-2">
+                                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                                        {% for vet in '012' %}
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dr. Thorung Boonkaew</a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="self-stretch justify-start items-center gap-7 inline-flex">
+                    <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                        <div class="self-stretch justify-between items-center inline-flex">
+                            <div class="grow shrink basis-0 text-[#1b1e28] text-base font-bold font-['Plus Jakarta Sans'] leading-normal">Appointments</div>
+                        </div>
+                        <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">120</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">5%</div>
+                        </div>
+                    </div>
+                    <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                        <div class="self-stretch justify-between items-center inline-flex">
+                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Pets Managed</div>
+                        </div>
+                        <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">45</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">2%</div>
+                        </div>
+                    </div>
+                    <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                        <div class="self-stretch justify-between items-center inline-flex">
+                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Bills Paid</div>
+                        </div>
+                        <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">7800</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">15%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="self-stretch h-[1884px] flex-col justify-start items-start flex">
+            <div class="self-stretch h-[370px] py-3 flex-col justify-center items-start gap-7 flex">
+                <div class="self-stretch h-[180px] flex-col justify-start items-start gap-[18px] flex">
+                    <div class="self-stretch text-[#1b1e28] text-xl font-bold font-[poppins] leading-normal">Clinic Statistics</div>
+                    <div class="self-stretch pl-5 justify-start items-center gap-7 inline-flex">
+                        <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Avg Appointments per Month</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">35</div>
+                            </div>
+                        </div>
+                        <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Most Frequent Species</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">Dogs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="self-stretch pl-5 justify-start items-start gap-[30px] inline-flex">
+                    <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                        <div class="self-stretch justify-between items-center inline-flex">
+                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Unique Returning Owners (6 Months)</div>
+                        </div>
+                        <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">120</div>
+                        </div>
+                    </div>
+                    <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                        <div class="self-stretch justify-between items-center inline-flex">
+                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Appointments Resulting in Medications</div>
+                        </div>
+                        <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">65%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-[204px] pl-5 py-3 flex-col justify-center items-start gap-7 flex">
+                <div class="self-stretch h-[180px] flex-col justify-start items-start gap-[18px] flex">
+                    <div class="self-stretch text-[#14232e]/60 text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Pet Average Weight Statistics</div>
+                    <div class="self-stretch justify-start items-center gap-7 inline-flex">
+                        <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Dogs</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">20 kg</div>
+                            </div>
+                        </div>
+                        <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Cats</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">5 kg</div>
+                            </div>
+                        </div>
+                        <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Other</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">0.5 kg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-[698px] py-3 bg-[#fafcfe] flex-col justify-center items-start gap-7 flex">
+                <div class="self-stretch h-[674px] flex-col justify-start items-start gap-[18px] flex">
+                    <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Appointment Statistics</div>
+                    <div class="self-stretch h-[632px] pl-5 flex-col justify-start items-start gap-[18px] flex">
+                        <div class="self-stretch h-[148px] p-8 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-5 flex">
+                            <div class="self-stretch justify-between items-center inline-flex">
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Top Vets by Completed Appointments</div>
+                            </div>
+                            <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">Dr. Nicha Ruangrit</div>
+                            </div>
+                        </div>
+                        <div class="self-stretch justify-start items-start inline-flex">
+                            <div class="grow shrink basis-0 flex-col justify-start items-start inline-flex">
+                                <div class="self-stretch h-48 py-3 bg-[#fafcfe] flex-col justify-center items-start gap-6 flex">
+                                    <div class="self-stretch h-[168px] flex-col justify-start items-start gap-4 flex">
+                                        <div class="self-stretch text-[#14232e]/60 text-xl font-semibold font-[poppins] leading-normal">Appointment Status Distribution (2024)</div>
+                                        <div class="self-stretch justify-start items-center gap-6 inline-flex">
+                                            <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                                <div class="self-stretch justify-between items-center inline-flex">
+                                                    <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Scheduled</div>
+                                                </div>
+                                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">450</div>
+                                                </div>
+                                            </div>
+                                            <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                                <div class="self-stretch justify-between items-center inline-flex">
+                                                    <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Completed</div>
+                                                </div>
+                                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">300</div>
+                                                </div>
+                                            </div>
+                                            <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                                <div class="self-stretch justify-between items-center inline-flex">
+                                                    <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Canceled</div>
+                                                </div>
+                                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">50</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="grid grid-cols-3 gap-4 w-full py-7" style="grid-template-columns: 10% 45% 45%;">
+                                <!-- Column 1: Numbers -->
+                                <div class="flex flex-col items-stretch">
+                                    <div class="py-1 text-[#13232e]/60 text-[13px] font-medium font-[poppins] text-center">#</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal text-center">1</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal text-center">2</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal text-center">3</div>
+                                </div>
+
+                                <!-- Column 2: Diagnoses -->
+                                <div class="flex flex-col items-stretch">
+                                    <div class="py-1 text-[#13232e]/60 text-[13px] font-medium font-[poppins]">Top Diagnoses</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Ear Infection</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Dental Disease</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Skin Allergies</div>
+                                </div>
+
+                                <!-- Column 3: Treatments -->
+                                <div class="flex flex-col items-stretch">
+                                    <div class="py-1 text-[#13232e]/60 text-[13px] font-medium font-['Plus Jakarta Sans']">Top Treatments</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Antibiotics</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Dental Cleaning</div>
+                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Antihistamines</div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-[612px] py-3 bg-[#fafcfe] flex-col justify-center items-start gap-7 flex">
+                <div class="self-stretch h-[588px] flex-col justify-start items-start gap-[18px] flex">
+                    <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Billing & Payment Analysis</div>
+                    <div class="self-stretch h-[546px] pl-5 flex-col justify-start items-start gap-[18px] flex">
+                        <div class="self-stretch justify-start items-start gap-6 inline-flex">
+                            <div class="grow shrink basis-0 p-8 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-5 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Avg Billing Amount per Appointment</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">990 Baht</div>
+                                </div>
+                            </div>
+                            <div class="grow shrink basis-0 p-8 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-5 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Sum Billing this month</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">89045 Baht</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="self-stretch text-[#14232e]/60 text-xl font-bold font-[poppins] leading-normal">Invoice Status Overview</div>
+                        <div class="self-stretch justify-start items-center gap-6 inline-flex">
+                            <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Paid On Time</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">65%</div>
+                                </div>
+                            </div>
+                            <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Pending</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">20%</div>
+                                </div>
+                            </div>
+                            <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Overdue</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">15%</div>
+                                </div>
+                            </div>
+                            <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                <div class="self-stretch justify-between items-center inline-flex">
+                                    <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Total Invoices</div>
+                                </div>
+                                <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">100</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="self-stretch h-48 py-3 bg-[#fafcfe] flex-col justify-center items-start gap-6 flex">
+                            <div class="self-stretch h-[168px] flex-col justify-start items-start gap-4 flex">
+                                <div class="self-stretch text-[#14232e]/60 text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Payment Methods and Status</div>
+                                <div class="self-stretch justify-start items-center gap-6 inline-flex">
+                                    <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                        <div class="self-stretch justify-between items-center inline-flex">
+                                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Credit Card</div>
+                                        </div>
+                                        <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">45%</div>
+                                        </div>
+                                    </div>
+                                    <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                        <div class="self-stretch justify-between items-center inline-flex">
+                                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Cash</div>
+                                        </div>
+                                        <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">30%</div>
+                                        </div>
+                                    </div>
+                                    <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
+                                        <div class="self-stretch justify-between items-center inline-flex">
+                                            <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Bank Transfer</div>
+                                        </div>
+                                        <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">15%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--</div>-->
+<script>
+    document.getElementById("dropdownDefaultButton").addEventListener("click", function() {
+        const dropdown = document.getElementById("dropdown");
+        dropdown.classList.toggle("hidden");
+    });
+</script>
+
+{% endblock %}
