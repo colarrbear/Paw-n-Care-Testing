@@ -36,6 +36,10 @@ class Veterinarian(models.Model):
     phone_number = models.CharField(max_length=15)
     email = models.EmailField(max_length=255)
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def __str__(self):
         return f"Dr. {self.first_name} {self.last_name} : {self.vet_id}"
 

@@ -20,93 +20,106 @@
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Reason</label>
-                            <input name="reason" type="text" placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="reason" type="text" required placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Status</label>
-                            <input name="status" type="text" placeholder="Enter status" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <select name="status" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <option value="" disabled selected>Select status</option>
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>
                         </div>
                     </div>
                     <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment Date</label>
-                            <input name="appointment_date" type="date" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="appointment_date" type="date" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment Time</label>
-                            <input name="appointment_time" type="time" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="appointment_time" type="time" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Pet</div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Pet name</label>
-                            <input name="pet_name" type="text" placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="pet_name" type="text" required placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Species</label>
-                            <input name="species" type="text" placeholder="Enter species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="species" type="text" required placeholder="Enter species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Breed</label>
-                            <input name="breed" type="text" placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="breed" type="text" required placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Weight</label>
-                            <input name="weight" type="text" placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="weight" type="text" required placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4 relative">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Date of birth</label>
-                            <input name="date_of_birth" type="date" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="date_of_birth" type="date" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Gender</label>
-                            <input name="gender" type="text" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
+                            <select name="gender" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>                        
                     </div>
                     <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Owners</div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First name</label>
-                            <input name="first_name" type="text" placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="first_name" type="text" required placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last name</label>
-                            <input name="last_name" type="text" placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="last_name" type="text" required placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
-                            <input name="address" type="text" placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="address" type="text" required placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
-                            <input name="email" type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="email" type="email" required placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Phone</label>
-                            <input name="phone" type="text" placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="phone" type="text" required placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="flex-grow flex flex-col gap-1 relative">
+                        <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Veterinary</label>
                         <div class="w-full max-w-xs">
-                          <select name="vet" class="select select-bordered w-full">
-                            <option disabled selected>Select Vet</option>
-                              {% for i in vets %}
-                                <option>{{ i.vet_id }}</option>
-                              {% endfor %}
-                          </select>
+                            <select
+                                name="vet"
+                                required class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins']"
+                            >
+                                <option value="" disabled selected>Select Veterinary</option>
+                                {% for i in vets %}
+                                <option value="{{ i.vet_id }}">{{ i.full_name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-                    </div>
+                    </div>                    
                     <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
                         Add appointment
                     </button>
@@ -178,6 +191,39 @@
     </div>
 </div>
 </form>
-    
+
+<script>
+    function filterDropdown(value) {
+        const dropdown = document.getElementById('vetDropdown');
+        const items = dropdown.querySelectorAll('li');
+        let hasResults = false;
+
+        if (value.trim() === '') {
+            dropdown.classList.add('hidden');
+            return;
+        }
+
+        items.forEach((item) => {
+            const text = item.textContent || item.innerText;
+            if (text.toLowerCase().includes(value.toLowerCase())) {
+                item.style.display = '';
+                hasResults = true;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        dropdown.classList.toggle('hidden', !hasResults);
+    }
+
+    function selectVet(vetId, vetName) {
+        const dropdown = document.getElementById('vetDropdown');
+        const input = dropdown.previousElementSibling;
+
+        input.value = vetName;
+        document.getElementById('selectedVet').value = vetId;
+        dropdown.classList.add('hidden');
+    }
+</script>
 
 {% endblock %}
