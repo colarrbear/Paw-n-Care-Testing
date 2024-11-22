@@ -11,71 +11,92 @@ class Appointments(TemplateView):
     template_name = 'appointments.html'
 
     def get(self, request, *args, **kwargs):
-        # Assuming you're fetching the appointments here
-        # call all vet ids
-        vet = Veterinarian.objects.all()
-
-        return render(request, self.template_name, {'vets': vet})
+        pets = Pet.objects.all().values('pet_id', 'name', 'species', 'owner__first_name', 'owner__last_name')
+        vets = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+        return render(request, self.template_name, {'vets': vets, 'pets': pets})
 
     def post(self, request, *args, **kwargs):
-        # Assuming you're handling the form data here
-        reason = request.POST.get('reason')
-        status = request.POST.get('status')
-        appointment_date = request.POST.get('appointment_date')
-        appointment_time = request.POST.get('appointment_time')
-        pet_name = request.POST.get('pet_name')
-        species = request.POST.get('species')
-        breed = request.POST.get('breed')
-        weight = request.POST.get('weight')
-        date_of_birth = request.POST.get('date_of_birth')
-        gender = request.POST.get('gender')
-        owner_first_name = request.POST.get('owner_first_name')
-        owner_last_name = request.POST.get('owner_last_name')
-        owner_email = request.POST.get('owner_email')
-        owner_phone = request.POST.get('owner_phone')
-        address = request.POST.get('address')
-        vet_id = request.POST.get('vet_id')
+        data = request.POST
 
-        # Here you can process or save the data as necessary
-        try:
-            owner = Owner.objects.create(
-                first_name=owner_first_name,
-                last_name=owner_last_name,
-                address=address,
-                phone_number=owner_phone,
-                email=owner_email,
-                registration_date=timezone.now()
-            )
-            owner.save()
+        appointment_date = data.get('appointment_date')
+        appointment_time = data.get('appointment_time')
+        reason = data.get('reason')
+        status = data.get('status')
+        vet_id = data.get('vet')
 
-            pet = Pet.objects.create(
-                owner=owner,
-                name=pet_name,
-                species=species,
-                breed=breed,
-                date_of_birth=date_of_birth,
-                gender=gender,
-                weight=weight
-            )
-            pet.save()
+        pet_id = data.get('existing_pet')
+        if pet_id:
+            self.create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason, status)
+        else:
+            self.create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status)
 
-            appointment = Appointment.objects.create(
-                pet=pet,
-                owner=owner,
-                vet=Veterinarian.objects.get(vet_id=vet_id),
-                appointment_date=appointment_date,
-                appointment_time=appointment_time,
-                reason=reason,
-                status=status
-            )
-            appointment.save()
-
-        except Exception as e:
-            # Handle the error as needed
-            print(f"Error saving appointment: {e}")
-
-        # After processing the form, redirect to the same page
         return redirect('paw_n_care:appointments')
+
+    @staticmethod
+    def create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason, status):
+        """Handle appointment creation for an existing pet."""
+        pet = Pet.objects.get(pet_id=pet_id)
+        owner = pet.owner
+        vet = Veterinarian.objects.get(vet_id=vet_id)
+
+        # Create and save the appointment
+        Appointment.objects.create(
+            pet=pet,
+            owner=owner,
+            vet=vet,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
+            reason=reason,
+            status=status
+        )
+
+    @staticmethod
+    def create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status):
+        """Handle the creation of a new owner, pet, and their appointment."""
+        owner = Appointments.create_owner(data)
+        pet = Appointments.create_pet(data, owner)
+
+        vet = Veterinarian.objects.get(vet_id=vet_id)
+
+        # Create and save the appointment
+        Appointment.objects.create(
+            pet=pet,
+            owner=owner,
+            vet=vet,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
+            reason=reason,
+            status=status
+        )
+
+    @staticmethod
+    def create_owner(data):
+        """Create a new owner."""
+        return Owner.objects.create(
+            first_name=data.get('first_name'),
+            last_name=data.get('last_name'),
+            address=data.get('address'),
+            phone_number=data.get('phone'),
+            email=data.get('email'),
+            registration_date=timezone.now()
+        )
+
+    @staticmethod
+    def create_pet(data, owner):
+        """Create a new pet."""
+        species = data.get('species')
+        if species == 'other':
+            species = data.get('new_species')
+
+        return Pet.objects.create(
+            owner=owner,
+            name=data.get('pet_name'),
+            species=species,
+            breed=data.get('breed'),
+            date_of_birth=data.get('date_of_birth'),
+            gender=data.get('gender'),
+            weight=data.get('weight')
+        )
 
 
 class MedRec(TemplateView):
@@ -177,3 +198,10 @@ class Bill(TemplateView):
 
 class Statistic(TemplateView):
     template_name = 'statistic.html'
+
+    def get(self, request, *args, **kwargs):
+        vet = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+
+        return render(request, self.template_name, {
+            'vets': vet,
+        })
