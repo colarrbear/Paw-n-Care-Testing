@@ -40,20 +40,30 @@
 </head>
 
 <body>
-    <header class="w-full bg-white shadow-sm max-w-[1350px] h-auto flex flex-col">
-        <div class="h-14 py-3 justify-between items-center inline-flex">
-            <div class="justify-start items-center gap-7 flex">
-                <div class="w-6 h-6 relative"></div>
+<header class="w-full bg-white shadow-sm max-w-[1350px] h-auto flex flex-col">
+    <div class="h-14 py-3 justify-between items-center inline-flex">
+        <div class="justify-start items-center gap-7 flex">
+            <div class="w-6 h-6 relative">
+                <button id="burgerMenu" class="text-2xl focus:outline-none bg-transparent border-none px-6 m-0">
                     <i class="fi fi-sr-menu-burger"></i>
-                    <div class="justify-start items-center gap-1 flex">
-                        <div class="relative items-center mr-2">
-                            <i class="fi fi-sr-dog-bowl-empty text-[#3e65dc] text-3xl"></i>
-                        </div>
-                        <div class="text-[#3e65dc] text-2xl font-semibold font-['Poppins'] leading-7">Paw n Care</div>
-                    </div>
+                </button>
+            </div>
+            <div class="justify-start items-center gap-1 flex">
+                <div class="relative items-center mr-2">
+                    <i class="fi fi-sr-dog-bowl-empty text-[#3e65dc] text-3xl ml-5"></i>
+                </div>
+                <div class="text-[#3e65dc] text-2xl font-semibold font-['Poppins'] leading-7">Paw n Care</div>
             </div>
         </div>
-    </header>
+    </div>
+    <!-- Dropdown Menu -->
+    <div id="dropdownMenu" class="hidden absolute mt-14 bg-white border border-gray-200 shadow-md rounded-lg w-48">
+        <a href="{% url 'paw_n_care:appointments' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appointments</a>
+        <a href="{% url 'paw_n_care:medical-records' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Medical Records</a>
+        <a href="{% url 'paw_n_care:billing' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Billing</a>
+        <a href="{% url 'paw_n_care:statistic' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Statistic</a>
+    </div>
+</header>
 
     <main>
         {% block content %}
@@ -68,5 +78,14 @@
         </div>
     </footer>
 </body>
+
+<script>
+    const burgerMenu = document.getElementById('burgerMenu');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    burgerMenu.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+</script>
 
 
