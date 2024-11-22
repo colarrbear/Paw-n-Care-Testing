@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<form id="billing-form" action="{% url 'paw_n_care:billing' %}" method="POST" xmlns="">
+    {% csrf_token %}
 <div class="w-full max-w-[1550px] h-auto mx-auto">
     <div class="h-auto flex flex-wrap justify-start items-start gap-12">
         <!-- Main Content -->
@@ -16,31 +18,31 @@
                 <div class="flex gap-4">
                     <div class="flex-1 flex flex-col gap-1">
                         <label class="text-[13px] font-medium text-[#1a2227]">Appointment ID</label>
-                        <input type="number" placeholder="Enter appointment ID" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <input name="appointment_id" type="number" required placeholder="Enter appointment ID" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex-1 flex flex-col gap-1">
                         <label class="text-[13px] font-medium text-[#1a2227]">Total Amount</label>
-                        <input type="text" placeholder="Enter total amount" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <input name="total_amount" type="number" step="0.01" required placeholder="Enter total amount" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex-1 flex flex-col gap-1">
                         <label class="text-[13px] font-medium text-[#1a2227]">Payment Status</label>
-                        <select class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                            <option value="">Select Status</option>
+                        <select name="payment_status" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option value="" disabled selected>Select Status</option>
                             <option value="Paid">Paid</option>
                             <option value="Pending">Pending</option>
-                            <option value="Pending">Overdue</option>
+                            <option value="Overdue">Overdue</option>
                         </select>
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex-1 flex flex-col gap-1">
                         <label class="text-[13px] font-medium text-[#1a2227]">Payment Method</label>
-                        <select class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                            <option value="">Select Payment Method</option>
+                        <select name="payment_method" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option value="" disabled selected>Select Payment Method</option>
                             <option value="Credit Card">Credit Card</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank Transfer">Bank Transfer</option>
@@ -50,7 +52,7 @@
                 <div class="flex gap-4">
                     <div class="flex-1 flex flex-col gap-1">
                         <label class="text-[13px] font-medium text-[#1a2227]">Payment Date</label>
-                        <input type="datetime-local" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <input type="datetime-local" name="payment_date" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                     </div>
                 </div>
                 <!-- Add Payment Button -->
@@ -61,4 +63,5 @@
         </div>
     </div>
 </div>
+</form>
 {% endblock %}
