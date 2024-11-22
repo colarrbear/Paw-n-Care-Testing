@@ -29,12 +29,12 @@ class Appointments(TemplateView):
         weight = request.POST.get('weight')
         date_of_birth = request.POST.get('date_of_birth')
         gender = request.POST.get('gender')
-        owner_first_name = request.POST.get('owner_first_name')
-        owner_last_name = request.POST.get('owner_last_name')
-        owner_email = request.POST.get('owner_email')
-        owner_phone = request.POST.get('owner_phone')
+        owner_first_name = request.POST.get('first_name')
+        owner_last_name = request.POST.get('last_name')
+        owner_email = request.POST.get('email')
+        owner_phone = request.POST.get('phone')
         address = request.POST.get('address')
-        vet_id = request.POST.get('vet_id')
+        vet_id = request.POST.get('vet')
 
         # Here you can process or save the data as necessary
         try:
