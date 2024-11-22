@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 
-from paw_n_care.models import Appointment, Owner, Pet, Veterinarian
+from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord
 
 
 # Create your views here.
@@ -95,33 +95,38 @@ class MedRec(TemplateView):
     def post(self, request, *args, **kwargs):
         try:
             # Extract form data
-            pet_id = request.POST.get('pet')
-            vet_id = request.POST.get('vet')
+            appointment_id = request.POST.get('appointment_id')
             visit_date = request.POST.get('visit_date')
             diagnosis = request.POST.get('diagnosis')
             treatment = request.POST.get('treatment')
             prescribed_medication = request.POST.get('prescribed_medication')
-            notes = request.POST.get('notes')
+            notes = request.POST.get('notes', '')
+
+            # Fetch the appointment related to the appointment_id
+            appointment = Appointment.objects.get(pk=appointment_id)
+
+            # Get the related pet and vet from the appointment
+            pet = appointment.pet
+            vet = appointment.vet
 
             # Create medical record
-            medical_record = MedicalRecord.objects.create(
-                pet=Pet.objects.get(pk=pet_id),
-                vet=Veterinarian.objects.get(pk=vet_id),
+            medrec = MedicalRecord.objects.create(
+                pet=pet,
+                vet=vet,
                 visit_date=visit_date,
                 diagnosis=diagnosis,
                 treatment=treatment,
                 prescribed_medication=prescribed_medication,
                 notes=notes
             )
-
-            # Optional: Add a success message
-            messages.success(request, 'Medical record added successfully')
+            medrec.save()
 
         except Exception as e:
-            # Handle potential errors
-            messages.error(request, f'Error creating medical record: {str(e)}')
+            # Handle the error as needed
+            print(f"Error saving medical-records: {e}")
 
-        return redirect('paw_n_care:medical_records')
+        # After processing the form, redirect to the same page
+        return redirect('paw_n_care:medical-records')
 
 
 class Billing(TemplateView):
