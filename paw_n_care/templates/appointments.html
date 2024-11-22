@@ -14,14 +14,15 @@
                 </div>
                 <div class="w-full py-7 flex flex-col justify-start items-start gap-[18px]">
                     <div class="text-[#1a2227] text-xl font-bold font-['Poppins'] leading-normal">Add appointment</div>
+                    <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal">Appointment</div>
                     <div class="w-full flex flex-wrap justify-start items-start gap-4">
                         <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Pet Name</label>
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Reason</label>
                             <input type="text" placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Owner Name</label>
-                            <input type="text" placeholder="Enter owner name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Status</label>
+                            <input type="text" placeholder="Enter status" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
                     <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4">
@@ -34,67 +35,168 @@
                             <input type="time" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
+                    <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Pet</div>
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Pet name</label>
+                            <input type="text" placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Species</label>
+                            <input type="text" placeholder="Enter species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Breed</label>
+                            <input type="text" placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Weight</label>
+                            <input type="text" placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4 relative">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Date of birth</label>
+                            <input type="date" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                        <!-- Button -->
+                        <div class="flex-grow flex flex-col gap-1 relative">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Gender</label>
+                            <button id="dropdownDefaultButton" class="flex w-full pl-[18px] pr-3 py-2 bg-[#25597e]/10 rounded-xl border border-black/0 justify-between items-center gap-2" type="button">
+                                <div class="text-[#1b1e28] text-base font-normal font-[poppins] leading-tight">Male</div>
+                                <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdown" class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-full top-full mt-2">
+                                <ul class="py-2 text-sm text-gray-700">
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Male</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Female</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Owners</div>
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First name</label>
+                            <input type="text" placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last name</label>
+                            <input type="text" placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
+                            <input type="text" placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
+                            <input type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4">
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Registration Date</label>
+                            <input type="datetime-local" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
                     <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
                         Add appointment
                     </button>
                 </div>
             </div>
-            <div class="w-full pb-7 flex flex-wrap justify-start items-start gap-[18px]">
-                <div class="flex-grow flex flex-col gap-4">
-                    <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Pet Name</label>
-                        <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                    </div>
-                    <ul class="w-full">
-                        {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Fluffy</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Bella</li>
-                        <!-- Add other pet names here -->
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="flex-grow flex flex-col gap-4">
-                    <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Owner Name</label>
-                        <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                    </div>
-                    <ul class="w-full">
-                        {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Emma Johnson</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Olivia Brown</li>
-                        <!-- Add other pet names here -->
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="flex-grow flex flex-col gap-4">
-                    <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Veterinarian</label>
-                        <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                    </div>
-                    <ul class="w-full">
-                        {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">Dr. Alice</li>
-                        <li class="py-2 border-t border-[#49526e]/20">Dr. Bob</li>
-                        <!-- Add other veterinarians here -->
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <div class="flex-grow flex flex-col gap-4">
-                    <div class="flex items-center justify-between">
-                        <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Appointment Date</label>
-                        <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                    </div>
-                    <ul class="w-full">
-                        {% for i in '012' %}
-                        <li class="py-2 border-t border-[#49526e]/20">2023-10-01</li>
-                        <li class="py-2 border-t border-[#49526e]/20">2023-10-02</li>
-                        <!-- Add other dates here -->
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+            <!--<div class="w-full overflow-x-auto">-->
+            <!--    <table class="min-w-full table-auto border-collapse border border-gray-300 rounded-lg shadow-sm">-->
+            <!--        <thead class="bg-gray-100">-->
+            <!--            <tr>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Appointment ID</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Reason</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Status</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Appointment Date</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Time</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Pet Name</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Species</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Breed</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Weight</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Date of Birth</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Gender</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Owner Name</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Address</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Email</th>-->
+            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Registration Date</th>-->
+            <!--            </tr>-->
+            <!--        </thead>-->
+            <!--        <tbody>-->
+            <!--            &lt;!&ndash; Example Row 1 &ndash;&gt;-->
+            <!--            <tr>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">#1</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Checkup</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Pending</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-22</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">10:00 AM</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Buddy</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Dog</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Golden Retriever</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">25kg</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2020-05-14</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Male</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">John Doe</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">123 Street Name</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">john@example.com</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-01 09:00</td>-->
+            <!--            </tr>-->
+            <!--            &lt;!&ndash; Example Row 2 &ndash;&gt;-->
+            <!--            <tr>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">#2</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Vaccination</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Completed</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-21</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">02:00 PM</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Charlie</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Cat</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Siamese</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">7kg</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2019-10-10</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Female</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">Jane Smith</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">456 Avenue Name</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">jane@example.com</td>-->
+            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-01 15:00</td>-->
+            <!--            </tr>-->
+            <!--            &lt;!&ndash; Add more rows dynamically &ndash;&gt;-->
+            <!--        </tbody>-->
+            <!--    </table>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
+
+<script>
+    const button = document.getElementById('dropdownDefaultButton');
+    const dropdown = document.getElementById('dropdown');
+
+    button.addEventListener('click', () => {
+        dropdown.classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
+
 {% endblock %}
