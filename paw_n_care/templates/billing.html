@@ -12,122 +12,53 @@
                     <h1 class="text-[#1b1e28] text-[34px] font-semibold">Billing</h1>
                 </div>
                 <!-- Add New Billing Section -->
-                    <h2 class="text-xl font-bold text-[#1a2227]">Add New Billing</h2>
-                    <div class="flex gap-4">
-                        <div class="flex-1 flex flex-col gap-1">
-                            <label class="text-[13px] font-medium text-[#1a2227]">Appointment ID</label>
-                            <input type="text" placeholder="Select appointment" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex-1 flex flex-col gap-1">
-                            <label class="text-[13px] font-medium text-[#1a2227]">Total Amount</label>
-                            <input type="text" placeholder="Enter total amount" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex-1 flex flex-col gap-1">
-                            <label class="text-[13px] font-medium text-[#1a2227]">Payment Status</label>
-                            <input type="text" placeholder="Select status" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <!-- Add Payment Button -->
-                    <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] w-auto self-start">
-                        Add Payment
-                    </button>
-                </div>
-
-                <!-- Update Payment Section -->
-                <div class="flex flex-col p-7 gap-5">
-                    <h2 class="text-xl font-bold text-[#1a2227]">Update Payment</h2>
-                    <div class="flex gap-4">
-                        <div class="flex-1 flex flex-col gap-1">
-                            <label class="text-[13px] font-medium text-[#1a2227]">Appointment ID</label>
-                            <input type="text" placeholder="Select appointment" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex-1 flex flex-col gap-1">
-                            <label class="text-[13px] font-medium text-[#1a2227]">Payment Status</label>
-                            <input type="text" placeholder="Select status" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                        <!-- Update Payment Button -->
-                        <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] w-auto self-start">
-                            Update Payment
-                        </button>
-                        <div class="w-full pb-7 flex flex-wrap justify-start items-start gap-[18px] mt-10">
-                            <div class="flex-grow flex flex-col gap-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Appointment ID</label>
-                                    <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                                </div>
-                                <ul class="w-full">
-                                    {% for i in '012' %}
-                                    <li class="py-2 border-t border-[#49526e]/20">#1</li>
-                                    <li class="py-2 border-t border-[#49526e]/20">#2</li>
-                                    <!-- Add other pet names here -->
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="flex-grow flex flex-col gap-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Owner Name</label>
-                                    <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                                </div>
-                                <ul class="w-full">
-                                    {% for i in '012' %}
-                                    <li class="py-2 border-t border-[#49526e]/20">James</li>
-                                    <li class="py-2 border-t border-[#49526e]/20">Rung</li>
-                                    <!-- Add other pet names here -->
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="flex-grow flex flex-col gap-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Pet name</label>
-                                    <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                                </div>
-                                <ul class="w-full">
-                                    {% for i in '012' %}
-                                    <li class="py-2 border-t border-[#49526e]/20">Java</li>
-                                    <li class="py-2 border-t border-[#49526e]/20">Mee chok</li>
-                                    <!-- Add other veterinarians here -->
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                            <div class="flex-grow flex flex-col gap-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Total Amount</label>
-                                    <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                                </div>
-                                <ul class="w-full">
-                                    {% for i in '012' %}
-                                    <li class="py-2 border-t border-[#49526e]/20">2,500 Bath</li>
-                                    <li class="py-2 border-t border-[#49526e]/20">500 Bath</li>
-                                    <!-- Add other dates here -->
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                            <div class="flex-grow flex flex-col gap-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-[#131a2e]/60 text-[13px] font-medium font-['Poppins']">Payment Status</label>
-                                    <i class="fi fi-sr-caret-down text-[#49526e]"></i>
-                                </div>
-                                <ul class="w-full">
-                                    {% for i in '012' %}
-                                    <li class="py-2 border-t border-[#49526e]/20">Paid</li>
-                                    <li class="py-2 border-t border-[#49526e]/20">Pending</li>
-                                    <!-- Add other dates here -->
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
+                <h2 class="text-xl font-bold text-[#1a2227]">Add New Billing</h2>
+                <div class="flex gap-4">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="text-[13px] font-medium text-[#1a2227]">Appointment ID</label>
+                        <input type="number" placeholder="Enter appointment ID" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                     </div>
                 </div>
+                <div class="flex gap-4">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="text-[13px] font-medium text-[#1a2227]">Total Amount</label>
+                        <input type="text" placeholder="Enter total amount" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="text-[13px] font-medium text-[#1a2227]">Payment Status</label>
+                        <select class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option value="">Select Status</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Pending">Overdue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="text-[13px] font-medium text-[#1a2227]">Payment Method</label>
+                        <select class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option value="">Select Payment Method</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="text-[13px] font-medium text-[#1a2227]">Payment Date</label>
+                        <input type="datetime-local" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                    </div>
+                </div>
+                <!-- Add Payment Button -->
+                <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] w-auto self-start">
+                    Add Payment
+                </button>
             </div>
+        </div>
+    </div>
 </div>
-<!--</div>-->
 {% endblock %}
