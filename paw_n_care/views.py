@@ -129,7 +129,7 @@ class MedRec(TemplateView):
         return redirect('paw_n_care:medical-records')
 
 
-class Billing(TemplateView):
+class Bill(TemplateView):
     # Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing
     template_name = 'billing.html'
     def get(self, request, *args, **kwargs):
@@ -158,14 +158,14 @@ class Billing(TemplateView):
             vet = appointment.vet
 
             # Create medical record
-            billing = Billing.objects.create(
+            bill = Billing.objects.create(
                 appointment=appointment,
                 total_amount=total_amount,
                 payment_status=payment_status,
                 payment_method=payment_method,
                 payment_date=payment_date
             )
-            billing.save()
+            bill.save()
 
         except Exception as e:
             # Handle the error as needed
