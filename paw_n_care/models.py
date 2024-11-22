@@ -37,7 +37,7 @@ class Veterinarian(models.Model):
     email = models.EmailField(max_length=255)
 
     def __str__(self):
-        return f"Dr. {self.first_name} {self.last_name}"
+        return f"Dr. {self.first_name} {self.last_name} : {self.vet_id}"
 
 
 class Appointment(models.Model):

@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<form id="appointments-form" action="{% url 'paw_n_care:appointments' %}" method="POST" xmlns="">
+    {% csrf_token %}
 <div class="w-full max-w-[1550px] h-auto mx-auto">
     <div class="h-auto flex flex-wrap justify-start items-start gap-12">
         <!-- Appointments Section -->
@@ -63,24 +65,24 @@
                         </div>
                         <!-- Button -->
                         <div class="flex-grow flex flex-col gap-1 relative">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Gender</label>
-                            <button id="dropdownDefaultButton" class="flex w-full pl-[18px] pr-3 py-2 bg-[#25597e]/10 rounded-xl border border-black/0 justify-between items-center gap-2" type="button">
-                                <div class="text-[#1b1e28] text-base font-normal font-[poppins] leading-tight">Male</div>
-                                <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                                </svg>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdown" class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-full top-full mt-2">
-                                <ul class="py-2 text-sm text-gray-700">
-                                    <li>
-                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Male</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Female</a>
-                                    </li>
-                                </ul>
-                            </div>
+{#                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Gender</label>#}
+{#                            <button id="dropdownDefaultButton" class="flex w-full pl-[18px] pr-3 py-2 bg-[#25597e]/10 rounded-xl border border-black/0 justify-between items-center gap-2" type="button">#}
+{#                                <div class="text-[#1b1e28] text-base font-normal font-[poppins] leading-tight">Male</div>#}
+{#                                <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">#}
+{#                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>#}
+{#                                </svg>#}
+{#                            </button>#}
+{#                            <!-- Dropdown menu -->#}
+{#                            <div id="dropdown" class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-full top-full mt-2">#}
+{#                                <ul class="py-2 text-sm text-gray-700">#}
+{#                                    <li>#}
+{#                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Male</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Female</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
                         </div>
                     </div>
                     <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Owners</div>
@@ -106,12 +108,31 @@
                             <input type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
-                    <div class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Registration Date</label>
-                            <input type="datetime-local" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
+                    <div class="flex-grow flex flex-col gap-1 relative">
+
+<div class="relative inline-block text-left">
+    <!-- Dropdown Button -->
+    <button id="vetDropdownButton" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Select Vet
+        <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div id="vetDropdownMenu" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <ul class="py-1">
+            {% for i in vets %}
+            <li>
+                <a class="vet-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ i.vet_id }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
                     </div>
+                    
                     <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
                         Add appointment
                     </button>
@@ -182,20 +203,35 @@
         </div>
     </div>
 </div>
+    </form>
 
 <script>
-    const button = document.getElementById('dropdownDefaultButton');
-    const dropdown = document.getElementById('dropdown');
+    // Select the button and dropdown menu
+    const vetDropdownButton = document.querySelector('#vetDropdownButton');
+    const vetDropdownMenu = document.querySelector('#vetDropdownMenu');
+    const vetOptions = document.querySelectorAll('.vet-option'); // All vet options
 
-    button.addEventListener('click', () => {
-        dropdown.classList.toggle('hidden');
+    // Toggle dropdown visibility on button click
+    vetDropdownButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent click event from bubbling
+        vetDropdownMenu.classList.toggle('hidden'); // Show/hide menu
     });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.classList.add('hidden');
+    // Close the dropdown if clicking outside
+    document.addEventListener('click', () => {
+        if (!vetDropdownMenu.classList.contains('hidden')) {
+            vetDropdownMenu.classList.add('hidden'); // Hide the menu
         }
+    });
+
+    // Add click listener to each vet option
+    vetOptions.forEach((option) => {
+        option.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            const selectedVet = event.target.textContent; // Get the selected vet's name
+            vetDropdownButton.textContent = selectedVet; // Update button text
+            vetDropdownMenu.classList.add('hidden'); // Close the menu
+        });
     });
 </script>
 
