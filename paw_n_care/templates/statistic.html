@@ -15,24 +15,24 @@
         <div class="self-stretch h-96 py-7 flex-col justify-start items-start gap-[18px] flex">
             <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Individual Statistic</div>
             <div class="self-stretch h-[286px] pl-5 flex-col justify-start items-start gap-[18px] flex">
-<div class="w-full flex justify-between items-center gap-4">
-    <div class="flex-grow flex flex-col gap-1">
-        <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Veterinarian</label>
-        <div class="flex flex-col gap-1 relative w-full">
-            <div class="w-full">
-                <select name="vet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                    <option disabled selected>Select Veterinarian</option>
-                    {% for i in vets %}
-                        <option value="{{ i.vet_id }}">Dr.{{ i.first_name }} {{ i.last_name }} (Vet ID: {{ i.vet_id }})</option>
-                    {% endfor %}
-                </select>
+            <div class="w-full flex justify-between items-center gap-4">
+                <div class="flex-grow flex flex-col gap-1">
+                    <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Veterinarian</label>
+                    <div class="flex flex-col gap-1 relative w-full">
+                        <div class="w-full">
+                            <select name="vet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <option disabled selected>Select Veterinarian</option>
+                                {% for i in vets %}
+                                    <option value="{{ i.vet_id }}">Dr.{{ i.first_name }} {{ i.last_name }} (Vet ID: {{ i.vet_id }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-auto bg-[#25597e] text-white font-medium py-2 px-4 rounded-xl hover:bg-[#1e4b6a] mt-5">
+                    Filter
+                </button>
             </div>
-        </div>
-    </div>
-    <button class="w-auto bg-[#25597e] text-white font-medium py-2 px-4 rounded-xl hover:bg-[#1e4b6a] mt-5">
-        Filter
-    </button>
-</div>
                 <div class="self-stretch justify-start items-center gap-7 inline-flex">
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
                         <div class="self-stretch justify-between items-center inline-flex">
@@ -137,7 +137,7 @@
                     </div>
                 </div>
             </div>
-            <div class="self-stretch h-[698px] py-3 bg-[#fafcfe] flex-col justify-center items-start gap-7 flex">
+            <div class="self-stretch h-[698px] py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[674px] flex-col justify-start items-start gap-[18px] flex">
                     <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Appointment Statistics</div>
                     <div class="self-stretch h-[632px] pl-5 flex-col justify-start items-start gap-[18px] flex">
@@ -212,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <div class="self-stretch h-[612px] py-3 bg-[#fafcfe] flex-col justify-center items-start gap-7 flex">
+            <div class="self-stretch h-[612px] py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[588px] flex-col justify-start items-start gap-[18px] flex">
                     <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Billing & Payment Analysis</div>
                     <div class="self-stretch h-[546px] pl-5 flex-col justify-start items-start gap-[18px] flex">
@@ -269,8 +269,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="self-stretch h-48 py-3 bg-[#fafcfe] flex-col justify-center items-start gap-6 flex">
-                            <div class="self-stretch h-[168px] flex-col justify-start items-start gap-4 flex">
+                        <div class="self-stretch h-48 py-3 flex-col justify-center items-start gap-6 flex">
+                            <div class="self-stretch h-[168px] flex-col justify-start items-start gap-4 flex mb-10">
                                 <div class="self-stretch text-[#14232e]/60 text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Payment Methods and Status</div>
                                 <div class="self-stretch justify-start items-center gap-6 inline-flex">
                                     <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">

@@ -17,10 +17,21 @@
                 <!-- Add Medical Record Form -->
                 <div class="w-full py-7 flex flex-col justify-start items-start gap-[18px]">
                     <div class="text-[#1a2227] text-xl font-bold font-['Poppins'] leading-normal">Add Medical Record</div>
-                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment ID</label>
-                            <input name="appointment_id" type="number" required placeholder="Enter appointment ID" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                                <div class="flex-grow flex flex-col gap-1">
+                                    <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment ID</label>
+                                <div class="flex flex-col gap-1 relative w-full">
+                                    <div class="w-full">
+                                        <select name="appointment_id" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                            <option disabled selected>Select Appointment ID</option>
+                                            {% for i in appointments %}
+                                                <option value="{{ i.appointment_id }}"> Appointment ID: {{ i.appointment_id }} | {{ i.pet__name }} by Dr.{{ i.vet__first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Date</label>
@@ -35,13 +46,13 @@
                                 <option value="Arthritis">Arthritis</option>
                                 <option value="Allergies">Allergies</option>
                                 <option value="Diabetes">Diabetes</option>
-                                <!-- <option value="Ear Infection">Ear Infection</option>
+                                <option value="Ear Infection">Ear Infection</option>
                                 <option value="Heartworm Disease">Heartworm Disease</option>
                                 <option value="Hip Dysplasia">Hip Dysplasia</option>
                                 <option value="Cataracts">Cataracts</option>
                                 <option value="Liver Disease">Liver Disease</option>
                                 <option value="Pancreatitis">Pancreatitis</option>
-                                <option value="Chronic Kidney Disease">Chronic Kidney Disease</option> -->
+                                <option value="Chronic Kidney Disease">Chronic Kidney Disease</option>
                             </select>                            
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
@@ -51,13 +62,13 @@
                                 <option value="Joint Supplements">Joint Supplements</option>
                                 <option value="Antihistamines">Antihistamines</option>
                                 <option value="Insulin Therapy">Insulin Therapy</option>
-                                <!-- <option value="Ear Cleaning">Ear Cleaning</option>
+                                <option value="Ear Cleaning">Ear Cleaning</option>
                                 <option value="Melarsomine dihydrochloride">Melarsomine dihydrochloride</option>
                                 <option value="Surgical Repair">Surgical Repair</option>
                                 <option value="Surgery">Surgery</option>
                                 <option value="intravenous fluids, diet changes, antibiotics">intravenous fluids, diet changes, antibiotics</option>
                                 <option value="IV fluids, low-fat diet">IV fluids, low-fat diet</option>
-                                <option value="Fluid Therapy">Fluid Therapy</option> -->
+                                <option value="Fluid Therapy">Fluid Therapy</option>
                             </select>                            
                         </div>
                     </div>

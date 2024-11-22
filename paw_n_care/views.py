@@ -16,19 +16,24 @@ class Appointments(TemplateView):
         return render(request, self.template_name, {'vets': vets, 'pets': pets})
 
     def post(self, request, *args, **kwargs):
-        data = request.POST
+        try:
+            data = request.POST
 
-        appointment_date = data.get('appointment_date')
-        appointment_time = data.get('appointment_time')
-        reason = data.get('reason')
-        status = data.get('status')
-        vet_id = data.get('vet')
+            appointment_date = data.get('appointment_date')
+            appointment_time = data.get('appointment_time')
+            reason = data.get('reason')
+            status = data.get('status')
+            vet_id = data.get('vet')
 
-        pet_id = data.get('existing_pet')
-        if pet_id:
-            self.create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason, status)
-        else:
-            self.create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status)
+            pet_id = data.get('existing_pet')
+            if pet_id:
+                self.create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason, status)
+            else:
+                self.create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status)
+
+        except Exception as e:
+            # Handle the error as needed
+            print(f"Error saving appointment: {e}")
 
         return redirect('paw_n_care:appointments')
 
@@ -103,13 +108,10 @@ class MedRec(TemplateView):
     template_name = 'medical-records.html'
 
     def get(self, request, *args, **kwargs):
-        # Fetch all necessary data for the medical records page
-        pets = Pet.objects.all()
-        vets = Veterinarian.objects.all()
-        
+        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name', 'vet__last_name')
+
         context = {
-            'pets': pets,
-            'vets': vets
+            'appointments': appointments
         }
         return render(request, self.template_name, context)
 
@@ -153,15 +155,16 @@ class MedRec(TemplateView):
 class Bill(TemplateView):
     # Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing
     template_name = 'billing.html'
+
     def get(self, request, *args, **kwargs):
         # Fetch all appointments for the user to select one for billing
-        appointments = Appointment.objects.all()  # Or filter appointments as per your requirements
+        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name', 'vet__last_name')
 
         context = {
             'appointments': appointments
         }
         return render(request, self.template_name, context)
-    
+
     def post(self, request, *args, **kwargs):
         try:
             # Extract form data
