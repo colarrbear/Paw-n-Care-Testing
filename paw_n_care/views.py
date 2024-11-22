@@ -29,12 +29,12 @@ class Appointments(TemplateView):
         weight = request.POST.get('weight')
         date_of_birth = request.POST.get('date_of_birth')
         gender = request.POST.get('gender')
-        owner_first_name = request.POST.get('first_name')
-        owner_last_name = request.POST.get('last_name')
-        owner_email = request.POST.get('email')
-        owner_phone = request.POST.get('phone')
+        owner_first_name = request.POST.get('owner_first_name')
+        owner_last_name = request.POST.get('owner_last_name')
+        owner_email = request.POST.get('owner_email')
+        owner_phone = request.POST.get('owner_phone')
         address = request.POST.get('address')
-        vet_id = request.POST.get('vet')
+        vet_id = request.POST.get('vet_id')
 
         # Here you can process or save the data as necessary
         try:
@@ -80,6 +80,48 @@ class Appointments(TemplateView):
 
 class MedRec(TemplateView):
     template_name = 'medical-records.html'
+
+    def get(self, request, *args, **kwargs):
+        # Fetch all necessary data for the medical records page
+        pets = Pet.objects.all()
+        vets = Veterinarian.objects.all()
+        
+        context = {
+            'pets': pets,
+            'vets': vets
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            # Extract form data
+            pet_id = request.POST.get('pet')
+            vet_id = request.POST.get('vet')
+            visit_date = request.POST.get('visit_date')
+            diagnosis = request.POST.get('diagnosis')
+            treatment = request.POST.get('treatment')
+            prescribed_medication = request.POST.get('prescribed_medication')
+            notes = request.POST.get('notes')
+
+            # Create medical record
+            medical_record = MedicalRecord.objects.create(
+                pet=Pet.objects.get(pk=pet_id),
+                vet=Veterinarian.objects.get(pk=vet_id),
+                visit_date=visit_date,
+                diagnosis=diagnosis,
+                treatment=treatment,
+                prescribed_medication=prescribed_medication,
+                notes=notes
+            )
+
+            # Optional: Add a success message
+            messages.success(request, 'Medical record added successfully')
+
+        except Exception as e:
+            # Handle potential errors
+            messages.error(request, f'Error creating medical record: {str(e)}')
+
+        return redirect('paw_n_care:medical_records')
 
 
 class Billing(TemplateView):
