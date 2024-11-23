@@ -13,7 +13,8 @@ class Appointments(TemplateView):
     def get(self, request, *args, **kwargs):
         pets = Pet.objects.all().values('pet_id', 'name', 'species', 'owner__first_name', 'owner__last_name')
         vets = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
-        return render(request, self.template_name, {'vets': vets, 'pets': pets})
+        owners = Owner.objects.all().values('owner_id', 'first_name', 'last_name')
+        return render(request, self.template_name, {'vets': vets, 'pets': pets, 'owners': owners})
 
     def post(self, request, *args, **kwargs):
         try:
@@ -27,7 +28,8 @@ class Appointments(TemplateView):
 
             pet_id = data.get('existing_pet')
             if pet_id:
-                self.create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason, status)
+                self.create_appointment_for_existing_pet(pet_id, vet_id, appointment_date, appointment_time, reason,
+                                                         status)
             else:
                 self.create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status)
 
@@ -58,9 +60,13 @@ class Appointments(TemplateView):
     @staticmethod
     def create_new_pet_and_appointment(data, vet_id, appointment_date, appointment_time, reason, status):
         """Handle the creation of a new owner, pet, and their appointment."""
-        owner = Appointments.create_owner(data)
-        pet = Appointments.create_pet(data, owner)
+        owner_id = data.get('existing_owner')
+        if owner_id:
+            owner = Owner.objects.get(owner_id=owner_id)
+        else:
+            owner = Appointments.create_owner(data)
 
+        pet = Appointments.create_pet(data, owner)
         vet = Veterinarian.objects.get(vet_id=vet_id)
 
         # Create and save the appointment
@@ -89,9 +95,9 @@ class Appointments(TemplateView):
     @staticmethod
     def create_pet(data, owner):
         """Create a new pet."""
-        species = data.get('species')
+        species = data.get('species').lower()
         if species == 'other':
-            species = data.get('new_species')
+            species = data.get('new_species').lower()
 
         return Pet.objects.create(
             owner=owner,
@@ -108,7 +114,8 @@ class MedRec(TemplateView):
     template_name = 'medical-records.html'
 
     def get(self, request, *args, **kwargs):
-        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name', 'vet__last_name')
+        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name',
+                                                        'vet__last_name')
 
         context = {
             'appointments': appointments
@@ -158,7 +165,8 @@ class Bill(TemplateView):
 
     def get(self, request, *args, **kwargs):
         # Fetch all appointments for the user to select one for billing
-        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name', 'vet__last_name')
+        appointments = Appointment.objects.all().values('appointment_id', 'pet__name', 'vet__first_name',
+                                                        'vet__last_name')
 
         context = {
             'appointments': appointments

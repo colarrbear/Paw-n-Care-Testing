@@ -69,7 +69,7 @@
                                 Choose an existing pet
                             </button>
                         </div>
-                        
+
                         <!-- Full form to add a new pet (initially shown) -->
                         <div id="addNewPetForm" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
                             <div class="flex-grow flex flex-col gap-1">
@@ -81,7 +81,7 @@
                                 <input name="weight" type="number" placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
-                        
+
                         <div id="addNewPetForm2" class="w-full bg-[#f9fcff] flex flex-wrap justify-start items-start gap-4 relative mt-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Date of birth</label>
@@ -96,7 +96,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div id="addNewPetForm3" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Species</label>
@@ -112,7 +112,7 @@
                                         <input name="new_species" type="text" placeholder="Enter new species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                                     </div>
                                 </div>
-                            <div class="flex-grow flex flex-col gap-1">
+                            <div class="flex-grow flex flex-col gap-1 mt-5">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Breed</label>
                                 <input name="breed" type="text" placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
@@ -164,7 +164,7 @@
                         <select name="existing_owner" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             <option disabled selected>Select an owner</option>
                             {% for owner in owners %}
-                                <option value="{{ owner.id }}">{{ owner.first_name }} {{ owner.last_name }} (Owner ID: {{ owner.id }})</option>
+                                <option value="{{ owner.owner_id }}">{{ owner.first_name }} {{ owner.last_name }} (Owner ID: {{ owner.owner_id }})</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -191,7 +191,7 @@
     </div>
 </div>
 </form>
-    
+
 <script>
     const speciesSelect = document.getElementById('species');
     const newSpeciesInput = document.getElementById('newSpeciesInput');
@@ -203,7 +203,7 @@
             newSpeciesInput.classList.add('hidden');
         }
     });
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const addPetBtn = document.getElementById('addPetBtn');
         const choosePetBtn = document.getElementById('choosePetBtn');
@@ -227,13 +227,13 @@
             addNewPetForm3.style.display = 'flex';
             addNewPetForm4.style.display = 'flex';
             chooseExistingPet.style.display = 'none';
-            
+
             // Style buttons
             choosePetBtn.classList.remove('bg-[#25597e]/10');
             choosePetBtn.classList.add('bg-[#f9fcff]');
             addPetBtn.classList.remove('bg-[#f9fcff]');
             addPetBtn.classList.add('bg-[#25597e]/10');
-            
+
         });
 
         // Show "Choose Existing Pet" dropdown, hide "Add New Pet" form
@@ -253,21 +253,21 @@
             addPetBtn.classList.remove('bg-[#25597e]/10');
             addPetBtn.classList.add('bg-[#f9fcff]');
         });
-        
+
         addNewOwnerBtn.addEventListener('click', function (event) {
             event.preventDefault(); // Prevent page reload
 
             // Show Add New Owner Form
             addOwnerForm.style.display = 'flex';
             chooseOwnerDropdown.style.display = 'none';
-            
+
             // Style buttons
             chooseOwnerBtn.classList.remove('bg-[#25597e]/10');
             chooseOwnerBtn.classList.add('bg-[#f9fcff]');
             addNewOwnerBtn.classList.remove('bg-[#f9fcff]');
             addNewOwnerBtn.classList.add('bg-[#25597e]/10');
         });
-        
+
         chooseOwnerBtn.addEventListener('click', function (event) {
             event.preventDefault(); // Prevent page reload
 
