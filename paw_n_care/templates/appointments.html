@@ -112,123 +112,81 @@
                                         <input name="new_species" type="text" placeholder="Enter new species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                                     </div>
                                 </div>
-                            </div>
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Breed</label>
                                 <input name="breed" type="text" placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
-                        
-                        <!-- Dropdown for choosing an existing pet (initially hidden) -->
-                        <div id="chooseExistingPet" class="mt-4 hidden w-full">
-                            <div class="flex-grow flex flex-col gap-1 w-full">
-                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Choose an existing pet</label>
-                                <select name="existing_pet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                                    <option disabled selected>Select a pet</option>
-                                    {% for i in pets %}
-                                        <option value="{{ i.pet_id }}">{{ i.name }} | owner: {{ i.owner__first_name }} (Pet ID: {{ i.pet_id }})</option>
-                                    {% endfor %}
-                                </select>
+                        <div id="addNewPetForm4" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
+                            <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Owners</div>
+                            <div id="ownerButtons" class="inline-flex mt-4">
+                                <button id="addNewOwnerBtn" class="bg-[#25597e]/10 hover:bg-gray-200 text-gray-800 text-[15px] py-2 px-4 rounded-l">
+                                    Add a new owner
+                                </button>
+                                <button id="chooseOwnerBtn" class="bg-[#f9fcff] hover:bg-gray-200 text-gray-800 text-[15px] py-2 px-4 rounded-r">
+                                    Choose an existing owner
+                                </button>
+                            </div>
+                            <div id="addOwnerForm" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
+                            <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First name</label>
+                                <input name="first_name" type="text" placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last name</label>
+                                <input name="last_name" type="text" placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
-                <div id="addNewPetForm4" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
-                    <div class="text-[#14232e]/60  text-lg font-semibold font-['Poppins'] leading-normal mt-5">Owners</div>
-                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First name</label>
-                            <input name="first_name" type="text" placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
+                                <input name="address" type="text" placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
                         </div>
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last name</label>
-                            <input name="last_name" type="text" placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
+                                <input name="email" type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
                         </div>
-                    </div>
-                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
-                            <input name="address" type="text" placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
-                            <input name="email" type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
-                        </div>
-                    </div>
-                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
-                        <div class="flex-grow flex flex-col gap-1">
-                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Phone</label>
-                            <input name="phone" type="text" placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Phone</label>
+                                <input name="phone" type="text" placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
                         </div>
                     </div>
                 </div>
-                    <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
-                        Add appointment
-                    </button>
+                <div id="chooseOwnerDropdown" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4 hidden">
+                    <div class="flex-grow flex flex-col gap-1 w-full">
+                        <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Choose an existing owner</label>
+                        <select name="existing_owner" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option disabled selected>Select an owner</option>
+                            {% for owner in owners %}
+                                <option value="{{ owner.id }}">{{ owner.first_name }} {{ owner.last_name }} (Owner ID: {{ owner.id }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                </div>
+                <!-- Dropdown for choosing an existing pet (initially hidden) -->
+                <div id="chooseExistingPet" class="mt-4 hidden w-full">
+                    <div class="flex-grow flex flex-col gap-1 w-full">
+                        <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Choose an existing pet</label>
+                        <select name="existing_pet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <option disabled selected>Select a pet</option>
+                            {% for i in pets %}
+                                <option value="{{ i.pet_id }}">{{ i.name }} | owner: {{ i.owner__first_name }} (Pet ID: {{ i.pet_id }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                    Add appointment
+                </button>
                 </div>
             </div>
-            <!--<div class="w-full overflow-x-auto">-->
-            <!--    <table class="min-w-full table-auto border-collapse border border-gray-300 rounded-lg shadow-sm">-->
-            <!--        <thead class="bg-gray-100">-->
-            <!--            <tr>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Appointment ID</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Reason</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Status</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Appointment Date</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Time</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Pet Name</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Species</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Breed</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Weight</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Date of Birth</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Gender</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Owner Name</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Address</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Email</th>-->
-            <!--                <th class="px-4 py-2 text-left text-gray-700 font-semibold border border-gray-300">Registration Date</th>-->
-            <!--            </tr>-->
-            <!--        </thead>-->
-            <!--        <tbody>-->
-            <!--            &lt;!&ndash; Example Row 1 &ndash;&gt;-->
-            <!--            <tr>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">#1</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Checkup</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Pending</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-22</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">10:00 AM</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Buddy</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Dog</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Golden Retriever</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">25kg</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2020-05-14</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Male</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">John Doe</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">123 Street Name</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">john@example.com</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-01 09:00</td>-->
-            <!--            </tr>-->
-            <!--            &lt;!&ndash; Example Row 2 &ndash;&gt;-->
-            <!--            <tr>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">#2</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Vaccination</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Completed</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-21</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">02:00 PM</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Charlie</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Cat</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Siamese</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">7kg</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2019-10-10</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Female</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">Jane Smith</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">456 Avenue Name</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">jane@example.com</td>-->
-            <!--                <td class="px-4 py-2 border border-gray-300">2024-11-01 15:00</td>-->
-            <!--            </tr>-->
-            <!--            &lt;!&ndash; Add more rows dynamically &ndash;&gt;-->
-            <!--        </tbody>-->
-            <!--    </table>-->
-            <!--</div>-->
         </div>
     </div>
 </div>
@@ -254,6 +212,10 @@
         const addNewPetForm3 = document.getElementById('addNewPetForm3');
         const addNewPetForm4 = document.getElementById('addNewPetForm4');
         const chooseExistingPet = document.getElementById('chooseExistingPet');
+        const addNewOwnerBtn = document.getElementById('addNewOwnerBtn');
+        const chooseOwnerBtn = document.getElementById('chooseOwnerBtn');
+        const addOwnerForm = document.getElementById('addOwnerForm');
+        const chooseOwnerDropdown = document.getElementById('chooseOwnerDropdown');
 
         // Show "Add New Pet" form, hide "Choose Existing Pet" dropdown
         addPetBtn.addEventListener('click', function (event) {
@@ -271,6 +233,7 @@
             choosePetBtn.classList.add('bg-[#f9fcff]');
             addPetBtn.classList.remove('bg-[#f9fcff]');
             addPetBtn.classList.add('bg-[#25597e]/10');
+            
         });
 
         // Show "Choose Existing Pet" dropdown, hide "Add New Pet" form
@@ -289,6 +252,34 @@
             choosePetBtn.classList.add('bg-[#25597e]/10');
             addPetBtn.classList.remove('bg-[#25597e]/10');
             addPetBtn.classList.add('bg-[#f9fcff]');
+        });
+        
+        addNewOwnerBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            // Show Add New Owner Form
+            addOwnerForm.style.display = 'flex';
+            chooseOwnerDropdown.style.display = 'none';
+            
+            // Style buttons
+            chooseOwnerBtn.classList.remove('bg-[#25597e]/10');
+            chooseOwnerBtn.classList.add('bg-[#f9fcff]');
+            addNewOwnerBtn.classList.remove('bg-[#f9fcff]');
+            addNewOwnerBtn.classList.add('bg-[#25597e]/10');
+        });
+        
+        chooseOwnerBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            // Show Choose Existing Owner Dropdown
+            addOwnerForm.style.display = 'none';
+            chooseOwnerDropdown.style.display = 'flex';
+
+            // Style buttons
+            chooseOwnerBtn.classList.remove('bg-[#f9fcff]');
+            chooseOwnerBtn.classList.add('bg-[#25597e]/10');
+            addNewOwnerBtn.classList.remove('bg-[#25597e]/10');
+            addNewOwnerBtn.classList.add('bg-[#f9fcff]');
         });
     });
 </script>
