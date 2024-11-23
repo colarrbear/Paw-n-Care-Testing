@@ -216,3 +216,6 @@ class Statistic(TemplateView):
         return render(request, self.template_name, {
             'vets': vet,
         })
+
+class Login(TemplateView):
+    template_name = 'login.html'
