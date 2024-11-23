@@ -2,7 +2,43 @@
 {% load static %}
 
 {% block content %}
-<div class="w-full max-w-[1550px] h-auto mx-auto">
-    <h1>Login Page</h1>
-</div>
+<form id="login-form" action="{% url 'paw_n_care:login' %}" method="POST">
+    {% csrf_token %}
+    <div class="w-full max-w-[1550px] h-auto mx-auto">
+        <div class="h-auto flex justify-center items-center">
+            <!-- Login Content -->
+            <div class="flex flex-col gap-7 p-10 w-full max-w-md bg-white shadow-lg rounded-xl">
+                <!-- Header -->
+                <h1 class="text-[#1b1e28] text-[34px] font-semibold text-center">Login</h1>
+                
+                <!-- Email Input -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
+                    <input name="email" type="email" required placeholder="Enter your email"
+                        class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                </div>
+
+                <!-- Password Input -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Password</label>
+                    <input name="password" type="password" required placeholder="Enter your password"
+                        class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                </div>
+
+                <!-- Remember Me Checkbox -->
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" name="remember_me" id="remember_me"
+                        class="h-4 w-4 text-[#3e65dc] border-gray-300 rounded focus:ring-[#3e65dc]">
+                    <label for="remember_me" class="text-[13px] font-medium text-[#1a2227]">Remember Me</label>
+                </div>
+
+                <!-- Login Button -->
+                <button
+                    class="w-full px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                    Login
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}
