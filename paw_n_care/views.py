@@ -105,8 +105,8 @@ class Appointments(TemplateView):
         return Pet.objects.create(
             owner=owner,
             name=data.get('pet_name'),
-            species=species,
-            breed=data.get('breed'),
+            species=species.lower(),
+            breed=data.get('breed').lower(),
             date_of_birth=data.get('date_of_birth'),
             gender=data.get('gender'),
             weight=data.get('weight')
