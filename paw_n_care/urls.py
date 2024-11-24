@@ -13,7 +13,6 @@ urlpatterns = [
     path('home/owner/', views.OwnerHome.as_view(), name='owner-home'),
     path('home/medical-record/', views.MedRecHome.as_view(), name='medical-record-home'),
     path('home/billing/', views.BillingHome.as_view(), name='billing-home'),
-    path('', views.redirect_to_login, name='home'),
     path('appointments/', views.Appointments.as_view(), name='appointments'),
     path('medical-records/', views.MedRec.as_view(), name='medical-records'),
     path('billing/', views.Bill.as_view(), name='billing'),

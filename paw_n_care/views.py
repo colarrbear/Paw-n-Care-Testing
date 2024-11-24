@@ -245,7 +245,7 @@ class Logout(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('paw_n_care:login')
-      
+
 
 class Home(TemplateView):
     template_name = 'home/home.html'
@@ -281,7 +281,14 @@ class PetHome(TemplateView):
     template_name = 'home/pet-home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        pets = Pet.objects.all().values('pet_id', 'name', 'species', 'breed', 'date_of_birth', 'gender', 'pet_id',
+                                        'weight', 'owner__owner_id', 'owner__first_name')
+
+        context = {
+            'pets': pets
+        }
+
+        return render(request, self.template_name, context)
 
 
 class OwnerHome(TemplateView):
@@ -290,7 +297,7 @@ class OwnerHome(TemplateView):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
-      
+
 def redirect_to_login(request):
     # Redirect to the login page
     return HttpResponseRedirect('/login/')
