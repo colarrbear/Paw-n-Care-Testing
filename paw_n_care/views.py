@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
+# from django.contrib.auth import authenticate, login
+
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
@@ -243,7 +245,7 @@ class Logout(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('paw_n_care:login')
-
+      
 
 class Home(TemplateView):
     template_name = 'home/home.html'
@@ -287,3 +289,8 @@ class OwnerHome(TemplateView):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
+
+      
+def redirect_to_login(request):
+    # Redirect to the login page
+    return HttpResponseRedirect('/login/')
