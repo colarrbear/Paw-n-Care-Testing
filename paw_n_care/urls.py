@@ -7,6 +7,7 @@ app_name = "paw_n_care"
 
 urlpatterns = [
     path('login/', views.Login.as_view(), name='login'),
+    path('', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('home/', views.Home.as_view(), name='home'),
     path('home/pet/', views.PetHome.as_view(), name='pet-home'),
