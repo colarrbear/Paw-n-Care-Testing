@@ -273,9 +273,9 @@ class Statistic(TemplateView):
         medication_percentage = (appointments_with_meds / total_appointments * 100) if total_appointments else 0
 
         # Calculate Pet Average Weight Statistics for Dogs, Cats, and Other
-        dog_avg_weight = Pet.objects.filter(species='Dog').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
-        cat_avg_weight = Pet.objects.filter(species='Cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
-        other_avg_weight = Pet.objects.exclude(species__in=['Dog', 'Cat']).aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        dog_avg_weight = Pet.objects.filter(species='dog').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        cat_avg_weight = Pet.objects.filter(species='cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        other_avg_weight = Pet.objects.exclude(species__in=['dog', 'cat']).aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
 
         # "Appointment Statistics"
         # Top Vet by Completed Appointments
