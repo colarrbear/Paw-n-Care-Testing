@@ -83,3 +83,12 @@ class Billing(models.Model):
 
     def __str__(self):
         return f"Bill {self.bill_id} for Appointment {self.appointment.appointment_id}"
+
+
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.username
