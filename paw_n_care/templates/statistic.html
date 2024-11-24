@@ -45,7 +45,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ appointments }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ appointment_percentage|floatformat:2 }}%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ appointment_percentage }}%</div>
                         </div>
                     </div>
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ pets_managed }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ pets_managed_percentage|floatformat:2 }}%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ pets_managed_percentage }}%</div>
                         </div>
                     </div>
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ bills_paid }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ bills_paid_percentage|floatformat:2 }}%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ bills_paid_percentage }}%</div>
                         </div>
                     </div>
                 </div>
@@ -146,28 +146,29 @@
             </div>
             <div class="self-stretch h-[698px] py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[674px] flex-col justify-start items-start gap-[18px] flex">
+                    <!-- Appointment Statistics Part -->
                     <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Appointment Statistics</div>
                     <div class="self-stretch h-[632px] pl-5 flex-col justify-start items-start gap-[18px] flex">
                         <div class="self-stretch h-[148px] p-8 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-5 flex">
                             <div class="self-stretch justify-between items-center inline-flex">
-                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Top Vets by Completed Appointments</div>
+                                <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Top Veterinarian by Completed Appointments</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">Dr. Nicha Ruangrit</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">Dr. {{ top_vets }}</div>
                             </div>
                         </div>
                         <div class="self-stretch justify-start items-start inline-flex">
                             <div class="grow shrink basis-0 flex-col justify-start items-start inline-flex">
                                 <div class="self-stretch h-48 py-3 bg-[#fafcfe] flex-col justify-center items-start gap-6 flex">
                                     <div class="self-stretch h-[168px] flex-col justify-start items-start gap-4 flex">
-                                        <div class="self-stretch text-[#14232e]/60 text-xl font-semibold font-[poppins] leading-normal">Appointment Status Distribution (2024)</div>
+                                        <div class="self-stretch text-[#14232e]/60 text-xl font-semibold font-[poppins] leading-normal">Appointment Status Distribution in a year</div>
                                         <div class="self-stretch justify-start items-center gap-6 inline-flex">
                                             <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
                                                 <div class="self-stretch justify-between items-center inline-flex">
                                                     <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Scheduled</div>
                                                 </div>
                                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">450</div>
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">{{ scheduled_count }}</div>
                                                 </div>
                                             </div>
                                             <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -175,7 +176,7 @@
                                                     <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Completed</div>
                                                 </div>
                                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">300</div>
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">{{ completed_count }}</div>
                                                 </div>
                                             </div>
                                             <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -183,7 +184,7 @@
                                                     <div class="grow shrink basis-0 text-[#1a2227] text-[17px] font-semibold font-[poppins] leading-normal">Canceled</div>
                                                 </div>
                                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">50</div>
+                                                    <div class="self-stretch text-[#1a2227] text-[34px] font-semibold font-[poppins] leading-10">{{ canceled_count }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,6 +222,7 @@
             </div>
             <div class="self-stretch h-[612px] py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[588px] flex-col justify-start items-start gap-[18px] flex">
+                    <!-- Billing & Payment Analysis Part -->
                     <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Billing & Payment Analysis</div>
                     <div class="self-stretch h-[546px] pl-5 flex-col justify-start items-start gap-[18px] flex">
                         <div class="self-stretch justify-start items-start gap-6 inline-flex">
@@ -229,7 +231,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Avg Billing Amount per Appointment</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">990 Baht</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">{{ avg_billing_amount }} Baht</div>
                                 </div>
                             </div>
                             <div class="grow shrink basis-0 p-8 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-5 inline-flex">
@@ -237,7 +239,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-semibold font-[poppins] leading-normal">Sum Billing this month</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">89045 Baht</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-semibold font-[poppins] leading-10">{{ sum_billing_this_month }} Baht</div>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +250,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Paid On Time</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">65%</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ paid_percentage }}%</div>
                                 </div>
                             </div>
                             <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -256,7 +258,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Pending</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">20%</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ pending_percentage }}%</div>
                                 </div>
                             </div>
                             <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -264,7 +266,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Overdue</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">15%</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ overdue_percentage }}%</div>
                                 </div>
                             </div>
                             <div class="grow shrink basis-0 p-6 bg-[#24587e]/10 rounded-lg border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -272,7 +274,7 @@
                                     <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Total Invoices</div>
                                 </div>
                                 <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">100</div>
+                                    <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ total_invoices }}</div>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +287,7 @@
                                             <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Credit Card</div>
                                         </div>
                                         <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">45%</div>
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ credit_card_percentage }}%</div>
                                         </div>
                                     </div>
                                     <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -293,7 +295,7 @@
                                             <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-[poppins] leading-normal">Cash</div>
                                         </div>
                                         <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">30%</div>
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-[poppins] leading-10">{{ cash_percentage }}%</div>
                                         </div>
                                     </div>
                                     <div class="grow shrink basis-0 p-6 bg-[#305672]/10 rounded-2xl border border-black/0 flex-col justify-start items-start gap-4 inline-flex">
@@ -301,7 +303,7 @@
                                             <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Bank Transfer</div>
                                         </div>
                                         <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">15%</div>
+                                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ bank_transfer_percentage }}%</div>
                                         </div>
                                     </div>
                                 </div>

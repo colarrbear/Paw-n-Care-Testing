@@ -239,7 +239,7 @@ class Statistic(TemplateView):
         pets_managed_percentage = (pets_managed / total_pets_managed * 100) if total_pets_managed else 0
         bills_paid_percentage = (bills_paid / total_bills_paid * 100) if total_bills_paid else 0
 
-        # "Clinic-wide statistics for the selected veterinarian"
+        # "Clinic-wide statistics"
         # Calculate average appointments per month
         current_month = timezone.now().month
         current_year = timezone.now().year
@@ -277,6 +277,52 @@ class Statistic(TemplateView):
         cat_avg_weight = Pet.objects.filter(species='Cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
         other_avg_weight = Pet.objects.exclude(species__in=['Dog', 'Cat']).aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
 
+        # "Appointment Statistics"
+        # Top Vet by Completed Appointments
+        completed_appointments = Appointment.objects.filter(status='Completed')
+        top_vets = completed_appointments.values('vet_id')\
+            .annotate(completed_count=Count('appointment_id'))\
+            .order_by('-completed_count')[:1]
+
+        top_vet_full_name = ''
+        if top_vets:
+            vet_detail = Veterinarian.objects.get(vet_id=top_vets[0]['vet_id'])
+            top_vet_full_name = vet_detail.full_name
+
+        # Appointment Status Distribution in the past year
+        scheduled_count = Appointment.objects.filter(status='Scheduled', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
+        completed_count = Appointment.objects.filter(status='Completed', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
+        canceled_count = Appointment.objects.filter(status='Canceled', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
+
+        # "Billing & Payment Analysis"
+        # Average billing amount
+        avg_billing_amount = Billing.objects.aggregate(Avg('total_amount'))['total_amount__avg'] or 0
+        
+        # Sum Billing this month
+        sum_billing_this_month = Billing.objects.filter(payment_date__month=current_month, payment_date__year=current_year).aggregate(total=Sum('total_amount'))['total'] or 0
+
+        # Invoice Status Overview
+        paid_count = Billing.objects.filter(payment_status='Paid').count()
+        pending_count = Billing.objects.filter(payment_status='Pending').count()
+        overdue_count = Billing.objects.filter(payment_status='Overdue').count()
+        total_invoices = Billing.objects.count()
+        # Calculate percentages
+        paid_percentage = (paid_count / total_invoices * 100) if total_invoices else 0
+        pending_percentage = (pending_count / total_invoices * 100) if total_invoices else 0
+        overdue_percentage = (overdue_count / total_invoices * 100) if total_invoices else 0
+
+        # Payment Methods and Status
+        # Calculate the total number of invoices and the count for each payment method
+        total_invoices = Billing.objects.count()
+        credit_card_count = Billing.objects.filter(payment_method='Credit Card').count()
+        cash_count = Billing.objects.filter(payment_method='Cash').count()
+        bank_transfer_count = Billing.objects.filter(payment_method='Bank Transfer').count()
+
+        # Calculate the percentages for each payment method (rounded)
+        credit_card_percentage = (credit_card_count / total_invoices * 100) if total_invoices else 0
+        cash_percentage = (cash_count / total_invoices * 100) if total_invoices else 0
+        bank_transfer_percentage = (bank_transfer_count / total_invoices * 100) if total_invoices else 0
+
         # Return the data to the template, including the selected vet ID
         return render(request, self.template_name, {
             'vets': veterinarians,
@@ -286,9 +332,9 @@ class Statistic(TemplateView):
             'appointments': appointments,
             'pets_managed': pets_managed,
             'bills_paid': bills_paid,
-            'appointment_percentage': appointment_percentage,
-            'pets_managed_percentage': pets_managed_percentage,
-            'bills_paid_percentage': bills_paid_percentage,
+            'appointment_percentage': round(appointment_percentage),
+            'pets_managed_percentage': round(pets_managed_percentage),
+            'bills_paid_percentage': round(bills_paid_percentage),
 
             # Clinic-wide statistics
             'avg_monthly_appointments': monthly_appointments,
@@ -300,6 +346,24 @@ class Statistic(TemplateView):
             'dog_avg_weight': dog_avg_weight,
             'cat_avg_weight': cat_avg_weight,
             'other_avg_weight': other_avg_weight,
+
+            # Appointment Statistics
+            'top_vets': top_vet_full_name,
+            'scheduled_count': scheduled_count,
+            'completed_count': completed_count,
+            'canceled_count': canceled_count,
+
+            # Billing & Payment Analysis
+            'avg_billing_amount': avg_billing_amount,
+            'sum_billing_this_month': sum_billing_this_month,
+            'paid_percentage': round(paid_percentage),
+            'pending_percentage': round(pending_percentage),
+            'overdue_percentage': round(overdue_percentage),
+            'total_invoices': total_invoices,
+            # Invoice Status Overview
+            'credit_card_percentage': round(credit_card_percentage),
+            'cash_percentage': round(cash_percentage),
+            'bank_transfer_percentage': round(bank_transfer_percentage),
         })
 
 class Login(TemplateView):
