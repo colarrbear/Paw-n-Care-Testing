@@ -33,7 +33,7 @@
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Reason</label>
-                            <input name="reason" type="text" placeholder="Enter Reason" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            <input name="reason" type="text" required placeholder="Enter Reason" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                         <div class="flex-grow flex flex-col gap-1">
                             <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Status</label>
@@ -74,11 +74,11 @@
                         <div id="addNewPetForm" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Pet name</label>
-                                <input name="pet_name" type="text" placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="pet_name" type="text" required placeholder="Enter pet name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Weight (kg)</label>
-                                <input name="weight" type="number" min="0" step="any" placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="weight" type="number" min="0" step="any" required placeholder="Enter weight" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
 
@@ -109,12 +109,12 @@
                                         <option value="other">Other</option>
                                     </select>
                                     <div id="newSpeciesInput" class="mt-2 hidden">
-                                        <input name="new_species" type="text" placeholder="Enter new species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                        <input name="new_species" type="text" required placeholder="Enter new species" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                                     </div>
                                 </div>
                             <div class="flex-grow flex flex-col gap-1 mt-5">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Breed</label>
-                                <input name="breed" type="text" placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="breed" type="text" required placeholder="Enter breed" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
                         <div id="addNewPetForm4" class="w-full flex flex-wrap justify-start items-start gap-4 mt-4">
@@ -131,29 +131,29 @@
                             <div class="w-full flex flex-wrap justify-start items-start gap-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First name</label>
-                                <input name="first_name" type="text" placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="first_name" type="text" required placeholder="Enter first name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last name</label>
-                                <input name="last_name" type="text" placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="last_name" type="text" required placeholder="Enter last name" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
                         <div class="w-full flex flex-wrap justify-start items-start gap-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
-                                <input name="address" type="text" placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="address" type="text" required placeholder="Enter address" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
                         <div class="w-full flex flex-wrap justify-start items-start gap-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
-                                <input name="email" type="text" placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="email" type="text" required placeholder="Enter email" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
                         <div class="w-full flex flex-wrap justify-start items-start gap-4">
                             <div class="flex-grow flex flex-col gap-1">
                                 <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Phone</label>
-                                <input name="phone" type="text" placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <input name="phone" type="text" required placeholder="Enter phone" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                             </div>
                         </div>
                     </div>
