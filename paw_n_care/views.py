@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
@@ -234,4 +235,9 @@ class Login(TemplateView):
                 return redirect('paw_n_care:appointments')
         except Exception as e:
             print(f"Error login: {e}")
+        return redirect('paw_n_care:login')
+
+class Logout(TemplateView):
+    def get(self, request, *args, **kwargs):
+        logout(request)
         return redirect('paw_n_care:login')
