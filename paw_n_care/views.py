@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 
-from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing
+from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
 
 # Create your views here.
@@ -219,3 +219,19 @@ class Statistic(TemplateView):
 
 class Login(TemplateView):
     template_name = 'login.html'
+
+    # Get all users and must check that the input username and password are user's that in database
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = request.POST
+            username = data.get('username')
+            password = data.get('password')
+            user = User.objects.get(username=username, password=password)
+            if user:
+                return redirect('paw_n_care:appointments')
+        except Exception as e:
+            print(f"Error login: {e}")
+        return redirect('paw_n_care:login')
