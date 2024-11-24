@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-[1550px] h-auto mx-auto">
+    <div class="h-auto flex flex-wrap justify-start items-start gap-12">
+        <div class="flex-grow flex flex-col justify-start items-start">
+            <div class="w-full h-auto flex flex-col justify-start items-start gap-7">
+                <div class="w-full flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                    <div class="text-[#1b1e28] text-[34px] font-bold leading-10">Home</div>
+                </div>
+            </div>
+        </div>
+        <div class="self-stretch h-96 py-7 flex-col justify-start items-start gap-[18px] flex">
+            <nav aria-label="Page navigation">
+                <ul class="inline-flex text-base h-10">
+                    <li>
+                        <a href="{% url 'paw_n_care:home' %}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-700 rounded-l-lg">Appointments</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paw_n_care:pet-home' %}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-700">Pet</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paw_n_care:owner-home' %}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-700">Owner</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paw_n_care:medical-record-home' %}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700">Medical Record</a>
+                    </li>
+                    <li>
+                        <a class="flex items-center justify-center px-4 h-10 leading-tight text-gray-700 bg-gray-100 rounded-r-lg">Billing</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="w-full h-[1px] bg-[#ececec]"></div>
+            <form name="search-bar" class="w-full">
+                <div class="flex w-full">
+                    <label for="search-dropdown" class="sr-only">Search</label>
+                    <select id="search-dropdown" name="search-dropdown" class="w-[200px] z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 rounded-s-lg hover:bg-gray-200">
+                        <option value="all_categories">All Title</option>
+                        <option value="appointment_id">Appointment ID</option>
+                        <option value="owner_id">Owner ID</option>
+                        <option value="owner_name">Owner Name</option>
+                        <option value="pet_name">Pet</option>
+                        <option value="total_amount">Total Amount</option>
+                        <option value="payment_status">Payment Status</option>
+                        <option value="payment_method">Payment Method</option>
+                        <option value="payment_date">Payment Date</option>
+                    </select>
+                    <div class="relative flex-grow">
+                        <input type="search" id="search-dropdown" class="block w-full p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2" placeholder="Search Owner Data" required />
+                        <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 aspect-square">
+                            <svg class="w-4 h-4 mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="relative sm:rounded-lg w-full h-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 h-auto">
+                    <thead class="text-sm text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Bill ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Appointment ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Owner ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Owner Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Pet
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Amount
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Payment Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Payment Method
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Payment Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="h-auto text-base">
+                        {% for i in bills %}
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                #{{ i.bill_id }}
+                            </th>
+                            <td class="px-6 py-4">
+                                #{{ i.appointment__appointment_id }}
+                            </td>
+                            <td class="px-6 py-4">
+                                #{{ i.appointment__owner__owner_id }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.appointment__owner__first_name }} {{ i.appointment__owner__last_name }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.appointment__pet__name }} #{{ i.appointment__pet_id }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.total_amount }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.payment_status }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.payment_method }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ i.payment_date }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

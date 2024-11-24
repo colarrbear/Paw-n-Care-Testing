@@ -145,6 +145,7 @@ class MedRec(TemplateView):
             medrec = MedicalRecord.objects.create(
                 pet=pet,
                 vet=vet,
+                appointment=appointment,
                 visit_date=visit_date,
                 diagnosis=diagnosis,
                 treatment=treatment,
@@ -423,14 +424,56 @@ class MedRecHome(TemplateView):
     template_name = 'home/medical-record-home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        medical_records = MedicalRecord.objects.select_related(
+            'appointment',
+            'pet',
+            'vet'
+        ).values(
+            'record_id',
+            'appointment__appointment_id',
+            'pet__name',
+            'pet__pet_id',
+            'vet__first_name',
+            'vet__last_name',
+            'visit_date',
+            'diagnosis',
+            'treatment',
+            'prescribed_medication'
+        )
+
+        context = {
+            'medical_records': medical_records,
+        }
+        return render(request, self.template_name, context)
 
 
 class BillingHome(TemplateView):
     template_name = 'home/billing-home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        bills = Billing.objects.select_related(
+            'appointment',
+            'appointment__pet',
+            'appointment__vet'
+        ).values(
+            'bill_id',
+            'appointment__appointment_id',
+            'appointment__owner__owner_id',
+            'appointment__owner__first_name',
+            'appointment__owner__last_name',
+            'appointment__pet__name',
+            'appointment__pet_id',
+            'total_amount',
+            'payment_status',
+            'payment_method',
+            'payment_date'
+        )
+
+        context = {
+            'bills': bills,
+        }
+
+        return render(request, self.template_name, context)
 
 
 class PetHome(TemplateView):

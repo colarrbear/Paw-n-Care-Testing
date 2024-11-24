@@ -61,6 +61,7 @@ class Appointment(models.Model):
 
 class MedicalRecord(models.Model):
     record_id = models.AutoField(primary_key=True)
+    appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='medical_record', null=True)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name='medical_records')
     vet = models.ForeignKey(Veterinarian, on_delete=models.CASCADE, related_name='medical_records')
     visit_date = models.DateTimeField()
