@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />#}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="{% static 'css/uicons-solid-rounded.css' %}" rel="stylesheet">
     <title>Paw n Care</title>
-
     <style>
         html,
         body {
@@ -19,12 +15,10 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
         }
-
         body {
             display: flex;
             flex-direction: column;
         }
-
         header {
             position: fixed;
             top: 0;
@@ -32,41 +26,41 @@
             right: 0;
             z-index: 50;
         }
-
         main {
             flex: 1;
-            padding-top: 6rem;
         }
+        {% block extra_styles %}{% endblock %}
     </style>
 </head>
 
 <body>
-<header class="w-full bg-white shadow-sm h-auto flex flex-col">
-    <div class="h-14 py-3 justify-between items-center inline-flex">
-        <div class="justify-start items-center gap-7 flex">
-            <div class="w-6 h-6 relative">
-                <button id="burgerMenu" class="text-2xl focus:outline-none bg-transparent border-none px-6 m-0">
-                    <i class="fi fi-sr-menu-burger"></i>
-                </button>
-            </div>
-            <div class="justify-start items-center gap-1 flex">
-                <div class="relative items-center mr-2">
-                    <i class="fi fi-sr-dog-bowl-empty text-[#3e65dc] text-3xl ml-5"></i>
+    {% block header %}
+    <header class="w-full bg-white shadow-sm h-auto flex flex-col">
+        <div class="h-14 py-3 justify-between items-center inline-flex">
+            <div class="justify-start items-center gap-7 flex">
+                <div class="w-6 h-6 relative">
+                    <button id="burgerMenu" class="text-2xl focus:outline-none bg-transparent border-none px-6 m-0">
+                        <i class="fi fi-sr-menu-burger"></i>
+                    </button>
                 </div>
-                <div class="text-[#3e65dc] text-2xl font-semibold font-['Poppins'] leading-7">Paw n Care</div>
+                <div class="justify-start items-center gap-1 flex">
+                    <div class="relative items-center mr-2">
+                        <i class="fi fi-sr-dog-bowl-empty text-[#3e65dc] text-3xl ml-5"></i>
+                    </div>
+                    <div class="text-[#3e65dc] text-2xl font-semibold font-['Poppins'] leading-7">Paw n Care</div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Dropdown Menu -->
-    <div id="dropdownMenu" class="hidden absolute mt-14 bg-white border border-gray-200 shadow-md rounded-lg w-48">
-        <a href="{% url 'paw_n_care:appointments' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appointments</a>
-        <a href="{% url 'paw_n_care:medical-records' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Medical Records</a>
-        <a href="{% url 'paw_n_care:billing' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Billing</a>
-        <a href="{% url 'paw_n_care:statistic' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Statistic</a>
-    </div>
-</header>
+        <div id="dropdownMenu" class="hidden absolute mt-14 bg-white border border-gray-200 shadow-md rounded-lg w-48">
+            <a href="{% url 'paw_n_care:appointments' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appointments</a>
+            <a href="{% url 'paw_n_care:medical-records' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Medical Records</a>
+            <a href="{% url 'paw_n_care:billing' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Billing</a>
+            <a href="{% url 'paw_n_care:statistic' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Statistic</a>
+        </div>
+    </header>
+    {% endblock %}
 
-    <main>
+    <main class="{% block main_class %}pt-24{% endblock %}">
         {% block content %}
         {% endblock %}
     </main>
@@ -78,15 +72,16 @@
             </div>
         </div>
     </footer>
+
+    {% block scripts %}
+    <script>
+        const burgerMenu = document.getElementById('burgerMenu');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        burgerMenu.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+    </script>
+    {% endblock %}
 </body>
-
-<script>
-    const burgerMenu = document.getElementById('burgerMenu');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    burgerMenu.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hidden');
-    });
-</script>
-
-
+</html>
