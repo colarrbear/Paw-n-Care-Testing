@@ -220,13 +220,14 @@ class Statistic(TemplateView):
             'vets': vet,
         })
 
+
 class Login(TemplateView):
     template_name = 'login.html'
 
     # Get all users and must check that the input username and password are user's that in database
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
-    
+
     def post(self, request, *args, **kwargs):
         try:
             data = request.POST
@@ -239,11 +240,57 @@ class Login(TemplateView):
             print(f"Error login: {e}")
         return redirect('paw_n_care:login')
 
+
 class Logout(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('paw_n_care:login')
+      
 
+class Home(TemplateView):
+    template_name = 'home/home.html'
+
+    def get(self, request, *args, **kwargs):
+        appointments = Appointment.objects.all().values(
+            'appointment_id', 'reason', 'status',
+            'appointment_date', 'appointment_time', 'vet__first_name',
+            'pet__pet_id', 'pet__name', 'pet__owner__owner_id', 'pet__owner__first_name',
+        )
+
+        context = {
+            'appointments': appointments,
+        }
+        return render(request, self.template_name, context)
+
+
+class MedRecHome(TemplateView):
+    template_name = 'home/medical-record-home.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class BillingHome(TemplateView):
+    template_name = 'home/billing-home.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class PetHome(TemplateView):
+    template_name = 'home/pet-home.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class OwnerHome(TemplateView):
+    template_name = 'home/owner-home.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+      
 def redirect_to_login(request):
     # Redirect to the login page
     return HttpResponseRedirect('/login/')
