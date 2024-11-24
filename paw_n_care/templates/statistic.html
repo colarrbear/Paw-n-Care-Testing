@@ -13,6 +13,7 @@
             </div>
         </div>
         <div class="self-stretch h-96 py-7 flex-col justify-start items-start gap-[18px] flex">
+            <!-- Individual Statistic Part -->
             <div class="self-stretch text-[#1b1e28] text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Individual Statistic</div>
             <div class="self-stretch h-[286px] pl-5 flex-col justify-start items-start gap-[18px] flex">
             <div class="w-full flex justify-between items-center gap-4">
@@ -71,6 +72,7 @@
         <div class="self-stretch h-[1884px] flex-col justify-start items-start flex">
             <div class="self-stretch h-[370px] py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[180px] flex-col justify-start items-start gap-[18px] flex">
+                    <!-- Clinic Statistics Part-->
                     <div class="self-stretch text-[#1b1e28] text-xl font-bold font-[poppins] leading-normal">Clinic Statistics</div>
                     <div class="self-stretch pl-5 justify-start items-center gap-7 inline-flex">
                         <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -78,7 +80,7 @@
                                 <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Avg Appointments per Month</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">35</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ avg_monthly_appointments }}</div>
                             </div>
                         </div>
                         <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -86,7 +88,7 @@
                                 <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Most Frequent Species</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">Dogs</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ most_frequent_species }}</div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +99,7 @@
                             <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Unique Returning Owners (6 Months)</div>
                         </div>
                         <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">120</div>
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ returning_owners }}</div>
                         </div>
                     </div>
                     <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[20px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -105,13 +107,14 @@
                             <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Appointments Resulting in Medications</div>
                         </div>
                         <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">65%</div>
+                            <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ medication_percentage }} %</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="self-stretch h-[204px] pl-5 py-3 flex-col justify-center items-start gap-7 flex">
                 <div class="self-stretch h-[180px] flex-col justify-start items-start gap-[18px] flex">
+                    <!-- Pet Average Weight Statistics Part-->
                     <div class="self-stretch text-[#14232e]/60 text-xl font-bold font-['Plus Jakarta Sans'] leading-normal">Pet Average Weight Statistics</div>
                     <div class="self-stretch justify-start items-center gap-7 inline-flex">
                         <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -119,7 +122,7 @@
                                 <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Dogs</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">20 kg</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ dog_avg_weight }} kg</div>
                             </div>
                         </div>
                         <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -127,7 +130,7 @@
                                 <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Cats</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">5 kg</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ cat_avg_weight }} kg</div>
                             </div>
                         </div>
                         <div class="grow shrink basis-0 p-7 bg-[#305672]/10 rounded-[18px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -135,7 +138,7 @@
                                 <div class="grow shrink basis-0 text-[#1b1e28] text-[17px] font-bold font-['Plus Jakarta Sans'] leading-normal">Other</div>
                             </div>
                             <div class="self-stretch h-10 flex-col justify-start items-start gap-1 flex">
-                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">0.5 kg</div>
+                                <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ other_avg_weight }} kg</div>
                             </div>
                         </div>
                     </div>

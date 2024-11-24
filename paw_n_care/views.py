@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Avg
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
@@ -219,6 +219,7 @@ class Statistic(TemplateView):
         # Get the selected veterinarian ID from the request (default to the first vet)
         selected_vet_id = request.GET.get('vet', veterinarians[0]['vet_id'] if veterinarians else None)
 
+        # "Individual statistics for the selected veterinarian"
         # Get statistics for the selected veterinarian
         appointments = Appointment.objects.filter(vet_id=selected_vet_id).count()
         pets_managed = Pet.objects.filter(appointments__vet_id=selected_vet_id).distinct().count()
@@ -238,16 +239,67 @@ class Statistic(TemplateView):
         pets_managed_percentage = (pets_managed / total_pets_managed * 100) if total_pets_managed else 0
         bills_paid_percentage = (bills_paid / total_bills_paid * 100) if total_bills_paid else 0
 
+        # "Clinic-wide statistics for the selected veterinarian"
+        # Calculate average appointments per month
+        current_month = timezone.now().month
+        current_year = timezone.now().year
+        monthly_appointments = Appointment.objects.filter(
+            appointment_date__month=current_month,
+            appointment_date__year=current_year
+        ).count()
+
+        # Calculate unique returning owners in the last 6 months
+        six_months_ago = timezone.now() - timezone.timedelta(days=180)
+        returning_owners = Owner.objects.filter(
+            pets__appointments__appointment_date__gte=six_months_ago
+        ).distinct().count()
+
+        # Get most frequent species
+        most_frequent_species = Pet.objects.values('species')\
+            .annotate(count=Count('pet_id'))\
+            .order_by('-count')
+
+        if len(most_frequent_species) > 1 and most_frequent_species[0]['count'] == most_frequent_species[1]['count']:
+            most_frequent_species = {'species': 'N/A', 'count': 0}
+        else:
+            most_frequent_species = most_frequent_species.first()
+        
+        # Calculate percentage of appointments resulting in medications
+        appointments_with_meds = Appointment.objects.filter(
+            pet__medical_records__prescribed_medication__isnull=False
+        ).distinct().count()
+
+        # Calculate percentage
+        medication_percentage = (appointments_with_meds / total_appointments * 100) if total_appointments else 0
+
+        # Calculate Pet Average Weight Statistics for Dogs, Cats, and Other
+        dog_avg_weight = Pet.objects.filter(species='Dog').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        cat_avg_weight = Pet.objects.filter(species='Cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        other_avg_weight = Pet.objects.exclude(species__in=['Dog', 'Cat']).aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+
         # Return the data to the template, including the selected vet ID
         return render(request, self.template_name, {
             'vets': veterinarians,
             'selected_vet_id': selected_vet_id,
+
+            # Individual vet statistics
             'appointments': appointments,
             'pets_managed': pets_managed,
             'bills_paid': bills_paid,
             'appointment_percentage': appointment_percentage,
             'pets_managed_percentage': pets_managed_percentage,
             'bills_paid_percentage': bills_paid_percentage,
+
+            # Clinic-wide statistics
+            'avg_monthly_appointments': monthly_appointments,
+            'returning_owners': returning_owners,
+            'most_frequent_species': most_frequent_species['species'] if most_frequent_species else 'N/A',
+            'medication_percentage': round(medication_percentage),
+
+            # Pet Average Weight Statistics
+            'dog_avg_weight': dog_avg_weight,
+            'cat_avg_weight': cat_avg_weight,
+            'other_avg_weight': other_avg_weight,
         })
 
 class Login(TemplateView):
