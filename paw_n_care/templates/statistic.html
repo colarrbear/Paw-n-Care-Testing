@@ -204,17 +204,21 @@
                                 <!-- Column 2: Diagnoses -->
                                 <div class="flex flex-col items-stretch">
                                     <div class="py-1 text-[#13232e]/60 text-[13px] font-medium font-[poppins]">Top Diagnoses</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Ear Infection</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Dental Disease</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Skin Allergies</div>
+                                    {% for diagnosis in top_3_diagnoses %}
+                                        <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">{{ diagnosis.diagnosis }}</div>
+                                    {% empty %}
+                                        <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">N/A</div>
+                                    {% endfor %}
                                 </div>
 
                                 <!-- Column 3: Treatments -->
                                 <div class="flex flex-col items-stretch">
                                     <div class="py-1 text-[#13232e]/60 text-[13px] font-medium font-['Plus Jakarta Sans']">Top Treatments</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Antibiotics</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Dental Cleaning</div>
-                                    <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">Antihistamines</div>
+                                    {% for treatment in top_3_treatments %}
+                                        <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">{{ treatment.treatment }}</div>
+                                    {% empty %}
+                                        <div class="py-[18px] border-t border-[#495e6e]/20 text-[#1b1e28] text-[15px] font-normal">N/A</div>
+                                    {% endfor %}
                                 </div>
                             </div>
                     </div>

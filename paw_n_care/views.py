@@ -289,10 +289,18 @@ class Statistic(TemplateView):
             vet_detail = Veterinarian.objects.get(vet_id=top_vets[0]['vet_id'])
             top_vet_full_name = vet_detail.full_name
 
-        # Appointment Status Distribution in the past year
+        # Appointment Status Distribution in a year
         scheduled_count = Appointment.objects.filter(status='Scheduled', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
         completed_count = Appointment.objects.filter(status='Completed', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
         canceled_count = Appointment.objects.filter(status='Canceled', appointment_date__gte=timezone.now()-timezone.timedelta(days=365)).count()
+        # Top 3 Diagnoses
+        top_3_diagnoses = MedicalRecord.objects.values('diagnosis')\
+            .annotate(count=Count('record_id'))\
+            .order_by('-count')[:3]
+        # Top 3 Treatments
+        top_3_treatments = MedicalRecord.objects.values('treatment')\
+            .annotate(count=Count('record_id'))\
+            .order_by('-count')[:3]
 
         # "Billing & Payment Analysis"
         # Average billing amount
@@ -352,6 +360,8 @@ class Statistic(TemplateView):
             'scheduled_count': scheduled_count,
             'completed_count': completed_count,
             'canceled_count': canceled_count,
+            'top_3_diagnoses': top_3_diagnoses,
+            'top_3_treatments': top_3_treatments,
 
             # Billing & Payment Analysis
             'avg_billing_amount': avg_billing_amount,
