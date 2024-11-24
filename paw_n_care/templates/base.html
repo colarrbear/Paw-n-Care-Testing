@@ -52,11 +52,14 @@
             </div>
         </div>
         <div id="dropdownMenu" class="hidden absolute mt-14 bg-white border border-gray-200 shadow-md rounded-lg w-48">
+            <a href="{% url 'paw_n_care:home' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 mt-3">Home</a>
+            <div class="w-full h-[1px] bg-[#ececec]"></div>
             <a href="{% url 'paw_n_care:appointments' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appointments</a>
             <a href="{% url 'paw_n_care:medical-records' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Medical Records</a>
             <a href="{% url 'paw_n_care:billing' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Billing</a>
             <a href="{% url 'paw_n_care:statistic' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Statistic</a>
-            <a href="{% url 'paw_n_care:logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Logout</a>
+            <div class="w-full h-[1px] bg-[#ececec]"></div>
+            <a href="{% url 'paw_n_care:logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100 mb-3">Logout</a>
         </div>
     </header>
     {% endblock %}
