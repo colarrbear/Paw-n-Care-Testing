@@ -3,8 +3,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
-# from django.contrib.auth import authenticate, login
-
+from django.db.models import Count, Sum
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
@@ -214,10 +213,25 @@ class Statistic(TemplateView):
     template_name = 'statistic.html'
 
     def get(self, request, *args, **kwargs):
-        vet = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+        # Get all veterinarians for the dropdown
+        veterinarians = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+
+        # Get the selected veterinarian ID from the request (default to the first vet)
+        selected_vet_id = request.GET.get('vet_id', veterinarians[0]['vet_id'] if veterinarians else None)
+
+        # Get statistics for the selected veterinarian
+        appointments = Appointment.objects.filter(vet_id=selected_vet_id).count()
+        pets_managed = Pet.objects.filter(appointments__vet_id=selected_vet_id).distinct().count()
+        bills_paid = Billing.objects.filter(appointment__vet_id=selected_vet_id).aggregate(
+            total=Sum('total_amount')
+        )['total'] or 0
 
         return render(request, self.template_name, {
-            'vets': vet,
+            'vets': veterinarians,
+            'selected_vet_id': int(selected_vet_id) if selected_vet_id else None,
+            'appointments': appointments,
+            'pets_managed': pets_managed,
+            'bills_paid': bills_paid,
         })
 
 class Login(TemplateView):
