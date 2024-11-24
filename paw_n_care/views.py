@@ -295,7 +295,12 @@ class OwnerHome(TemplateView):
     template_name = 'home/owner-home.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        owners = Owner.objects.prefetch_related('pets').all()
+
+        context = {
+            'owners': owners,
+        }
+        return render(request, self.template_name, context)
 
 
 def redirect_to_login(request):
