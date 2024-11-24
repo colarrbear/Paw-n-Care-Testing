@@ -19,19 +19,23 @@
                 <div class="flex-grow flex flex-col gap-1">
                     <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Veterinarian</label>
                     <div class="flex flex-col gap-1 relative w-full">
+                        <form method="get" action="{% url 'paw_n_care:statistic' %}">
                         <div class="w-full">
                             <select name="vet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                                 <option disabled selected>Select Veterinarian</option>
                                 {% for i in vets %}
-                                    <option value="{{ i.vet_id }}">Dr.{{ i.first_name }} {{ i.last_name }} (Vet ID: {{ i.vet_id }})</option>
+                                    <option value="{{ i.vet_id }}" {% if i.vet_id == selected_vet_id %}selected{% endif %}>
+                                        Dr. {{ i.first_name }} {{ i.last_name }} (Vet ID: {{ i.vet_id }})
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
                 </div>
-                <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] mt-5">
+                <button type="submit" class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] mt-5">
                     Filter
                 </button>
+            </form>
             </div>
                 <div class="self-stretch justify-start items-center gap-7 inline-flex">
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -40,7 +44,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ appointments }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">5%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ appointment_percentage|floatformat:2 }}%</div>
                         </div>
                     </div>
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -49,7 +53,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ pets_managed }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">2%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ pets_managed_percentage|floatformat:2 }}%</div>
                         </div>
                     </div>
                     <div class="grow shrink basis-0 p-7 bg-[#24587e]/10 rounded-[10px] border border-black/0 flex-col justify-start items-start gap-[18px] inline-flex">
@@ -58,7 +62,7 @@
                         </div>
                         <div class="self-stretch h-[60px] flex-col justify-start items-start gap-1 flex">
                             <div class="self-stretch text-[#1b1e28] text-[34px] font-bold font-['Plus Jakarta Sans'] leading-10">{{ bills_paid }}</div>
-                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">15%</div>
+                            <div class="self-stretch text-[#0078cf] text-[13px] font-medium font-['Plus Jakarta Sans'] leading-none">{{ bills_paid_percentage|floatformat:2 }}%</div>
                         </div>
                     </div>
                 </div>

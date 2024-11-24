@@ -217,7 +217,7 @@ class Statistic(TemplateView):
         veterinarians = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
 
         # Get the selected veterinarian ID from the request (default to the first vet)
-        selected_vet_id = request.GET.get('vet_id', veterinarians[0]['vet_id'] if veterinarians else None)
+        selected_vet_id = request.GET.get('vet', veterinarians[0]['vet_id'] if veterinarians else None)
 
         # Get statistics for the selected veterinarian
         appointments = Appointment.objects.filter(vet_id=selected_vet_id).count()
@@ -226,12 +226,28 @@ class Statistic(TemplateView):
             total=Sum('total_amount')
         )['total'] or 0
 
+        # Get total statistics for all veterinarians
+        total_appointments = Appointment.objects.count()
+        total_pets_managed = Pet.objects.distinct().count()
+        total_bills_paid = Billing.objects.aggregate(
+            total=Sum('total_amount')
+        )['total'] or 0
+
+        # Calculate percentage for each statistic
+        appointment_percentage = (appointments / total_appointments * 100) if total_appointments else 0
+        pets_managed_percentage = (pets_managed / total_pets_managed * 100) if total_pets_managed else 0
+        bills_paid_percentage = (bills_paid / total_bills_paid * 100) if total_bills_paid else 0
+
+        # Return the data to the template, including the selected vet ID
         return render(request, self.template_name, {
             'vets': veterinarians,
-            'selected_vet_id': int(selected_vet_id) if selected_vet_id else None,
+            'selected_vet_id': selected_vet_id,
             'appointments': appointments,
             'pets_managed': pets_managed,
             'bills_paid': bills_paid,
+            'appointment_percentage': appointment_percentage,
+            'pets_managed_percentage': pets_managed_percentage,
+            'bills_paid_percentage': bills_paid_percentage,
         })
 
 class Login(TemplateView):
