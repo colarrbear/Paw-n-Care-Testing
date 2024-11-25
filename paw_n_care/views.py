@@ -608,7 +608,7 @@ class Login(TemplateView):
             password = data.get('password')
             user = User.objects.get(username=username, password=password)
             if user:
-                return redirect('paw_n_care:appointments')
+                return redirect('paw_n_care:home')
         except Exception as e:
             print(f"Error login: {e}")
         return redirect('paw_n_care:login')
