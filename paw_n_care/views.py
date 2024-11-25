@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.views.generic import TemplateView
@@ -761,3 +761,34 @@ class OwnerHome(TemplateView):
 def redirect_to_login(request):
     # Redirect to the login page
     return HttpResponseRedirect('/login/')
+
+
+def update_appointment(request, appointment_id):
+    # Retrieve the appointment object
+    appointment = get_object_or_404(Appointment, pk=appointment_id)
+
+    if request.method == 'POST':
+        # Update the appointment fields with POST data
+        appointment.status = request.POST.get('status')
+        appointment.reason = request.POST.get('reason')
+        appointment.appointment_date = request.POST.get('appointment_date')
+        appointment.appointment_time = request.POST.get('appointment_time')
+        
+        # Update veterinarian if provided
+        vet_id = request.POST.get('vet')
+        if vet_id:
+            appointment.vet = get_object_or_404(Veterinarian, vet_id=vet_id)
+
+        # Save the updated appointment
+        appointment.save()
+
+        # Redirect to the home page
+        return redirect('paw_n_care:home')
+
+    # Render the update form
+    vets = Veterinarian.objects.all()  # Fetch all veterinarians for the dropdown
+    context = {
+        'appointment': appointment,
+        'vets': vets,
+    }
+    return render(request, 'update_appointment.html', context)
