@@ -18,6 +18,6 @@ urlpatterns = [
     path('medical-records/', views.MedRec.as_view(), name='medical-records'),
     path('billing/', views.Bill.as_view(), name='billing'),
     path('statistic/', views.Statistic.as_view(), name='statistic'),
-    path('edit/<appointment_id>', views.edit),
+    path('home/edit/<appointment_id>', views.edit),
 
 ]

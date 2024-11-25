@@ -215,6 +215,29 @@ def handle_search(queryset, search_category: str, search_query: str, search_conf
 
     return queryset.values(*search_config['values_fields']), search_query, search_category
 
+def edit(request, appointment_id):
+    if request.method == 'POST':
+        appointment = Appointment.objects.get(pk=appointment_id)
+        appointment.status = request.POST.get('status')
+        appointment.reason = request.POST.get('reason')
+        appointment.appointment_date = request.POST.get('appointment_date')
+        appointment.appointment_time = request.POST.get('appointment_time')
+        appointment.pet.name = request.POST.get('pet_name')
+        appointment.pet.weight = request.POST.get('weight')
+        appointment.pet.breed = request.POST.get('breed')
+        appointment.pet.date_of_birth = request.POST.get('date_of_birth')
+        appointment.pet.gender = request.POST.get('gender')
+        appointment.pet.species = request.POST.get('species')
+        appointment.owner.first_name = request.POST.get('first_name')
+        appointment.owner.last_name = request.POST.get('last_name')
+        appointment.owner.address = request.POST.get('address')
+        appointment.owner.phone_number = request.POST.get('phone')
+        appointment.owner.email = request.POST.get('email')
+        appointment.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        appointment = Appointment.objects.get(pk=appointment_id)
+        return render(request, 'edit.html', {'appointment': appointment})
 
 class Appointments(TemplateView):
     template_name = 'appointments.html'
