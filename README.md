@@ -9,8 +9,8 @@ PetCare is a Django-based application designed to manage a pet care business eff
 - **Veterinarian Management**: Record veterinarian details like specialization, license number, and contact information.  
 - **Appointment Scheduling**: Schedule appointments with veterinarians, including appointment time, reason, and status tracking.  
 - **Medical Records**: Keep detailed medical records, including diagnoses, treatments, and prescribed medications.  
-- **Billing System**: Record payments for appointments with the total amount, payment status, and method.  
-- **Medication Management**: Maintain a list of medications, their descriptions, and dosages.  
+- **Billing System**: Record payments for appointments with the total amount, payment status, and method.
 
 ## Database Schema
-![image](https://github.com/user-attachments/assets/5661a3fe-6a89-4891-a951-78d7447b7ec3)
+![image](https://github.com/user-attachments/assets/7357c2a5-9583-48eb-9649-930c7042ef71)
+
