@@ -254,6 +254,20 @@ def edit_pet(request, pet_id):
         pet = Pet.objects.get(pk=pet_id)
         return render(request, 'edit_pet.html', {'pet': pet})
 
+def edit_owner(request, owner_id):
+    if request.method == 'POST':
+        owner = Owner.objects.get(pk=owner_id)
+        owner.first_name = request.POST.get('first_name')
+        owner.last_name = request.POST.get('last_name')
+        owner.address = request.POST.get('address')
+        owner.phone_number = request.POST.get('phone')
+        owner.email = request.POST.get('email')
+        owner.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        owner = Owner.objects.get(pk=owner_id)            
+        return render(request, 'edit_owner.html', {'owner': owner})
+
 class Appointments(TemplateView):
     template_name = 'appointments.html'
 
@@ -840,3 +854,26 @@ def update_pet(request, pet_id):
     }
     return render(request, 'update_pet.html', context)
 
+def update_owner(request, owner_id):
+    # Retrieve the owner object
+    owner = get_object_or_404(Owner, pk=owner_id)
+
+    if request.method == 'POST':
+        # Update the owner fields with POST data
+        owner.first_name = request.POST.get('first_name')
+        owner.last_name = request.POST.get('last_name')
+        owner.address = request.POST.get('address')
+        owner.email = request.POST.get('email')
+        owner.phone_number = request.POST.get('phone')
+
+        # Save the updated owner
+        owner.save()
+
+        # Redirect to the owner home page
+        return redirect('paw_n_care:owner-home')
+
+    # Render the update form
+    context = {
+        'owner': owner,
+    }
+    return render(request, 'update_owner.html', context)
