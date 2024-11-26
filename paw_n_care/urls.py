@@ -21,4 +21,5 @@ urlpatterns = [
     path('home/edit/<appointment_id>/', views.edit_appointment, name='edit_appointment'),
     path('home/pet/pet/edit/<pet_id>/', views.edit_pet, name='edit_pet'),
     path('home/owner/owner/edit/<owner_id>/', views.edit_owner, name='edit_owner'),
+    path('home/medical-record/medical-record/edit/<medical_record_id>/', views.edit_medical_record, name='edit_medical_record'),
 ]

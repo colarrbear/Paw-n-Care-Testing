@@ -268,6 +268,20 @@ def edit_owner(request, owner_id):
         owner = Owner.objects.get(pk=owner_id)            
         return render(request, 'edit_owner.html', {'owner': owner})
 
+def edit_medical_record(request, medical_record_id):
+    if request.method == 'POST':
+        medical_record = MedicalRecord.objects.get(pk=medical_record_id)
+        medical_record.visit_date = request.POST.get('visit_date')
+        medical_record.diagnosis = request.POST.get('diagnosis')
+        medical_record.treatment = request.POST.get('treatment')
+        medical_record.prescribed_medication = request.POST.get('prescribed_medication')
+        medical_record.notes = request.POST.get('notes')
+        medical_record.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        medical_record = MedicalRecord.objects.get(pk=medical_record_id)
+        return render(request, 'edit_medical_record.html', {'medical_record': medical_record})
+
 class Appointments(TemplateView):
     template_name = 'appointments.html'
 
@@ -877,3 +891,27 @@ def update_owner(request, owner_id):
         'owner': owner,
     }
     return render(request, 'update_owner.html', context)
+
+
+def update_medical_record(request, record_id):
+    # Retrieve the medical record object
+    medical_record = get_object_or_404(MedicalRecord, pk=record_id)
+
+    if request.method == 'POST':
+        # Update the medical record fields with POST data
+        medical_record.diagnosis = request.POST.get('diagnosis')
+        medical_record.treatment = request.POST.get('treatment')
+        medical_record.prescribed_medication = request.POST.get('prescribed_medication')
+        medical_record.notes = request.POST.get('notes')
+
+        # Save the updated medical record
+        medical_record.save()
+
+        # Redirect to the medical record home page
+        return redirect('paw_n_care:medical-record-home')
+
+    # Render the update form
+    context = {
+        'medical_record': medical_record,
+    }
+    return render(request, 'update_medical_record.html', context)

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form id="medical-records-form" action="{% url 'paw_n_care:edit_medical_record' medical_record.record_id %}" method="POST">
+    {% csrf_token %}
+    <div class="w-full max-w-[1550px] h-auto mx-auto">
+        <div class="h-auto flex flex-wrap justify-start items-start gap-12">
+            <!-- Medical Records Section -->
+            <div class="flex-grow flex flex-col justify-start items-start">
+                <div class="w-full h-auto py-7 flex flex-col justify-start items-start gap-7">
+                    <div class="w-full flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="text-[#1b1e28] text-[34px] font-semibold font-['Poppins'] leading-10">Edit Medical Record</div>
+                        </div>
+                    </div>
+                    <!-- Edit Medical Record Form -->
+                    <div class="w-full py-7 flex flex-col justify-start items-start gap-[18px]">
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment ID</label>
+                                <div class="flex-grow flex flex-col gap-1 relative w-full">
+                                    <div class="w-full">
+                                        <select name="appointment_id" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" disabled>
+                                            <option value="{{ medical_record.appointment_id }}" selected>
+                                                Appointment ID: {{ medical_record.appointment_id }} | {{ medical_record.pet__name }} by Dr.{{ medical_record.vet__first_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Visit Date</label>
+                                <input name="visit_date" type="datetime-local" value="{{ medical_record.visit_date|date:'Y-m-d\TH:i' }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Diagnosis</label>
+                                <input name="diagnosis" type="text" value="{{ medical_record.diagnosis }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Treatment</label>
+                                <input name="treatment" type="text" value="{{ medical_record.treatment }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Prescribed Medication</label>
+                                <input name="prescribed_medication" type="text" value="{{ medical_record.prescribed_medication }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                            </div>
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Notes</label>
+                                <textarea name="notes" placeholder="Enter notes" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">{{ medical_record.notes }}</textarea>
+                            </div>
+                        </div>
+                        <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                            Save Changes
+                        </button>
+                        <a href="{% url 'paw_n_care:medical-record-home' %}" class="ml-4 px-6 py-2 text-blue-600 border border-blue-600 rounded-lg shadow-md hover:bg-blue-100">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
