@@ -3,11 +3,11 @@
         "model": "paw_n_care.appointment",
         "pk": 1,
         "fields": {
-            "pet_id": 1,
-            "owner_id": 1,
-            "vet_id": 1,
-            "appointment_date": "2022-01-15",
-            "appointment_time": "10:00",
+            "pet": 1,
+            "owner": 1,
+            "vet": 1,
+            "appointment_date": "2023-01-15",
+            "appointment_time": "10:00:00",
             "reason": "The pet came with hurt in its leg.",
             "status": "Completed"
         }
@@ -16,11 +16,11 @@
         "model": "paw_n_care.appointment",
         "pk": 2,
         "fields": {
-            "pet_id": 2,
-            "owner_id": 2,
-            "vet_id": 2,
-            "appointment_date": "2022-01-22",
-            "appointment_time": "14:30",
+            "pet": 2,
+            "owner": 2,
+            "vet": 2,
+            "appointment_date": "2023-01-22",
+            "appointment_time": "14:30:00",
             "reason": "The pet showed signs of skin irritation.",
             "status": "Completed"
         }
@@ -29,11 +29,11 @@
         "model": "paw_n_care.appointment",
         "pk": 3,
         "fields": {
-            "pet_id": 3,
-            "owner_id": 3,
-            "vet_id": 3,
-            "appointment_date": "2022-02-06",
-            "appointment_time": "09:45",
+            "pet": 3,
+            "owner": 3,
+            "vet": 3,
+            "appointment_date": "2023-02-06",
+            "appointment_time": "09:45:00",
             "reason": "The pet came with difficulty in walking.",
             "status": "Completed"
         }
@@ -42,11 +42,11 @@
         "model": "paw_n_care.appointment",
         "pk": 4,
         "fields": {
-            "pet_id": 4,
-            "owner_id": 4,
-            "vet_id": 4,
-            "appointment_date": "2022-02-19",
-            "appointment_time": "11:15",
+            "pet": 4,
+            "owner": 4,
+            "vet": 4,
+            "appointment_date": "2023-02-19",
+            "appointment_time": "11:15:00",
             "reason": "The pet experienced loss of appetite.",
             "status": "Canceled"
         }
@@ -55,11 +55,11 @@
         "model": "paw_n_care.appointment",
         "pk": 5,
         "fields": {
-            "pet_id": 5,
-            "owner_id": 5,
-            "vet_id": 1,
-            "appointment_date": "2022-02-27",
-            "appointment_time": "16:00",
+            "pet": 5,
+            "owner": 5,
+            "vet": 1,
+            "appointment_date": "2023-02-27",
+            "appointment_time": "16:00:00",
             "reason": "The pet came with symptoms of fever.",
             "status": "Completed"
         }
@@ -68,11 +68,11 @@
         "model": "paw_n_care.appointment",
         "pk": 6,
         "fields": {
-            "pet_id": 6,
-            "owner_id": 6,
-            "vet_id": 2,
-            "appointment_date": "2022-02-28",
-            "appointment_time": "13:30",
+            "pet": 6,
+            "owner": 6,
+            "vet": 2,
+            "appointment_date": "2023-02-28",
+            "appointment_time": "13:30:00",
             "reason": "The pet was sneezing frequently.",
             "status": "Canceled"
         }
@@ -81,11 +81,11 @@
         "model": "paw_n_care.appointment",
         "pk": 7,
         "fields": {
-            "pet_id": 7,
-            "owner_id": 7,
-            "vet_id": 3,
-            "appointment_date": "2022-03-03",
-            "appointment_time": "15:45",
+            "pet": 7,
+            "owner": 7,
+            "vet": 3,
+            "appointment_date": "2023-03-03",
+            "appointment_time": "15:45:00",
             "reason": "The pet showed unusual scratching behavior.",
             "status": "Completed"
         }
@@ -94,11 +94,11 @@
         "model": "paw_n_care.appointment",
         "pk": 8,
         "fields": {
-            "pet_id": 8,
-            "owner_id": 8,
-            "vet_id": 4,
-            "appointment_date": "2022-03-10",
-            "appointment_time": "12:00",
+            "pet": 8,
+            "owner": 8,
+            "vet": 4,
+            "appointment_date": "2023-03-10",
+            "appointment_time": "12:00:00",
             "reason": "The pet came with a wound on its paw.",
             "status": "Canceled"
         }
@@ -107,11 +107,11 @@
         "model": "paw_n_care.appointment",
         "pk": 9,
         "fields": {
-            "pet_id": 9,
-            "owner_id": 9,
-            "vet_id": 1,
-            "appointment_date": "2022-03-16",
-            "appointment_time": "09:00",
+            "pet": 9,
+            "owner": 9,
+            "vet": 1,
+            "appointment_date": "2023-03-16",
+            "appointment_time": "09:00:00",
             "reason": "The pet showed signs of ear infection.",
             "status": "Canceled"
         }
@@ -120,11 +120,11 @@
         "model": "paw_n_care.appointment",
         "pk": 10,
         "fields": {
-            "pet_id": 10,
-            "owner_id": 10,
-            "vet_id": 2,
-            "appointment_date": "2022-03-27",
-            "appointment_time": "17:30",
+            "pet": 10,
+            "owner": 10,
+            "vet": 2,
+            "appointment_date": "2023-03-27",
+            "appointment_time": "17:30:00",
             "reason": "The pet came with a swollen abdomen.",
             "status": "Completed"
         }
@@ -133,11 +133,11 @@
         "model": "paw_n_care.appointment",
         "pk": 11,
         "fields": {
-            "pet_id": 11,
-            "owner_id": 11,
-            "vet_id": 3,
-            "appointment_date": "2022-04-09",
-            "appointment_time": "10:30",
+            "pet": 11,
+            "owner": 11,
+            "vet": 3,
+            "appointment_date": "2023-04-09",
+            "appointment_time": "10:30:00",
             "reason": "The pet came with symptoms of Arthritis and difficulty moving.",
             "status": "Completed"
         }
@@ -146,11 +146,11 @@
         "model": "paw_n_care.appointment",
         "pk": 12,
         "fields": {
-            "pet_id": 12,
-            "owner_id": 12,
-            "vet_id": 4,
-            "appointment_date": "2022-04-30",
-            "appointment_time": "14:00",
+            "pet": 12,
+            "owner": 12,
+            "vet": 4,
+            "appointment_date": "2023-04-30",
+            "appointment_time": "14:00:00",
             "reason": "The pet came with severe Allergies and itching.",
             "status": "Completed"
         }
@@ -159,11 +159,11 @@
         "model": "paw_n_care.appointment",
         "pk": 13,
         "fields": {
-            "pet_id": 13,
-            "owner_id": 13,
-            "vet_id": 1,
-            "appointment_date": "2022-05-26",
-            "appointment_time": "11:00",
+            "pet": 13,
+            "owner": 13,
+            "vet": 1,
+            "appointment_date": "2023-05-26",
+            "appointment_time": "11:00:00",
             "reason": "The pet came with symptoms of Diabetes, excessive thirst and urination.",
             "status": "Canceled"
         }
@@ -172,11 +172,11 @@
         "model": "paw_n_care.appointment",
         "pk": 14,
         "fields": {
-            "pet_id": 14,
-            "owner_id": 14,
-            "vet_id": 2,
-            "appointment_date": "2022-06-12",
-            "appointment_time": "16:30",
+            "pet": 14,
+            "owner": 14,
+            "vet": 2,
+            "appointment_date": "2023-06-12",
+            "appointment_time": "16:30:00",
             "reason": "The pet came with an Ear Infection and frequent shaking of the head.",
             "status": "Completed"
         }
@@ -185,11 +185,11 @@
         "model": "paw_n_care.appointment",
         "pk": 15,
         "fields": {
-            "pet_id": 15,
-            "owner_id": 15,
-            "vet_id": 3,
-            "appointment_date": "2022-08-17",
-            "appointment_time": "09:30",
+            "pet": 15,
+            "owner": 15,
+            "vet": 3,
+            "appointment_date": "2023-08-17",
+            "appointment_time": "09:30:00",
             "reason": "The pet came with signs of Heartworm Disease, coughing and lethargy.",
             "status": "Canceled"
         }
@@ -198,11 +198,11 @@
         "model": "paw_n_care.appointment",
         "pk": 16,
         "fields": {
-            "pet_id": 16,
-            "owner_id": 16,
-            "vet_id": 4,
-            "appointment_date": "2022-08-31",
-            "appointment_time": "08:45",
+            "pet": 16,
+            "owner": 16,
+            "vet": 4,
+            "appointment_date": "2023-08-31",
+            "appointment_time": "08:45:00",
             "reason": "The pet came with difficulty walking due to Hip Dysplasia.",
             "status": "Completed"
         }
@@ -211,11 +211,11 @@
         "model": "paw_n_care.appointment",
         "pk": 17,
         "fields": {
-            "pet_id": 17,
-            "owner_id": 17,
-            "vet_id": 1,
-            "appointment_date": "2022-09-14",
-            "appointment_time": "10:15",
+            "pet": 17,
+            "owner": 17,
+            "vet": 1,
+            "appointment_date": "2023-09-14",
+            "appointment_time": "10:15:00",
             "reason": "The pet came with blurry vision and symptoms of Cataracts.",
             "status": "Completed"
         }
@@ -224,11 +224,11 @@
         "model": "paw_n_care.appointment",
         "pk": 18,
         "fields": {
-            "pet_id": 18,
-            "owner_id": 18,
-            "vet_id": 2,
-            "appointment_date": "2022-10-18",
-            "appointment_time": "13:00",
+            "pet": 18,
+            "owner": 18,
+            "vet": 2,
+            "appointment_date": "2023-10-18",
+            "appointment_time": "13:00:00",
             "reason": "The pet came with symptoms of Liver Disease, loss of appetite and vomiting.",
             "status": "Completed"
         }
@@ -237,11 +237,11 @@
         "model": "paw_n_care.appointment",
         "pk": 19,
         "fields": {
-            "pet_id": 19,
-            "owner_id": 19,
-            "vet_id": 3,
-            "appointment_date": "2022-11-05",
-            "appointment_time": "12:30",
+            "pet": 19,
+            "owner": 19,
+            "vet": 3,
+            "appointment_date": "2023-11-05",
+            "appointment_time": "12:30:00",
             "reason": "The pet came with signs of Pancreatitis, nausea and stomach pain.",
             "status": "Completed"
         }
@@ -250,11 +250,11 @@
         "model": "paw_n_care.appointment",
         "pk": 20,
         "fields": {
-            "pet_id": 20,
-            "owner_id": 20,
-            "vet_id": 4,
-            "appointment_date": "2022-11-16",
-            "appointment_time": "15:00",
+            "pet": 20,
+            "owner": 20,
+            "vet": 4,
+            "appointment_date": "2023-11-16",
+            "appointment_time": "15:00:00",
             "reason": "The pet came with symptoms of Chronic Kidney Disease, lethargy and dehydration.",
             "status": "Canceled"
         }
@@ -263,11 +263,11 @@
         "model": "paw_n_care.appointment",
         "pk": 21,
         "fields": {
-            "pet_id": 21,
-            "owner_id": 6,
-            "vet_id": 3,
-            "appointment_date": "2022-12-03",
-            "appointment_time": "10:00",
+            "pet": 21,
+            "owner": 6,
+            "vet": 3,
+            "appointment_date": "2023-12-03",
+            "appointment_time": "10:00:00",
             "reason": "The pet came with difficulty moving and joint stiffness.",
             "status": "Scheduled"
         }
@@ -276,11 +276,11 @@
         "model": "paw_n_care.appointment",
         "pk": 22,
         "fields": {
-            "pet_id": 22,
-            "owner_id": 7,
-            "vet_id": 4,
-            "appointment_date": "2022-12-20",
-            "appointment_time": "14:30",
+            "pet": 22,
+            "owner": 7,
+            "vet": 4,
+            "appointment_date": "2023-12-20",
+            "appointment_time": "14:30:00",
             "reason": "The pet showed signs of itching and skin irritation.",
             "status": "Completed"
         }
@@ -289,11 +289,11 @@
         "model": "paw_n_care.appointment",
         "pk": 23,
         "fields": {
-            "pet_id": 23,
-            "owner_id": 8,
-            "vet_id": 1,
-            "appointment_date": "2022-12-21",
-            "appointment_time": "09:30",
+            "pet": 23,
+            "owner": 8,
+            "vet": 1,
+            "appointment_date": "2023-12-21",
+            "appointment_time": "09:30:00",
             "reason": "The pet came with loss of appetite and vomiting.",
             "status": "Canceled"
         }
@@ -302,11 +302,11 @@
         "model": "paw_n_care.appointment",
         "pk": 24,
         "fields": {
-            "pet_id": 24,
-            "owner_id": 9,
-            "vet_id": 2,
-            "appointment_date": "2023-01-05",
-            "appointment_time": "16:00",
+            "pet": 24,
+            "owner": 9,
+            "vet": 2,
+            "appointment_date": "2024-01-05",
+            "appointment_time": "16:00:00",
             "reason": "The pet showed symptoms of excessive scratching and biting.",
             "status": "Completed"
         }
@@ -315,11 +315,11 @@
         "model": "paw_n_care.appointment",
         "pk": 25,
         "fields": {
-            "pet_id": 25,
-            "owner_id": 10,
-            "vet_id": 3,
-            "appointment_date": "2023-01-13",
-            "appointment_time": "12:00",
+            "pet": 25,
+            "owner": 10,
+            "vet": 3,
+            "appointment_date": "2024-01-13",
+            "appointment_time": "12:00:00",
             "reason": "The pet came with swollen paws and difficulty walking.",
             "status": "Canceled"
         }
@@ -328,11 +328,11 @@
         "model": "paw_n_care.appointment",
         "pk": 26,
         "fields": {
-            "pet_id": 26,
-            "owner_id": 11,
-            "vet_id": 4,
-            "appointment_date": "2023-02-01",
-            "appointment_time": "11:15",
+            "pet": 26,
+            "owner": 11,
+            "vet": 4,
+            "appointment_date": "2024-02-01",
+            "appointment_time": "11:15:00",
             "reason": "The pet came with lethargy and difficulty breathing.",
             "status": "Completed"
         }
@@ -341,11 +341,11 @@
         "model": "paw_n_care.appointment",
         "pk": 27,
         "fields": {
-            "pet_id": 27,
-            "owner_id": 12,
-            "vet_id": 1,
-            "appointment_date": "2023-02-24",
-            "appointment_time": "09:00",
+            "pet": 27,
+            "owner": 12,
+            "vet": 1,
+            "appointment_date": "2024-02-24",
+            "appointment_time": "09:00:00",
             "reason": "The pet showed signs of ear infection with constant scratching.",
             "status": "Completed"
         }
@@ -354,11 +354,11 @@
         "model": "paw_n_care.appointment",
         "pk": 28,
         "fields": {
-            "pet_id": 28,
-            "owner_id": 13,
-            "vet_id": 2,
-            "appointment_date": "2023-02-25",
-            "appointment_time": "13:30",
+            "pet": 28,
+            "owner": 13,
+            "vet": 2,
+            "appointment_date": "2024-02-25",
+            "appointment_time": "13:30:00",
             "reason": "The pet came with a noticeable weight loss and low energy.",
             "status": "Completed"
         }
@@ -367,11 +367,11 @@
         "model": "paw_n_care.appointment",
         "pk": 29,
         "fields": {
-            "pet_id": 29,
-            "owner_id": 14,
-            "vet_id": 3,
-            "appointment_date": "2023-03-04",
-            "appointment_time": "15:00",
+            "pet": 29,
+            "owner": 14,
+            "vet": 3,
+            "appointment_date": "2024-03-04",
+            "appointment_time": "15:00:00",
             "reason": "The pet showed symptoms of excessive thirst and frequent urination.",
             "status": "Completed"
         }
@@ -380,11 +380,11 @@
         "model": "paw_n_care.appointment",
         "pk": 30,
         "fields": {
-            "pet_id": 30,
-            "owner_id": 15,
-            "vet_id": 4,
-            "appointment_date": "2023-03-11",
-            "appointment_time": "11:00",
+            "pet": 30,
+            "owner": 15,
+            "vet": 4,
+            "appointment_date": "2024-03-11",
+            "appointment_time": "11:00:00",
             "reason": "The pet came with difficulty breathing and coughing.",
             "status": "Completed"
         }
@@ -393,11 +393,11 @@
         "model": "paw_n_care.appointment",
         "pk": 31,
         "fields": {
-            "pet_id": 31,
-            "owner_id": 16,
-            "vet_id": 1,
-            "appointment_date": "2023-03-29",
-            "appointment_time": "14:30",
+            "pet": 31,
+            "owner": 16,
+            "vet": 1,
+            "appointment_date": "2024-03-29",
+            "appointment_time": "14:30:00",
             "reason": "The pet came with difficulty moving and joint stiffness.",
             "status": "Completed"
         }
@@ -406,11 +406,11 @@
         "model": "paw_n_care.appointment",
         "pk": 32,
         "fields": {
-            "pet_id": 32,
-            "owner_id": 17,
-            "vet_id": 2,
-            "appointment_date": "2023-03-29",
-            "appointment_time": "16:45",
+            "pet": 32,
+            "owner": 17,
+            "vet": 2,
+            "appointment_date": "2024-03-29",
+            "appointment_time": "16:45:00",
             "reason": "The pet showed signs of itchy skin and hair loss.",
             "status": "Completed"
         }
@@ -419,11 +419,11 @@
         "model": "paw_n_care.appointment",
         "pk": 33,
         "fields": {
-            "pet_id": 33,
-            "owner_id": 18,
-            "vet_id": 3,
-            "appointment_date": "2023-04-08",
-            "appointment_time": "10:15",
+            "pet": 33,
+            "owner": 18,
+            "vet": 3,
+            "appointment_date": "2024-04-08",
+            "appointment_time": "10:15:00",
             "reason": "The pet came with excessive vomiting and loss of appetite.",
             "status": "Canceled"
         }
@@ -432,11 +432,11 @@
         "model": "paw_n_care.appointment",
         "pk": 34,
         "fields": {
-            "pet_id": 34,
-            "owner_id": 19,
-            "vet_id": 4,
-            "appointment_date": "2023-04-08",
-            "appointment_time": "12:00",
+            "pet": 34,
+            "owner": 19,
+            "vet": 4,
+            "appointment_date": "2024-04-08",
+            "appointment_time": "12:00:00",
             "reason": "The pet came with excessive panting and rapid heartbeat.",
             "status": "Completed"
         }
@@ -445,11 +445,11 @@
         "model": "paw_n_care.appointment",
         "pk": 35,
         "fields": {
-            "pet_id": 35,
-            "owner_id": 20,
-            "vet_id": 1,
-            "appointment_date": "2023-04-17",
-            "appointment_time": "13:00",
+            "pet": 35,
+            "owner": 20,
+            "vet": 1,
+            "appointment_date": "2024-04-17",
+            "appointment_time": "13:00:00",
             "reason": "The pet came with loss of appetite and frequent urination.",
             "status": "Completed"
         }
@@ -458,11 +458,11 @@
         "model": "paw_n_care.appointment",
         "pk": 36,
         "fields": {
-            "pet_id": 36,
-            "owner_id": 21,
-            "vet_id": 2,
-            "appointment_date": "2023-04-21",
-            "appointment_time": "11:30",
+            "pet": 36,
+            "owner": 21,
+            "vet": 2,
+            "appointment_date": "2024-04-21",
+            "appointment_time": "11:30:00",
             "reason": "The pet came with swelling and tenderness in the hind legs.",
             "status": "Completed"
         }
@@ -471,11 +471,11 @@
         "model": "paw_n_care.appointment",
         "pk": 37,
         "fields": {
-            "pet_id": 37,
-            "owner_id": 22,
-            "vet_id": 3,
-            "appointment_date": "2023-04-29",
-            "appointment_time": "15:00",
+            "pet": 37,
+            "owner": 22,
+            "vet": 3,
+            "appointment_date": "2024-04-29",
+            "appointment_time": "15:00:00",
             "reason": "The pet showed signs of dizziness and fatigue.",
             "status": "Completed"
         }
@@ -484,11 +484,11 @@
         "model": "paw_n_care.appointment",
         "pk": 38,
         "fields": {
-            "pet_id": 38,
-            "owner_id": 23,
-            "vet_id": 4,
-            "appointment_date": "2023-05-01",
-            "appointment_time": "14:00",
+            "pet": 38,
+            "owner": 23,
+            "vet": 4,
+            "appointment_date": "2024-05-01",
+            "appointment_time": "14:00:00",
             "reason": "The pet came with a loss of balance and frequent vomiting.",
             "status": "Completed"
         }
@@ -497,11 +497,11 @@
         "model": "paw_n_care.appointment",
         "pk": 39,
         "fields": {
-            "pet_id": 39,
-            "owner_id": 24,
-            "vet_id": 1,
-            "appointment_date": "2023-05-10",
-            "appointment_time": "13:30",
+            "pet": 39,
+            "owner": 24,
+            "vet": 1,
+            "appointment_date": "2024-05-10",
+            "appointment_time": "13:30:00",
             "reason": "The pet came with coughing and nasal discharge.",
             "status": "Canceled"
         }
@@ -510,11 +510,11 @@
         "model": "paw_n_care.appointment",
         "pk": 40,
         "fields": {
-            "pet_id": 40,
-            "owner_id": 25,
-            "vet_id": 2,
-            "appointment_date": "2023-05-10",
-            "appointment_time": "15:30",
+            "pet": 40,
+            "owner": 25,
+            "vet": 2,
+            "appointment_date": "2024-05-10",
+            "appointment_time": "15:30:00",
             "reason": "The pet showed signs of lethargy and loss of appetite.",
             "status": "Completed"
         }
@@ -523,11 +523,11 @@
         "model": "paw_n_care.appointment",
         "pk": 41,
         "fields": {
-            "pet_id": 41,
-            "owner_id": 6,
-            "vet_id": 3,
-            "appointment_date": "2023-06-09",
-            "appointment_time": "09:00",
+            "pet": 41,
+            "owner": 6,
+            "vet": 3,
+            "appointment_date": "2024-06-09",
+            "appointment_time": "09:00:00",
             "reason": "The pet came with stiff joints and difficulty climbing stairs.",
             "status": "Completed"
         }
@@ -536,11 +536,11 @@
         "model": "paw_n_care.appointment",
         "pk": 42,
         "fields": {
-            "pet_id": 42,
-            "owner_id": 7,
-            "vet_id": 4,
-            "appointment_date": "2023-06-13",
-            "appointment_time": "11:15",
+            "pet": 42,
+            "owner": 7,
+            "vet": 4,
+            "appointment_date": "2024-06-13",
+            "appointment_time": "11:15:00",
             "reason": "The pet came with constant scratching and hair loss.",
             "status": "Completed"
         }
@@ -549,13 +549,312 @@
         "model": "paw_n_care.appointment",
         "pk": 43,
         "fields": {
-            "pet_id": 43,
-            "owner_id": 8,
-            "vet_id": 1,
-            "appointment_date": "2023-06-18",
-            "appointment_time": "14:00",
+            "pet": 33,
+            "owner": 18,
+            "vet": 1,
+            "appointment_date": "2024-06-18",
+            "appointment_time": "14:00:00",
             "reason": "The pet came with frequent vomiting and diarrhea.",
             "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 44,
+        "fields": {
+            "pet": 14,
+            "owner": 14,
+            "vet": 3,
+            "appointment_date": "2024-07-20",
+            "appointment_time": "10:45:00",
+            "reason": "The pet came with frequent vomiting and diarrhea.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 45,
+        "fields": {
+            "pet": 31,
+            "owner": 16,
+            "vet": 1,
+            "appointment_date": "2024-07-26",
+            "appointment_time": "13:00:00",
+            "reason": "The pet showed a significant weight loss and lack of interest in food.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 46,
+        "fields": {
+            "pet": 36,
+            "owner": 21,
+            "vet": 4,
+            "appointment_date": "2024-08-01",
+            "appointment_time": "10:00:00",
+            "reason": "The pet had a sudden drop in energy and stopped playing.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 47,
+        "fields": {
+            "pet": 16,
+            "owner": 16,
+            "vet": 2,
+            "appointment_date": "2024-08-11",
+            "appointment_time": "14:00:00",
+            "reason": "The pet showed signs of excessive drinking and urination.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 48,
+        "fields": {
+            "pet": 29,
+            "owner": 14,
+            "vet": 1,
+            "appointment_date": "2024-08-26",
+            "appointment_time": "15:30:00",
+            "reason": "The pet showed signs of ear infection with constant scratching.",
+            "status": "Canceled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 49,
+        "fields": {
+            "pet": 8,
+            "owner": 8,
+            "vet": 1,
+            "appointment_date": "2024-09-19",
+            "appointment_time": "11:30:00",
+            "reason": "The pet came with joint stiffness and difficulty moving.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 50,
+        "fields": {
+            "pet": 29,
+            "owner": 14,
+            "vet": 2,
+            "appointment_date": "2024-09-23",
+            "appointment_time": "16:15:00",
+            "reason": "The pet came with frequent vomiting and diarrhea.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 51,
+        "fields": {
+            "pet": 40,
+            "owner": 25,
+            "vet": 3,
+            "appointment_date": "2024-10-07",
+            "appointment_time": "13:15:00",
+            "reason": "The pet came with signs of infection in the gums and bad breath.",
+            "status": "Canceled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 52,
+        "fields": {
+            "pet": 40,
+            "owner": 25,
+            "vet": 4,
+            "appointment_date": "2024-10-26",
+            "appointment_time": "16:30:00",
+            "reason": "The pet showed signs of severe bloating and discomfort after eating.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 53,
+        "fields": {
+            "pet": 39,
+            "owner": 24,
+            "vet": 3,
+            "appointment_date": "2024-11-03",
+            "appointment_time": "10:30:00",
+            "reason": "The pet had painful urination and blood in the urine.",
+            "status": "Canceled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 54,
+        "fields": {
+            "pet": 33,
+            "owner": 18,
+            "vet": 2,
+            "appointment_date": "2024-11-09",
+            "appointment_time": "13:00:00",
+            "reason": "The pet came with a limp and difficulty walking.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 55,
+        "fields": {
+            "pet": 31,
+            "owner": 16,
+            "vet": 4,
+            "appointment_date": "2024-11-14",
+            "appointment_time": "11:00:00",
+            "reason": "The pet came with abnormal breathing and rapid heart rate.",
+            "status": "Completed"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 56,
+        "fields": {
+            "pet": 41,
+            "owner": 6,
+            "vet": 3,
+            "appointment_date": "2024-11-29",
+            "appointment_time": "14:00:00",
+            "reason": "The pet had a fever and was shaking uncontrollably.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 57,
+        "fields": {
+            "pet": 43,
+            "owner": 8,
+            "vet": 1,
+            "appointment_date": "2024-12-06",
+            "appointment_time": "11:15:00",
+            "reason": "The pet came with a wound on its leg that was not healing.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 58,
+        "fields": {
+            "pet": 7,
+            "owner": 7,
+            "vet": 3,
+            "appointment_date": "2024-12-19",
+            "appointment_time": "13:30:00",
+            "reason": "The pet came with labored breathing and wheezing.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 59,
+        "fields": {
+            "pet": 13,
+            "owner": 13,
+            "vet": 4,
+            "appointment_date": "2024-12-23",
+            "appointment_time": "15:00:00",
+            "reason": "The pet came with signs of gastrointestinal upset and bloating.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 60,
+        "fields": {
+            "pet": 3,
+            "owner": 3,
+            "vet": 2,
+            "appointment_date": "2024-12-23",
+            "appointment_time": "16:30:00",
+            "reason": "The pet showed weakness and reluctance to play.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 61,
+        "fields": {
+            "pet": 22,
+            "owner": 7,
+            "vet": 2,
+            "appointment_date": "2025-01-08",
+            "appointment_time": "11:15:00",
+            "reason": "The pet came with redness and inflammation around the eyes.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 62,
+        "fields": {
+            "pet": 15,
+            "owner": 15,
+            "vet": 3,
+            "appointment_date": "2025-01-08",
+            "appointment_time": "16:00:00",
+            "reason": "The pet showed labored breathing and fatigue.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 63,
+        "fields": {
+            "pet": 16,
+            "owner": 16,
+            "vet": 4,
+            "appointment_date": "2025-01-10",
+            "appointment_time": "13:30:00",
+            "reason": "The pet showed decreased vision and difficulty navigating stairs.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 64,
+        "fields": {
+            "pet": 8,
+            "owner": 8,
+            "vet": 1,
+            "appointment_date": "2025-01-12",
+            "appointment_time": "14:00:00",
+            "reason": "The pet came with excessive drinking and urination.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 65,
+        "fields": {
+            "pet": 18,
+            "owner": 18,
+            "vet": 2,
+            "appointment_date": "2025-01-16",
+            "appointment_time": "16:00:00",
+            "reason": "The pet came with difficulty moving and joint pain.",
+            "status": "Scheduled"
+        }
+    },
+    {
+        "model": "paw_n_care.appointment",
+        "pk": 66,
+        "fields": {
+            "pet": 10,
+            "owner": 10,
+            "vet": 3,
+            "appointment_date": "2025-01-26",
+            "appointment_time": "10:30:00",
+            "reason": "The pet came with ear discomfort and excessive scratching.",
+            "status": "Scheduled"
         }
     }
 ]
