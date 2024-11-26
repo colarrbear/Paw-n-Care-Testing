@@ -178,7 +178,6 @@ OWNER_SEARCH_CONFIG = {
     ]
 }
 
-
 def handle_search(queryset, search_category: str, search_query: str, search_config: Dict[str, Any]) -> tuple:
     """Handle the search functionality for the given queryset and search configuration."""
     if not search_query:
@@ -258,8 +257,6 @@ def edit_pet(request, pet_id):
         return redirect('paw_n_care:appointments')
     else:
         pet = Pet.objects.get(pk=pet_id)
-        owner = pet.owner
-
         return render(request, 'edit/edit_pet.html', {'pet': pet, owner: owner})
 
 
@@ -549,10 +546,15 @@ class Statistic(TemplateView):
         ).count()
 
         # Calculate unique returning owners in the last 6 months
-        six_months_ago = timezone.now() - timezone.timedelta(days=180)
         returning_owners = Owner.objects.filter(
-            pets__appointments__appointment_date__gte=six_months_ago
-        ).distinct().count()
+            appointments__status='Completed',  # Only consider appointments with 'Completed' status
+            appointments__appointment_date__gt=timezone.now() - timezone.timedelta(days=180)  # Last 6 months
+        ).annotate(
+            appointment_count=Count('appointments')  # Count the number of appointments per owner
+        ).filter(
+            appointment_count__gt=1  # Filter owners with more than 1 appointment
+        ).count
+
 
         # Get most frequent species
         most_frequent_species = Pet.objects.values('species') \
@@ -565,17 +567,13 @@ class Statistic(TemplateView):
             most_frequent_species = most_frequent_species.first()
 
         # Calculate percentage of appointments resulting in medications
-        appointments_with_meds = Appointment.objects.filter(
-            pet__medical_records__prescribed_medication__isnull=False
-        ).distinct().count()
-
-        # Calculate percentage
-        medication_percentage = (appointments_with_meds / total_appointments * 100) if total_appointments else 0
+        appointments_with_medications = MedicalRecord.objects.filter(prescribed_medication__isnull=False).count()
+        medication_percentage = (appointments_with_medications / total_appointments * 100) if total_appointments else 0
 
         # Calculate Pet Average Weight Statistics for Dogs, Cats, and Other
-        dog_avg_weight = Pet.objects.filter(species='dog').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
-        cat_avg_weight = Pet.objects.filter(species='cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
-        other_avg_weight = Pet.objects.exclude(species__in=['dog', 'cat']).aggregate(avg_weight=Avg('weight'))[
+        dog_avg_weight = Pet.objects.filter(species='Dog').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        cat_avg_weight = Pet.objects.filter(species='Cat').aggregate(avg_weight=Avg('weight'))['avg_weight'] or 0
+        other_avg_weight = Pet.objects.exclude(species__in=['Dog', 'Cat']).aggregate(avg_weight=Avg('weight'))[
                                'avg_weight'] or 0
 
         # "Appointment Statistics"
@@ -749,7 +747,7 @@ class MedRecHome(TemplateView):
         context = {
             'medical_records': medical_records,
             'search_query': search_query,
-            'search_category': search_category,
+            'search_category': search_category
         }
         return render(request, self.template_name, context)
 
