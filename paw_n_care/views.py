@@ -215,7 +215,7 @@ def handle_search(queryset, search_category: str, search_query: str, search_conf
 
     return queryset.values(*search_config['values_fields']), search_query, search_category
 
-def edit(request, appointment_id):
+def edit_appointment(request, appointment_id):
     if request.method == 'POST':
         appointment = Appointment.objects.get(pk=appointment_id)
         appointment.status = request.POST.get('status')
@@ -237,7 +237,22 @@ def edit(request, appointment_id):
         return redirect('paw_n_care:appointments')
     else:
         appointment = Appointment.objects.get(pk=appointment_id)
-        return render(request, 'edit.html', {'appointment': appointment})
+        return render(request, 'edit_appointment.html', {'appointment': appointment})
+
+def edit_pet(request, pet_id):
+    if request.method == 'POST':
+        pet = Pet.objects.get(pk=pet_id)
+        pet.name = request.POST.get('name')
+        pet.species = request.POST.get('species')
+        pet.breed = request.POST.get('breed')
+        pet.date_of_birth = request.POST.get('date_of_birth')
+        pet.gender = request.POST.get('gender') 
+        pet.weight = request.POST.get('weight')
+        pet.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        pet = Pet.objects.get(pk=pet_id)
+        return render(request, 'edit_pet.html', {'pet': pet})
 
 class Appointments(TemplateView):
     template_name = 'appointments.html'
@@ -792,3 +807,36 @@ def update_appointment(request, appointment_id):
         'vets': vets,
     }
     return render(request, 'update_appointment.html', context)
+
+def update_pet(request, pet_id):
+    # Retrieve the pet object
+    pet = get_object_or_404(Pet, pk=pet_id)
+
+    if request.method == 'POST':
+        # Update the pet fields with POST data
+        pet.name = request.POST.get('name')
+        pet.species = request.POST.get('species')
+        pet.breed = request.POST.get('breed')
+        pet.date_of_birth = request.POST.get('date_of_birth')
+        pet.gender = request.POST.get('gender')
+        pet.weight = request.POST.get('weight')
+
+        # Update the owner if provided
+        owner_id = request.POST.get('owner_id')
+        if owner_id:
+            pet.owner = get_object_or_404(Owner, owner_id=owner_id)
+
+        # Save the updated pet
+        pet.save()
+
+        # Redirect to the pet home page
+        return redirect('paw_n_care:pet-home')
+
+    # Render the update form
+    owners = Owner.objects.all()  # Fetch all owners for the dropdown
+    context = {
+        'pet': pet,
+        'owners': owners,
+    }
+    return render(request, 'update_pet.html', context)
+
