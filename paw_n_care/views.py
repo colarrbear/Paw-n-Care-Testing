@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.views.generic import TemplateView
@@ -9,7 +9,6 @@ from django.contrib.auth import logout
 from django.db.models import Count, Sum, Avg, Q
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
-
 
 APPOINTMENT_SEARCH_CONFIG = {
     'all_fields': [
@@ -214,6 +213,93 @@ def handle_search(queryset, search_category: str, search_query: str, search_conf
                 queryset = queryset.filter(**{f"{field_name}__icontains": search_query})
 
     return queryset.values(*search_config['values_fields']), search_query, search_category
+
+
+def edit_appointment(request, appointment_id):
+    if request.method == 'POST':
+        appointment = Appointment.objects.get(pk=appointment_id)
+        appointment.status = request.POST.get('status')
+        appointment.reason = request.POST.get('reason')
+        appointment.appointment_date = request.POST.get('appointment_date')
+        appointment.appointment_time = request.POST.get('appointment_time')
+        appointment.pet.name = request.POST.get('pet_name')
+        appointment.pet.weight = request.POST.get('weight')
+        appointment.pet.breed = request.POST.get('breed')
+        appointment.pet.date_of_birth = request.POST.get('date_of_birth')
+        appointment.pet.gender = request.POST.get('gender')
+        appointment.pet.species = request.POST.get('species')
+        appointment.owner.first_name = request.POST.get('first_name')
+        appointment.owner.last_name = request.POST.get('last_name')
+        appointment.owner.address = request.POST.get('address')
+        appointment.owner.phone_number = request.POST.get('phone')
+        appointment.owner.email = request.POST.get('email')
+        appointment.save()
+        return redirect('paw_n_care:home')
+    else:
+        appointment = Appointment.objects.get(pk=appointment_id)
+        vets = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+        return render(request, 'edit/edit_appointment.html', {'appointment': appointment, 'vets': vets})
+
+
+def edit_pet(request, pet_id):
+    if request.method == 'POST':
+        pet = Pet.objects.get(pk=pet_id)
+        pet.name = request.POST.get('name')
+        pet.species = request.POST.get('species')
+        pet.breed = request.POST.get('breed')
+        pet.date_of_birth = request.POST.get('date_of_birth')
+        pet.gender = request.POST.get('gender')
+        pet.weight = request.POST.get('weight')
+        pet.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        pet = Pet.objects.get(pk=pet_id)
+        return render(request, 'edit/edit_pet.html', {'pet': pet})
+
+
+def edit_owner(request, owner_id):
+    if request.method == 'POST':
+        owner = Owner.objects.get(pk=owner_id)
+        owner.first_name = request.POST.get('first_name')
+        owner.last_name = request.POST.get('last_name')
+        owner.address = request.POST.get('address')
+        owner.phone_number = request.POST.get('phone')
+        owner.email = request.POST.get('email')
+        owner.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        owner = Owner.objects.get(pk=owner_id)
+        return render(request, 'edit/edit_owner.html', {'owner': owner})
+
+
+def edit_medical_record(request, medical_record_id):
+    if request.method == 'POST':
+        medical_record = MedicalRecord.objects.get(pk=medical_record_id)
+        medical_record.visit_date = request.POST.get('visit_date')
+        medical_record.diagnosis = request.POST.get('diagnosis')
+        medical_record.treatment = request.POST.get('treatment')
+        medical_record.prescribed_medication = request.POST.get('prescribed_medication')
+        medical_record.notes = request.POST.get('notes')
+        medical_record.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        medical_record = MedicalRecord.objects.get(pk=medical_record_id)
+
+        return render(request, 'edit/edit_medical_record.html', {'medical_record': medical_record})
+
+
+def edit_billing(request, billing_id):
+    if request.method == 'POST':
+        billing = Billing.objects.get(pk=billing_id)
+        billing.total_amount = request.POST.get('total_amount')
+        billing.payment_status = request.POST.get('payment_status')
+        billing.payment_method = request.POST.get('payment_method')
+        billing.payment_date = request.POST.get('payment_date')
+        billing.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        billing = Billing.objects.get(pk=billing_id)
+        return render(request, 'edit/edit_billing.html', {'billing': billing})
 
 
 class Appointments(TemplateView):
@@ -738,3 +824,140 @@ class OwnerHome(TemplateView):
 def redirect_to_login(request):
     # Redirect to the login page
     return HttpResponseRedirect('/login/')
+
+
+def update_appointment(request, appointment_id):
+    # Retrieve the appointment object
+    appointment = get_object_or_404(Appointment, pk=appointment_id)
+
+    if request.method == 'POST':
+        # Update the appointment fields with POST data
+        appointment.status = request.POST.get('status')
+        appointment.reason = request.POST.get('reason')
+        appointment.appointment_date = request.POST.get('appointment_date')
+        appointment.appointment_time = request.POST.get('appointment_time')
+
+        # Update veterinarian if provided
+        vet_id = request.POST.get('vet')
+        if vet_id:
+            appointment.vet = get_object_or_404(Veterinarian, vet_id=vet_id)
+
+        # Save the updated appointment
+        appointment.save()
+
+        # Redirect to the home page
+        return redirect('paw_n_care:home')
+
+    # Render the update form
+    vets = Veterinarian.objects.all()  # Fetch all veterinarians for the dropdown
+    context = {
+        'appointment': appointment,
+        'vets': vets,
+    }
+    return render(request, 'update_appointment.html', context)
+
+
+def update_pet(request, pet_id):
+    # Retrieve the pet object
+    pet = get_object_or_404(Pet, pk=pet_id)
+
+    if request.method == 'POST':
+        # Update the pet fields with POST data
+        pet.name = request.POST.get('name')
+        pet.species = request.POST.get('species')
+        pet.breed = request.POST.get('breed')
+        pet.date_of_birth = request.POST.get('date_of_birth')
+        pet.gender = request.POST.get('gender')
+        pet.weight = request.POST.get('weight')
+
+        # Update the owner if provided
+        owner_id = request.POST.get('owner_id')
+        if owner_id:
+            pet.owner = get_object_or_404(Owner, owner_id=owner_id)
+
+        # Save the updated pet
+        pet.save()
+
+        # Redirect to the pet home page
+        return redirect('paw_n_care:pet-home')
+
+    # Render the update form
+    owners = Owner.objects.all()  # Fetch all owners for the dropdown
+    context = {
+        'pet': pet,
+        'owners': owners,
+    }
+    return render(request, 'update_pet.html', context)
+
+
+def update_owner(request, owner_id):
+    # Retrieve the owner object
+    owner = get_object_or_404(Owner, pk=owner_id)
+
+    if request.method == 'POST':
+        # Update the owner fields with POST data
+        owner.first_name = request.POST.get('first_name')
+        owner.last_name = request.POST.get('last_name')
+        owner.address = request.POST.get('address')
+        owner.email = request.POST.get('email')
+        owner.phone_number = request.POST.get('phone')
+
+        # Save the updated owner
+        owner.save()
+
+        # Redirect to the owner home page
+        return redirect('paw_n_care:owner-home')
+
+    # Render the update form
+    context = {
+        'owner': owner,
+    }
+    return render(request, 'update_owner.html', context)
+
+
+def update_medical_record(request, record_id):
+    # Retrieve the medical record object
+    medical_record = get_object_or_404(MedicalRecord, pk=record_id)
+
+    if request.method == 'POST':
+        # Update the medical record fields with POST data
+        medical_record.diagnosis = request.POST.get('diagnosis')
+        medical_record.treatment = request.POST.get('treatment')
+        medical_record.prescribed_medication = request.POST.get('prescribed_medication')
+        medical_record.notes = request.POST.get('notes')
+
+        # Save the updated medical record
+        medical_record.save()
+
+        # Redirect to the medical record home page
+        return redirect('paw_n_care:medical-record-home')
+
+    # Render the update form
+    context = {
+        'medical_record': medical_record,
+    }
+    return render(request, 'update_medical_record.html', context)
+
+
+def update_billing(request, billing_id):
+    # Retrieve the billing object
+    billing = get_object_or_404(Billing, pk=billing_id)
+
+    if request.method == 'POST':
+        # Update the billing fields with POST data
+        billing.total_amount = request.POST.get('total_amount')
+        billing.payment_status = request.POST.get('payment_status')
+        billing.payment_method = request.POST.get('payment_method')
+        billing.payment_date = request.POST.get('payment_date')
+
+        # Save the updated billing
+        billing.save()
+
+        # Redirect to the billing home page
+        return redirect('paw_n_care:billing-home')
+
+    # Render the update form
+    context = {
+        'billing': billing,
+    }
+    return render(request, 'update_billing.html', context)

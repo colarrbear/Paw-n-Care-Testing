@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-[1550px] h-auto mx-auto">
+    <form id="owner-form" action="{% url 'paw_n_care:edit_owner' owner.owner_id %}" method="POST">
+        {% csrf_token %}
+        <div class="h-auto flex flex-wrap justify-start items-start gap-12">
+            <!-- Owner Section -->
+            <div class="flex-grow flex flex-col justify-start items-start">
+                <div class="w-full h-auto py-7 flex flex-col justify-start items-start gap-7">
+                    <div class="w-full flex justify-between items-center">
+                        <div class="text-[#1b1e28] text-[34px] font-semibold font-['Poppins'] leading-10">
+                            Edit Owner
+                        </div>
+                    </div>
+
+                    <!-- Owner Details Form -->
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <!-- First Name -->
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">First Name</label>
+                            <input 
+                                name="first_name" 
+                                type="text" 
+                                value="{{ owner.first_name }}" 
+                                placeholder="Enter first name"
+                                class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" 
+                                required>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Last Name</label>
+                            <input 
+                                name="last_name" 
+                                type="text" 
+                                value="{{ owner.last_name }}" 
+                                placeholder="Enter last name"
+                                class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" 
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <!-- Address -->
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Address</label>
+                            <input 
+                                name="address" 
+                                type="text" 
+                                value="{{ owner.address }}" 
+                                placeholder="Enter address"
+                                class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Email</label>
+                            <input 
+                                name="email" 
+                                type="email" 
+                                value="{{ owner.email }}" 
+                                placeholder="Enter email"
+                                class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+
+                    <div class="w-full flex flex-wrap justify-start items-start gap-4">
+                        <!-- Phone -->
+                        <div class="flex-grow flex flex-col gap-1">
+                            <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Phone</label>
+                            <input 
+                                name="phone" 
+                                type="tel" 
+                                value="{{ owner.phone_number }}" 
+                                placeholder="Enter phone number"
+                                class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="">
+                        <button type="submit" 
+                                class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                            Save Changes
+                        </button>
+                        <a href="{% url 'paw_n_care:owner-home' %}" 
+                            class="inline-block ml-2 px-4 py-2 bg-white border border-[#3e65dc] text-[#3e65dc] rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#f2f2f2] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
