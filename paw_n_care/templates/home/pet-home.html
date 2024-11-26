@@ -127,7 +127,7 @@
                                 {{ i.owner__first_name }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="pet/edit/{{i.pet_id}}" class="font-medium text-blue-600 hover:underline">Edit</a>
+                                <a href="{% url 'paw_n_care:edit_pet' i.pet_id %}" class="font-medium text-blue-600 hover:underline">Edit</a>
                             </td>
                         </tr>
                         {% endfor %}

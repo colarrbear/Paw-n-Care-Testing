@@ -63,14 +63,16 @@
                             <input type="datetime-local" name="payment_date" value="{{ billing.payment_date|date:'Y-m-d\TH:i' }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                         </div>
                     </div>
-                    <!-- Update Payment Button -->
-                    <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] w-auto self-start">
-                        Save Changes
-                    </button>
-                    <a href="{% url 'paw_n_care:billing-home' %}" 
-                        class="px-4 py-2 text-blue-600 border border-blue-600 rounded-md text-sm font-medium font-['Poppins'] leading-tight transition duration-300 ease-in-out transform hover:bg-blue-100 hover:shadow-md">
-                        Cancel
-                    </a>
+                    <div class="mt-4">
+                        <button type="submit" 
+                                class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                            Save Changes
+                        </button>
+                        <a href="{% url 'paw_n_care:billing-home' %}" 
+                            class="inline-block ml-2 px-4 py-2 bg-white border border-[#3e65dc] text-[#3e65dc] rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#f2f2f2] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

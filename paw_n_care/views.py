@@ -10,7 +10,6 @@ from django.db.models import Count, Sum, Avg, Q
 
 from paw_n_care.models import Appointment, Owner, Pet, Veterinarian, MedicalRecord, Billing, User
 
-
 APPOINTMENT_SEARCH_CONFIG = {
     'all_fields': [
         'appointment_id',
@@ -215,6 +214,7 @@ def handle_search(queryset, search_category: str, search_query: str, search_conf
 
     return queryset.values(*search_config['values_fields']), search_query, search_category
 
+
 def edit_appointment(request, appointment_id):
     if request.method == 'POST':
         appointment = Appointment.objects.get(pk=appointment_id)
@@ -234,10 +234,12 @@ def edit_appointment(request, appointment_id):
         appointment.owner.phone_number = request.POST.get('phone')
         appointment.owner.email = request.POST.get('email')
         appointment.save()
-        return redirect('paw_n_care:appointments')
+        return redirect('paw_n_care:home')
     else:
         appointment = Appointment.objects.get(pk=appointment_id)
-        return render(request, 'edit_appointment.html', {'appointment': appointment})
+        vets = Veterinarian.objects.all().values('vet_id', 'first_name', 'last_name')
+        return render(request, 'edit/edit_appointment.html', {'appointment': appointment, 'vets': vets})
+
 
 def edit_pet(request, pet_id):
     if request.method == 'POST':
@@ -246,13 +248,14 @@ def edit_pet(request, pet_id):
         pet.species = request.POST.get('species')
         pet.breed = request.POST.get('breed')
         pet.date_of_birth = request.POST.get('date_of_birth')
-        pet.gender = request.POST.get('gender') 
+        pet.gender = request.POST.get('gender')
         pet.weight = request.POST.get('weight')
         pet.save()
         return redirect('paw_n_care:appointments')
     else:
         pet = Pet.objects.get(pk=pet_id)
-        return render(request, 'edit_pet.html', {'pet': pet})
+        return render(request, 'edit/edit_pet.html', {'pet': pet})
+
 
 def edit_owner(request, owner_id):
     if request.method == 'POST':
@@ -265,8 +268,9 @@ def edit_owner(request, owner_id):
         owner.save()
         return redirect('paw_n_care:appointments')
     else:
-        owner = Owner.objects.get(pk=owner_id)            
-        return render(request, 'edit_owner.html', {'owner': owner})
+        owner = Owner.objects.get(pk=owner_id)
+        return render(request, 'edit/edit_owner.html', {'owner': owner})
+
 
 def edit_medical_record(request, medical_record_id):
     if request.method == 'POST':
@@ -280,7 +284,9 @@ def edit_medical_record(request, medical_record_id):
         return redirect('paw_n_care:appointments')
     else:
         medical_record = MedicalRecord.objects.get(pk=medical_record_id)
-        return render(request, 'edit_medical_record.html', {'medical_record': medical_record})
+
+        return render(request, 'edit/edit_medical_record.html', {'medical_record': medical_record})
+
 
 def edit_billing(request, billing_id):
     if request.method == 'POST':
@@ -293,7 +299,8 @@ def edit_billing(request, billing_id):
         return redirect('paw_n_care:appointments')
     else:
         billing = Billing.objects.get(pk=billing_id)
-        return render(request, 'edit_billing.html', {'billing': billing})
+        return render(request, 'edit/edit_billing.html', {'billing': billing})
+
 
 class Appointments(TemplateView):
     template_name = 'appointments.html'
@@ -829,7 +836,7 @@ def update_appointment(request, appointment_id):
         appointment.reason = request.POST.get('reason')
         appointment.appointment_date = request.POST.get('appointment_date')
         appointment.appointment_time = request.POST.get('appointment_time')
-        
+
         # Update veterinarian if provided
         vet_id = request.POST.get('vet')
         if vet_id:
@@ -848,6 +855,7 @@ def update_appointment(request, appointment_id):
         'vets': vets,
     }
     return render(request, 'update_appointment.html', context)
+
 
 def update_pet(request, pet_id):
     # Retrieve the pet object
@@ -880,6 +888,7 @@ def update_pet(request, pet_id):
         'owners': owners,
     }
     return render(request, 'update_pet.html', context)
+
 
 def update_owner(request, owner_id):
     # Retrieve the owner object
@@ -928,6 +937,7 @@ def update_medical_record(request, record_id):
         'medical_record': medical_record,
     }
     return render(request, 'update_medical_record.html', context)
+
 
 def update_billing(request, billing_id):
     # Retrieve the billing object

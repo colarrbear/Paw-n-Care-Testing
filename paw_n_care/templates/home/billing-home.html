@@ -126,7 +126,7 @@
                                 {{ i.payment_date }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="billing/edit/{{i.bill_id}}" class="font-medium text-blue-600 hover:underline">Edit</a>
+                                <a href="{% url 'paw_n_care:edit_billing' i.bill_id %}" class="font-medium text-blue-600 hover:underline">Edit</a>
                             </td>
                         </tr>
                         {% endfor %}

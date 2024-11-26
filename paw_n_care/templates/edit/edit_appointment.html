@@ -10,11 +10,11 @@
         <!-- Veterinarian Selection -->
         <div class="mb-4">
             <label for="vet" class="block text-sm font-medium text-gray-700">Veterinarian</label>
-            <select id="vet" name="vet" class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            <select name="vet" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
                 <option disabled selected>Select Veterinarian</option>
                 {% for vet in vets %}
                     <option value="{{ vet.vet_id }}" {% if appointment.vet and appointment.vet.vet_id == vet.vet_id %}selected{% endif %}>
-                        Dr. {{ vet.first_name }} {{ vet.last_name }}
+                        Dr. {{ vet.first_name }} {{ vet.last_name }} (ID: {{ vet.vet_id }})
                     </option>
                 {% endfor %}
             </select>
@@ -24,13 +24,13 @@
         <div class="mb-4">
             <label for="reason" class="block text-sm font-medium text-gray-700">Reason</label>
             <input id="reason" name="reason" type="text" value="{{ appointment.reason }}" 
-                   class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+                   class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" required>
         </div>
 
         <!-- Status -->
         <div class="mb-4">
             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-            <select id="status" name="status" class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            <select id="status" name="status" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" required>
                 <option disabled>Select Status</option>
                 <option value="Scheduled" {% if appointment.status == 'Scheduled' %}selected{% endif %}>Scheduled</option>
                 <option value="Completed" {% if appointment.status == 'Completed' %}selected{% endif %}>Completed</option>
@@ -42,24 +42,24 @@
         <div class="mb-4">
             <label for="appointment_date" class="block text-sm font-medium text-gray-700">Appointment Date</label>
             <input id="appointment_date" name="appointment_date" type="date" value="{{ appointment.appointment_date|date:'Y-m-d' }}"
-                   class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+                   class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" required>
         </div>
 
         <!-- Appointment Time -->
         <div class="mb-4">
             <label for="appointment_time" class="block text-sm font-medium text-gray-700">Appointment Time</label>
             <input id="appointment_time" name="appointment_time" type="time" value="{{ appointment.appointment_time|time:'H:i' }}"
-                   class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+                   class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" required>
         </div>
 
         <!-- Submit Button -->
         <div class="mt-6">
             <button type="submit" 
-                    class="px-6 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">
+                    class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
                 Save Changes
             </button>
             <a href="{% url 'paw_n_care:home' %}" 
-               class="ml-4 px-6 py-2 text-blue-600 border border-blue-600 rounded-lg shadow-md hover:bg-blue-100">
+                class="inline-block ml-2 px-4 py-2 bg-white border border-[#3e65dc] text-[#3e65dc] rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#f2f2f2] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc]">
                 Cancel
             </a>
         </div>
