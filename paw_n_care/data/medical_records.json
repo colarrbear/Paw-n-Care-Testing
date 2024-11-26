@@ -1,0 +1,604 @@
+[
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 1,
+        "fields": {
+            "appointment": 11,
+            "pet": 11,
+            "vet": 3,
+            "visit_date": "2023-04-09",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Patient showing difficulty moving and joint stiffness characteristic of arthritis"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 2,
+        "fields": {
+            "appointment": 12,
+            "pet": 12,
+            "vet": 4,
+            "visit_date": "2023-04-30",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Severe allergic reactions with intense itching observed"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 3,
+        "fields": {
+            "appointment": 13,
+            "pet": 13,
+            "vet": 1,
+            "visit_date": "2023-05-26",
+            "diagnosis": "Diabetes",
+            "treatment": "Insulin Therapy",
+            "prescribed_medication": "Insulin Injections",
+            "notes": "Symptoms of excessive thirst and frequent urination consistent with diabetes"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 4,
+        "fields": {
+            "appointment": 14,
+            "pet": 14,
+            "vet": 2,
+            "visit_date": "2023-06-12",
+            "diagnosis": "Ear Infection",
+            "treatment": "Ear Cleaning",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Frequent head shaking and signs of ear discomfort"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 5,
+        "fields": {
+            "appointment": 15,
+            "pet": 15,
+            "vet": 3,
+            "visit_date": "2023-08-17",
+            "diagnosis": "Heartworm Disease",
+            "treatment": "Melarsomine dihydrochloride",
+            "prescribed_medication": "Antibiotics, Steroids",
+            "notes": "Symptoms of coughing and lethargy typical of heartworm infection"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 6,
+        "fields": {
+            "appointment": 16,
+            "pet": 16,
+            "vet": 4,
+            "visit_date": "2023-08-31",
+            "diagnosis": "Hip Dysplasia",
+            "treatment": "Surgical Repair",
+            "prescribed_medication": "Tramadol",
+            "notes": "Significant difficulty walking due to joint malformation"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 7,
+        "fields": {
+            "appointment": 17,
+            "pet": 17,
+            "vet": 1,
+            "visit_date": "2023-09-14",
+            "diagnosis": "Cataracts",
+            "treatment": "Surgery",
+            "prescribed_medication": "Anti-Inflammatory Eye Drops, Post-operative Pain Medication",
+            "notes": "Blurry vision and visual impairment observed"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 8,
+        "fields": {
+            "appointment": 18,
+            "pet": 18,
+            "vet": 2,
+            "visit_date": "2023-10-18",
+            "diagnosis": "Liver Disease",
+            "treatment": "Intravenous fluids, diet changes, antibiotics",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Loss of appetite and vomiting indicating liver complications"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 9,
+        "fields": {
+            "appointment": 19,
+            "pet": 19,
+            "vet": 3,
+            "visit_date": "2023-11-05",
+            "diagnosis": "Pancreatitis",
+            "treatment": "IV fluids, low-fat diet",
+            "prescribed_medication": "Antiemetic medications",
+            "notes": "Nausea and stomach pain consistent with pancreatitis"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 10,
+        "fields": {
+            "appointment": 20,
+            "pet": 20,
+            "vet": 4,
+            "visit_date": "2023-11-16",
+            "diagnosis": "Chronic Kidney Disease",
+            "treatment": "Fluid Therapy",
+            "prescribed_medication": "Cerenia, ondansetron, omeprazole",
+            "notes": "Lethargy and dehydration indicating kidney dysfunction"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 11,
+        "fields": {
+            "appointment": 1,
+            "pet": 1,
+            "vet": 1,
+            "visit_date": "2023-01-15",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Leg pain suggesting early stages of arthritis"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 12,
+        "fields": {
+            "appointment": 2,
+            "pet": 2,
+            "vet": 2,
+            "visit_date": "2023-01-22",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Skin irritation typical of allergic reactions"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 13,
+        "fields": {
+            "appointment": 3,
+            "pet": 3,
+            "vet": 3,
+            "visit_date": "2023-02-06",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Difficulty walking indicating joint inflammation"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 14,
+        "fields": {
+            "appointment": 5,
+            "pet": 5,
+            "vet": 1,
+            "visit_date": "2023-02-27",
+            "diagnosis": "Heartworm Disease",
+            "treatment": "Melarsomine dihydrochloride",
+            "prescribed_medication": "Antibiotics, Steroids",
+            "notes": "Fever symptoms consistent with heartworm infection"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 15,
+        "fields": {
+            "appointment": 7,
+            "pet": 7,
+            "vet": 3,
+            "visit_date": "2023-03-03",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Unusual scratching behavior indicative of allergic reaction"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 16,
+        "fields": {
+            "appointment": 10,
+            "pet": 10,
+            "vet": 2,
+            "visit_date": "2023-03-27",
+            "diagnosis": "Liver Disease",
+            "treatment": "Intravenous fluids, diet changes, antibiotics",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Swollen abdomen suggesting liver complications"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 17,
+        "fields": {
+            "appointment": 22,
+            "pet": 22,
+            "vet": 4,
+            "visit_date": "2023-12-20",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Skin irritation and itching observed"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 18,
+        "fields": {
+            "appointment": 24,
+            "pet": 24,
+            "vet": 2,
+            "visit_date": "2024-01-05",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Excessive scratching and biting indicating severe allergic reaction"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 19,
+        "fields": {
+            "appointment": 26,
+            "pet": 26,
+            "vet": 4,
+            "visit_date": "2024-02-01",
+            "diagnosis": "Heartworm Disease",
+            "treatment": "Melarsomine dihydrochloride",
+            "prescribed_medication": "Antibiotics, Steroids",
+            "notes": "Lethargy and breathing difficulties typical of heartworm"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 20,
+        "fields": {
+            "appointment": 27,
+            "pet": 27,
+            "vet": 1,
+            "visit_date": "2024-02-24",
+            "diagnosis": "Ear Infection",
+            "treatment": "Ear Cleaning",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Constant ear scratching indicating infection"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 21,
+        "fields": {
+            "appointment": 28,
+            "pet": 28,
+            "vet": 2,
+            "visit_date": "2024-02-25",
+            "diagnosis": "Diabetes",
+            "treatment": "Insulin Therapy",
+            "prescribed_medication": "Insulin Injections",
+            "notes": "Weight loss and low energy consistent with diabetes"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 22,
+        "fields": {
+            "appointment": 29,
+            "pet": 29,
+            "vet": 3,
+            "visit_date": "2024-03-04",
+            "diagnosis": "Diabetes",
+            "treatment": "Insulin Therapy",
+            "prescribed_medication": "Insulin Injections",
+            "notes": "Excessive thirst and frequent urination indicating diabetes"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 23,
+        "fields": {
+            "appointment": 30,
+            "pet": 30,
+            "vet": 4,
+            "visit_date": "2024-03-11",
+            "diagnosis": "Heartworm Disease",
+            "treatment": "Melarsomine dihydrochloride",
+            "prescribed_medication": "Antibiotics, Steroids",
+            "notes": "Breathing difficulties and coughing suggesting heartworm"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 24,
+        "fields": {
+            "appointment": 31,
+            "pet": 31,
+            "vet": 1,
+            "visit_date": "2024-03-29",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Difficulty moving and joint stiffness"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 25,
+        "fields": {
+            "appointment": 32,
+            "pet": 32,
+            "vet": 2,
+            "visit_date": "2024-03-29",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Itchy skin and hair loss indicating allergic reaction"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 26,
+        "fields": {
+            "appointment": 34,
+            "pet": 34,
+            "vet": 4,
+            "visit_date": "2024-04-08",
+            "diagnosis": "Liver Disease",
+            "treatment": "Intravenous fluids, diet changes, antibiotics",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Excessive panting and rapid heartbeat suggesting liver issues"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 27,
+        "fields": {
+            "appointment": 35,
+            "pet": 35,
+            "vet": 1,
+            "visit_date": "2024-04-17",
+            "diagnosis": "Chronic Kidney Disease",
+            "treatment": "Fluid Therapy",
+            "prescribed_medication": "Cerenia, ondansetron, omeprazole",
+            "notes": "Loss of appetite and frequent urination indicating kidney problems"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 28,
+        "fields": {
+            "appointment": 36,
+            "pet": 36,
+            "vet": 2,
+            "visit_date": "2024-04-21",
+            "diagnosis": "Hip Dysplasia",
+            "treatment": "Surgical Repair",
+            "prescribed_medication": "Tramadol",
+            "notes": "Swelling and tenderness in hind legs"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 29,
+        "fields": {
+            "appointment": 37,
+            "pet": 37,
+            "vet": 3,
+            "visit_date": "2024-04-29",
+            "diagnosis": "Heartworm Disease",
+            "treatment": "Melarsomine dihydrochloride",
+            "prescribed_medication": "Antibiotics, Steroids",
+            "notes": "Dizziness and fatigue consistent with heartworm progression"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 30,
+        "fields": {
+            "appointment": 38,
+            "pet": 38,
+            "vet": 4,
+            "visit_date": "2024-05-01",
+            "diagnosis": "Liver Disease",
+            "treatment": "Intravenous fluids, diet changes, antibiotics",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Loss of balance and frequent vomiting, liver function evaluation"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 31,
+        "fields": {
+            "appointment": 40,
+            "pet": 40,
+            "vet": 3,
+            "visit_date": "2024-05-10",
+            "diagnosis": "Chronic Kidney Disease",
+            "treatment": "Fluid Therapy",
+            "prescribed_medication": "Cerenia, ondansetron, omeprazole",
+            "notes": "Lethargy and loss of appetite, kidney disease symptoms"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 32,
+        "fields": {
+            "appointment": 41,
+            "pet": 41,
+            "vet": 3,
+            "visit_date": "2024-06-09",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Stiff joints and difficulty climbing stairs"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 33,
+        "fields": {
+            "appointment": 42,
+            "pet": 42,
+            "vet": 4,
+            "visit_date": "2024-06-13",
+            "diagnosis": "Allergies",
+            "treatment": "Antihistamines",
+            "prescribed_medication": "Immunosuppressive Medications",
+            "notes": "Constant scratching and hair loss, severe allergic reaction"
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 34,
+        "fields": {
+            "appointment": 43,
+            "pet": 33,
+            "vet": 1,
+            "visit_date": "2024-06-18",
+            "diagnosis": "Liver Disease",
+            "treatment": "Intravenous fluids, diet changes, antibiotics",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Patient presented with frequent vomiting and diarrhea. Recommended dietary modifications and antibiotic treatment."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 35,
+        "fields": {
+            "appointment": 44,
+            "pet": 14,
+            "vet": 3,
+            "visit_date": "2024-07-20",
+            "diagnosis": "Ear Infection",
+            "treatment": "Ear Cleaning",
+            "prescribed_medication": "Antibiotics",
+            "notes": "Patient showed symptoms of frequent vomiting and diarrhea. Conducted thorough ear examination and prescribed antibiotics."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 36,
+        "fields": {
+            "appointment": 45,
+            "pet": 31,
+            "vet": 1,
+            "visit_date": "2024-07-26",
+            "diagnosis": "Chronic Kidney Disease",
+            "treatment": "Fluid Therapy",
+            "prescribed_medication": "Cerenia, ondansetron, omeprazole",
+            "notes": "Significant weight loss and lack of interest in food. Recommended fluid therapy and medication to manage symptoms."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 37,
+        "fields": {
+            "appointment": 46,
+            "pet": 36,
+            "vet": 4,
+            "visit_date": "2024-08-01",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Sudden drop in energy and stopped playing. Diagnosed with joint inflammation and prescribed pain management."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 38,
+        "fields": {
+            "appointment": 47,
+            "pet": 16,
+            "vet": 2,
+            "visit_date": "2024-08-11",
+            "diagnosis": "Diabetes",
+            "treatment": "Insulin Therapy",
+            "prescribed_medication": "Insulin Injections",
+            "notes": "Showed signs of excessive drinking and urination. Confirmed diabetes and initiated insulin treatment."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 39,
+        "fields": {
+            "appointment": 49,
+            "pet": 8,
+            "vet": 1,
+            "visit_date": "2024-09-19",
+            "diagnosis": "Arthritis",
+            "treatment": "Joint Supplements",
+            "prescribed_medication": "Non-steroidal anti-inflammatory drugs (NSAIDs)",
+            "notes": "Patient came with joint stiffness and difficulty moving. Prescribed joint supplements and pain management."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 40,
+        "fields": {
+            "appointment": 50,
+            "pet": 29,
+            "vet": 2,
+            "visit_date": "2024-09-23",
+            "diagnosis": "Pancreatitis",
+            "treatment": "IV fluids, low-fat diet",
+            "prescribed_medication": "Antiemetic medications",
+            "notes": "Patient came with frequent vomiting and diarrhea. Treated with IV fluids and prescribed low-fat diet."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 41,
+        "fields": {
+            "appointment": 52,
+            "pet": 40,
+            "vet": 4,
+            "visit_date": "2024-10-26",
+            "diagnosis": "Pancreatitis",
+            "treatment": "IV fluids, low-fat diet",
+            "prescribed_medication": "Antiemetic medications",
+            "notes": "Showed signs of severe bloating and discomfort after eating. Diagnosed with pancreatitis and treated accordingly."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 42,
+        "fields": {
+            "appointment": 54,
+            "pet": 33,
+            "vet": 2,
+            "visit_date": "2024-11-09",
+            "diagnosis": "Hip Dysplasia",
+            "treatment": "Surgical Repair",
+            "prescribed_medication": "Tramadol",
+            "notes": "Patient came with a limp and difficulty walking. Pain management and potential surgical intervention recommended."
+        }
+    },
+    {
+        "model": "paw_n_care.medicalrecord",
+        "pk": 43,
+        "fields": {
+            "appointment": 55,
+            "pet": 31,
+            "vet": 4,
+            "visit_date": "2024-11-14",
+            "diagnosis": "Chronic Kidney Disease",
+            "treatment": "Fluid Therapy",
+            "prescribed_medication": "Cerenia, ondansetron, omeprazole",
+            "notes": "Patient came with abnormal breathing and rapid heart rate. Conducted comprehensive kidney function tests."
+        }
+    }
+]

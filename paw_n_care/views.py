@@ -458,13 +458,8 @@ class Statistic(TemplateView):
 
         # Calculate unique returning owners in the last 6 months
         six_months_ago = timezone.now() - timezone.timedelta(days=180)
-        returning_owners = Owner.objects.annotate(
-            recent_appointments=Count(
-                'pets__appointments', 
-                filter=Q(pets__appointments__appointment_date__gte=six_months_ago)
-            )
-        ).filter(
-            recent_appointments__gt=1
+        returning_owners = Owner.objects.filter(
+            pets__appointments__appointment_date__gte=six_months_ago
         ).distinct().count()
 
         # Get most frequent species
