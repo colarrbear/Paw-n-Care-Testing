@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form id="billing-form" action="{% url 'paw_n_care:edit_billing' billing.bill_id %}" method="POST">
+    {% csrf_token %}
+    <div class="w-full max-w-[1550px] h-auto mx-auto">
+        <div class="h-auto flex flex-wrap justify-start items-start gap-12">
+            <!-- Main Content -->
+            <div class="flex flex-col flex-1 gap-7">
+                <div class="flex flex-col p-7 gap-3">
+                    <!-- Header -->
+                    <div class="flex justify-between">
+                        <h1 class="text-[#1b1e28] text-[34px] font-semibold">Edit Billing</h1>
+                    </div>
+                    <!-- Edit Billing Section -->
+                    <h2 class="text-xl font-bold text-[#1a2227]">Billing Details</h2>
+                    <div class="flex gap-4">
+                        <div class="w-full flex justify-between items-center gap-4">
+                            <div class="flex-grow flex flex-col gap-1">
+                                <label class="text-[#1a2227] text-[13px] font-medium font-['Poppins']">Appointment ID</label>
+                                <div class="flex flex-col gap-1 relative w-full">
+                                    <div class="w-full">
+                                        <select name="appointment_id" class="select select-bordered w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight" disabled>
+                                            <option value="{{ billing.appointment_id }}" selected>
+                                                Appointment ID: {{ billing.appointment_id }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="text-[13px] font-medium text-[#1a2227]">Total Amount</label>
+                            <input name="total_amount" type="number" step="0.01" value="{{ billing.total_amount }}" required placeholder="Enter total amount" class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="text-[13px] font-medium text-[#1a2227]">Payment Status</label>
+                            <select name="payment_status" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <option value="Paid" {% if billing.payment_status == 'Paid' %}selected{% endif %}>Paid</option>
+                                <option value="Pending" {% if billing.payment_status == 'Pending' %}selected{% endif %}>Pending</option>
+                                <option value="Overdue" {% if billing.payment_status == 'Overdue' %}selected{% endif %}>Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="text-[13px] font-medium text-[#1a2227]">Payment Method</label>
+                            <select name="payment_method" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                                <option value="Credit Card" {% if billing.payment_method == 'Credit Card' %}selected{% endif %}>Credit Card</option>
+                                <option value="Cash" {% if billing.payment_method == 'Cash' %}selected{% endif %}>Cash</option>
+                                <option value="Bank Transfer" {% if billing.payment_method == 'Bank Transfer' %}selected{% endif %}>Bank Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="text-[13px] font-medium text-[#1a2227]">Payment Date</label>
+                            <input type="datetime-local" name="payment_date" value="{{ billing.payment_date|date:'Y-m-d\TH:i' }}" required class="w-full px-3 py-2 bg-[#25597e]/10 rounded-xl border border-transparent focus:outline-none focus:border-[#344578] text-[15px] font-normal font-['Poppins'] leading-tight">
+                        </div>
+                    </div>
+                    <!-- Update Payment Button -->
+                    <button class="px-4 py-2 bg-[#3e65dc] text-white rounded-xl text-[15px] font-medium font-['Poppins'] leading-tight transition-all duration-300 ease-in-out transform hover:bg-[#1e4b8c] hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#3e65dc] w-auto self-start">
+                        Save Changes
+                    </button>
+                    <a href="{% url 'paw_n_care:billing-home' %}" 
+                        class="px-4 py-2 text-blue-600 border border-blue-600 rounded-md text-sm font-medium font-['Poppins'] leading-tight transition duration-300 ease-in-out transform hover:bg-blue-100 hover:shadow-md">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -22,4 +22,5 @@ urlpatterns = [
     path('home/pet/pet/edit/<pet_id>/', views.edit_pet, name='edit_pet'),
     path('home/owner/owner/edit/<owner_id>/', views.edit_owner, name='edit_owner'),
     path('home/medical-record/medical-record/edit/<medical_record_id>/', views.edit_medical_record, name='edit_medical_record'),
+    path('home/billing/billing/edit/<billing_id>/', views.edit_billing, name='edit_billing'),
 ]

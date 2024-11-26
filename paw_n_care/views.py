@@ -282,6 +282,19 @@ def edit_medical_record(request, medical_record_id):
         medical_record = MedicalRecord.objects.get(pk=medical_record_id)
         return render(request, 'edit_medical_record.html', {'medical_record': medical_record})
 
+def edit_billing(request, billing_id):
+    if request.method == 'POST':
+        billing = Billing.objects.get(pk=billing_id)
+        billing.total_amount = request.POST.get('total_amount')
+        billing.payment_status = request.POST.get('payment_status')
+        billing.payment_method = request.POST.get('payment_method')
+        billing.payment_date = request.POST.get('payment_date')
+        billing.save()
+        return redirect('paw_n_care:appointments')
+    else:
+        billing = Billing.objects.get(pk=billing_id)
+        return render(request, 'edit_billing.html', {'billing': billing})
+
 class Appointments(TemplateView):
     template_name = 'appointments.html'
 
@@ -915,3 +928,26 @@ def update_medical_record(request, record_id):
         'medical_record': medical_record,
     }
     return render(request, 'update_medical_record.html', context)
+
+def update_billing(request, billing_id):
+    # Retrieve the billing object
+    billing = get_object_or_404(Billing, pk=billing_id)
+
+    if request.method == 'POST':
+        # Update the billing fields with POST data
+        billing.total_amount = request.POST.get('total_amount')
+        billing.payment_status = request.POST.get('payment_status')
+        billing.payment_method = request.POST.get('payment_method')
+        billing.payment_date = request.POST.get('payment_date')
+
+        # Save the updated billing
+        billing.save()
+
+        # Redirect to the billing home page
+        return redirect('paw_n_care:billing-home')
+
+    # Render the update form
+    context = {
+        'billing': billing,
+    }
+    return render(request, 'update_billing.html', context)
