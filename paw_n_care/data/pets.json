@@ -1,0 +1,561 @@
+[
+    {
+        "model": "paw_n_care.pet",
+        "pk": 1,
+        "fields": {
+            "owner_id": 1,
+            "name": "Maximus",
+            "species": "Dog",
+            "breed": "Bulldog",
+            "date_of_birth": "2022-03-15",
+            "gender": "Male",
+            "weight": 20.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 2,
+        "fields": {
+            "owner_id": 2,
+            "name": "Fluffy",
+            "species": "Cat",
+            "breed": "Persian",
+            "date_of_birth": "2021-08-22",
+            "gender": "Female",
+            "weight": 5.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 3,
+        "fields": {
+            "owner_id": 3,
+            "name": "Rex",
+            "species": "Dog",
+            "breed": "German Shepherd",
+            "date_of_birth": "2020-06-10",
+            "gender": "Male",
+            "weight": 30.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 4,
+        "fields": {
+            "owner_id": 4,
+            "name": "Whiskers",
+            "species": "Cat",
+            "breed": "Maine Coon",
+            "date_of_birth": "2022-12-05",
+            "gender": "Female",
+            "weight": 8.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 5,
+        "fields": {
+            "owner_id": 5,
+            "name": "Buddy",
+            "species": "Dog",
+            "breed": "Golden Retriever",
+            "date_of_birth": "2019-02-11",
+            "gender": "Male",
+            "weight": 32.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 6,
+        "fields": {
+            "owner_id": 6,
+            "name": "Bella",
+            "species": "Dog",
+            "breed": "Labrador",
+            "date_of_birth": "2021-09-15",
+            "gender": "Female",
+            "weight": 25.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 7,
+        "fields": {
+            "owner_id": 7,
+            "name": "Luna",
+            "species": "Cat",
+            "breed": "Bengal",
+            "date_of_birth": "2020-11-18",
+            "gender": "Female",
+            "weight": 6.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 8,
+        "fields": {
+            "owner_id": 8,
+            "name": "Charlie",
+            "species": "Dog",
+            "breed": "Beagle",
+            "date_of_birth": "2018-07-30",
+            "gender": "Male",
+            "weight": 10.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 9,
+        "fields": {
+            "owner_id": 9,
+            "name": "Coco",
+            "species": "Cat",
+            "breed": "Siamese",
+            "date_of_birth": "2021-01-19",
+            "gender": "Female",
+            "weight": 4.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 10,
+        "fields": {
+            "owner_id": 10,
+            "name": "Toby",
+            "species": "Dog",
+            "breed": "Poodle",
+            "date_of_birth": "2022-05-03",
+            "gender": "Male",
+            "weight": 6.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 11,
+        "fields": {
+            "owner_id": 11,
+            "name": "Socks",
+            "species": "Cat",
+            "breed": "Tabby",
+            "date_of_birth": "2021-10-09",
+            "gender": "Male",
+            "weight": 5.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 12,
+        "fields": {
+            "owner_id": 12,
+            "name": "Max",
+            "species": "Dog",
+            "breed": "Chihuahua",
+            "date_of_birth": "2019-12-20",
+            "gender": "Male",
+            "weight": 3.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 13,
+        "fields": {
+            "owner_id": 13,
+            "name": "Daisy",
+            "species": "Dog",
+            "breed": "Cocker Spaniel",
+            "date_of_birth": "2020-04-10",
+            "gender": "Female",
+            "weight": 12.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 14,
+        "fields": {
+            "owner_id": 14,
+            "name": "Milo",
+            "species": "Dog",
+            "breed": "Dachshund",
+            "date_of_birth": "2022-08-21",
+            "gender": "Male",
+            "weight": 8.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 15,
+        "fields": {
+            "owner_id": 15,
+            "name": "Ginger",
+            "species": "Cat",
+            "breed": "Abyssinian",
+            "date_of_birth": "2022-01-14",
+            "gender": "Female",
+            "weight": 4.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 16,
+        "fields": {
+            "owner_id": 16,
+            "name": "Benny",
+            "species": "Dog",
+            "breed": "Rottweiler",
+            "date_of_birth": "2021-03-25",
+            "gender": "Male",
+            "weight": 40.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 17,
+        "fields": {
+            "owner_id": 17,
+            "name": "Shadow",
+            "species": "Cat",
+            "breed": "Russian Blue",
+            "date_of_birth": "2021-04-18",
+            "gender": "Male",
+            "weight": 5.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 18,
+        "fields": {
+            "owner_id": 18,
+            "name": "Rocky",
+            "species": "Dog",
+            "breed": "Boxer",
+            "date_of_birth": "2020-09-30",
+            "gender": "Male",
+            "weight": 35.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 19,
+        "fields": {
+            "owner_id": 19,
+            "name": "Lucy",
+            "species": "Dog",
+            "breed": "Beagle",
+            "date_of_birth": "2021-07-14",
+            "gender": "Female",
+            "weight": 12.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 20,
+        "fields": {
+            "owner_id": 20,
+            "name": "Cleo",
+            "species": "Cat",
+            "breed": "Sphynx",
+            "date_of_birth": "2020-02-08",
+            "gender": "Female",
+            "weight": 3.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 21,
+        "fields": {
+            "owner_id": 6,
+            "name": "Sparky",
+            "species": "Bird",
+            "breed": "Parakeet",
+            "date_of_birth": "2021-11-30",
+            "gender": "Male",
+            "weight": 0.05
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 22,
+        "fields": {
+            "owner_id": 7,
+            "name": "Simba",
+            "species": "Cat",
+            "breed": "Bengal",
+            "date_of_birth": "2020-07-19",
+            "gender": "Male",
+            "weight": 8.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 23,
+        "fields": {
+            "owner_id": 8,
+            "name": "Zoe",
+            "species": "Hamster",
+            "breed": "Syrian",
+            "date_of_birth": "2019-10-25",
+            "gender": "Female",
+            "weight": 0.12
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 24,
+        "fields": {
+            "owner_id": 9,
+            "name": "Misty",
+            "species": "Cat",
+            "breed": "Scottish Fold",
+            "date_of_birth": "2021-03-12",
+            "gender": "Female",
+            "weight": 6.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 25,
+        "fields": {
+            "owner_id": 10,
+            "name": "Rudy",
+            "species": "Dog",
+            "breed": "Boxer",
+            "date_of_birth": "2020-12-02",
+            "gender": "Male",
+            "weight": 28.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 26,
+        "fields": {
+            "owner_id": 11,
+            "name": "Tinkerbell",
+            "species": "Turtle",
+            "breed": "Red-Eared Slider",
+            "date_of_birth": "2021-02-14",
+            "gender": "Female",
+            "weight": 1.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 27,
+        "fields": {
+            "owner_id": 12,
+            "name": "Buster",
+            "species": "Dog",
+            "breed": "Dalmatian",
+            "date_of_birth": "2019-11-18",
+            "gender": "Male",
+            "weight": 32.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 28,
+        "fields": {
+            "owner_id": 13,
+            "name": "Nala",
+            "species": "Bird",
+            "breed": "Canary",
+            "date_of_birth": "2021-09-08",
+            "gender": "Female",
+            "weight": 0.03
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 29,
+        "fields": {
+            "owner_id": 14,
+            "name": "Clyde",
+            "species": "Dog",
+            "breed": "Beagle",
+            "date_of_birth": "2022-04-10",
+            "gender": "Male",
+            "weight": 13.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 30,
+        "fields": {
+            "owner_id": 15,
+            "name": "Gizmo",
+            "species": "Hamster",
+            "breed": "Dwarf",
+            "date_of_birth": "2021-06-20",
+            "gender": "Male",
+            "weight": 0.05
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 31,
+        "fields": {
+            "owner_id": 16,
+            "name": "Maggie",
+            "species": "Dog",
+            "breed": "Collie",
+            "date_of_birth": "2020-03-05",
+            "gender": "Female",
+            "weight": 18.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 32,
+        "fields": {
+            "owner_id": 17,
+            "name": "Lily",
+            "species": "Cat",
+            "breed": "Birman",
+            "date_of_birth": "2020-12-15",
+            "gender": "Female",
+            "weight": 4.80
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 33,
+        "fields": {
+            "owner_id": 18,
+            "name": "Jack",
+            "species": "Dog",
+            "breed": "Schnauzer",
+            "date_of_birth": "2022-01-25",
+            "gender": "Male",
+            "weight": 12.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 34,
+        "fields": {
+            "owner_id": 19,
+            "name": "Penny",
+            "species": "Cat",
+            "breed": "British Shorthair",
+            "date_of_birth": "2021-05-10",
+            "gender": "Female",
+            "weight": 5.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 35,
+        "fields": {
+            "owner_id": 20,
+            "name": "Leo",
+            "species": "Dog",
+            "breed": "Rottweiler",
+            "date_of_birth": "2021-07-01",
+            "gender": "Male",
+            "weight": 33.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 36,
+        "fields": {
+            "owner_id": 21,
+            "name": "Bella",
+            "species": "Dog",
+            "breed": "Cocker Spaniel",
+            "date_of_birth": "2020-09-25",
+            "gender": "Female",
+            "weight": 15.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 37,
+        "fields": {
+            "owner_id": 22,
+            "name": "Tommy",
+            "species": "Dog",
+            "breed": "Jack Russell Terrier",
+            "date_of_birth": "2022-02-17",
+            "gender": "Male",
+            "weight": 9.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 38,
+        "fields": {
+            "owner_id": 23,
+            "name": "Sasha",
+            "species": "Cat",
+            "breed": "Siberian",
+            "date_of_birth": "2021-03-04",
+            "gender": "Female",
+            "weight": 7.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 39,
+        "fields": {
+            "owner_id": 24,
+            "name": "Biscuit",
+            "species": "Dog",
+            "breed": "Basset Hound",
+            "date_of_birth": "2020-08-03",
+            "gender": "Male",
+            "weight": 24.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 40,
+        "fields": {
+            "owner_id": 25,
+            "name": "Pip",
+            "species": "Cat",
+            "breed": "Devon Rex",
+            "date_of_birth": "2021-02-08",
+            "gender": "Female",
+            "weight": 3.50
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 41,
+        "fields": {
+            "owner_id": 6,
+            "name": "Harley",
+            "species": "Dog",
+            "breed": "Great Dane",
+            "date_of_birth": "2019-04-28",
+            "gender": "Male",
+            "weight": 45.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 42,
+        "fields": {
+            "owner_id": 7,
+            "name": "Bailey",
+            "species": "Dog",
+            "breed": "Australian Shepherd",
+            "date_of_birth": "2020-05-13",
+            "gender": "Female",
+            "weight": 20.00
+        }
+    },
+    {
+        "model": "paw_n_care.pet",
+        "pk": 43,
+        "fields": {
+            "owner_id": 8,
+            "name": "Toby",
+            "species": "Bird",
+            "breed": "Cockatiel",
+            "date_of_birth": "2021-08-29",
+            "gender": "Male",
+            "weight": 0.06
+        }
+    }
+]

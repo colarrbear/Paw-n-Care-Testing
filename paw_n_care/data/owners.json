@@ -1,0 +1,304 @@
+[
+    {
+        "model": "paw_n_care.owner",
+        "pk": 1,
+        "fields": {
+            "first_name": "Somchai",
+            "last_name": "Jaidee",
+            "address": "123/45 Suk Jai Rd, Bangkok, 10100",
+            "phone_number": "0812345678",
+            "email": "somchai.jaidee@example.com",
+            "registration_date": "2022-01-15 10:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 2,
+        "fields": {
+            "first_name": "Sukanya",
+            "last_name": "Sookjai",
+            "address": "456/78 Ruen Rom Rd, Chiang Mai, 50000",
+            "phone_number": "0823456789",
+            "email": "sukanya.sookjai@example.com",
+            "registration_date": "2022-03-22 14:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 3,
+        "fields": {
+            "first_name": "Pakorn",
+            "last_name": "Pathanakit",
+            "address": "789/12 Charoen Krung Rd, Bangkok, 10120",
+            "phone_number": "0834567890",
+            "email": "pakorn.pathanakij@example.com",
+            "registration_date": "2022-05-10 09:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 4,
+        "fields": {
+            "first_name": "Onthaya",
+            "last_name": "Kittiwat",
+            "address": "321/54 Arun Amarin Rd, Nakhon Pathom, 73000",
+            "phone_number": "0845678901",
+            "email": "onthai.kittiwat@example.com",
+            "registration_date": "2022-07-30 11:00:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 5,
+        "fields": {
+            "first_name": "Benjamart",
+            "last_name": "Srisawat",
+            "address": "654/32 Wat Phra Kaew Rd, Ubon Ratchathani, 34000",
+            "phone_number": "0856789012",
+            "email": "bengjamart.srisawat@example.com",
+            "registration_date": "2022-09-14 16:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 6,
+        "fields": {
+            "first_name": "Chonthicha",
+            "last_name": "Thongkham",
+            "address": "987/65 Nakhon Chai Si Rd, Nakhon Nayok, 26000",
+            "phone_number": "0867890123",
+            "email": "chonthicha.thongkham@example.com",
+            "registration_date": "2022-11-02 08:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 7,
+        "fields": {
+            "first_name": "Nitipong",
+            "last_name": "Putharaksa",
+            "address": "135/79 Ratchadamnoen Klang Rd, Bangkok, 10200",
+            "phone_number": "0878901234",
+            "email": "nitipong.putharaksa@example.com",
+            "registration_date": "2023-01-18 13:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 8,
+        "fields": {
+            "first_name": "Manee",
+            "last_name": "Misuk",
+            "address": "246/80 Pracha Uthit Rd, Samut Prakan, 10270",
+            "phone_number": "0889012345",
+            "email": "manee.misuk@example.com",
+            "registration_date": "2023-03-05 15:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 9,
+        "fields": {
+            "first_name": "Prapatsorn",
+            "last_name": "Suksawasdee",
+            "address": "357/91 Huai Khwang Rd, Bangkok, 10310",
+            "phone_number": "0890123456",
+            "email": "prapatsorn.suksawasdee@example.com",
+            "registration_date": "2023-04-25 12:10:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 10,
+        "fields": {
+            "first_name": "Wipha",
+            "last_name": "Chaiyana",
+            "address": "468/23 Din Daeng Rd, Bangkok, 10400",
+            "phone_number": "0901234567",
+            "email": "wipha.chaiyana@example.com",
+            "registration_date": "2023-06-15 17:25:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 11,
+        "fields": {
+            "first_name": "Tanapol",
+            "last_name": "Rattanakul",
+            "address": "579/34 Sukhumvit Rd, Bangkok, 10110",
+            "phone_number": "0912345678",
+            "email": "tanapol.rattanakul@example.com",
+            "registration_date": "2023-08-02 10:05:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 12,
+        "fields": {
+            "first_name": "Jiraporn",
+            "last_name": "Meechai",
+            "address": "680/45 Phahonyothin Rd, Bangkok, 10400",
+            "phone_number": "0923456789",
+            "email": "jiraporn.meechai@example.com",
+            "registration_date": "2023-09-19 14:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 13,
+        "fields": {
+            "first_name": "Sutthichai",
+            "last_name": "Artharit",
+            "address": "791/56 Lat Phrao Rd, Bangkok, 10230",
+            "phone_number": "0934567890",
+            "email": "sutthichai.artharit@example.com",
+            "registration_date": "2023-10-28 11:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 14,
+        "fields": {
+            "first_name": "Yanchali",
+            "last_name": "Triyakul",
+            "address": "802/67 Rama IX Rd, Bangkok, 10310",
+            "phone_number": "0945678901",
+            "email": "yanchali.triyakul@example.com",
+            "registration_date": "2023-11-15 09:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 15,
+        "fields": {
+            "first_name": "Nantana",
+            "last_name": "Wiengkaew",
+            "address": "913/78 Chaeng Watthana Rd, Nonthaburi, 11000",
+            "phone_number": "0956789012",
+            "email": "nantana.wiengkaew@example.com",
+            "registration_date": "2023-12-05 16:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 16,
+        "fields": {
+            "first_name": "Kritsada",
+            "last_name": "Sukjai",
+            "address": "102/89 Ratchaphruek Rd, Nakhon Ratchasima, 30000",
+            "phone_number": "0967890123",
+            "email": "kritsada.sukjai@example.com",
+            "registration_date": "2024-01-10 08:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 17,
+        "fields": {
+            "first_name": "Pimchanok",
+            "last_name": "Khamhaeng",
+            "address": "213/90 Chao Phraya Rd, Ayutthaya, 13000",
+            "phone_number": "0978901234",
+            "email": "pimchanok.khamhaeng@example.com",
+            "registration_date": "2024-02-20 14:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 18,
+        "fields": {
+            "first_name": "Chiraphan",
+            "last_name": "Srisawat",
+            "address": "324/11 Thanon Taksin Rd, Bangkok, 10600",
+            "phone_number": "0989012345",
+            "email": "chiraphan.srisawat@example.com",
+            "registration_date": "2024-03-15 12:40:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 19,
+        "fields": {
+            "first_name": "Nattapong",
+            "last_name": "Phetcharat",
+            "address": "435/22 Phitsanulok Rd, Sukhothai, 64000",
+            "phone_number": "0990123456",
+            "email": "nattapong.phetcharatt@example.com",
+            "registration_date": "2024-04-25 13:55:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 20,
+        "fields": {
+            "first_name": "Rattana",
+            "last_name": "Suwannakudt",
+            "address": "546/33 Phetkasem Rd, Samut Songkhram, 75000",
+            "phone_number": "0901234567",
+            "email": "rattana.suwannakudt@example.com",
+            "registration_date": "2024-05-30 10:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 21,
+        "fields": {
+            "first_name": "Piyawan",
+            "last_name": "Srisang",
+            "address": "657/44 Soi Ramkhamhaeng 24, Bangkok, 10240",
+            "phone_number": "0812345678",
+            "email": "piyawan.srisang@example.com",
+            "registration_date": "2024-06-12 15:35:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 22,
+        "fields": {
+            "first_name": "Siriwan",
+            "last_name": "Poonpipat",
+            "address": "768/55 Soi Ladprao 64, Bangkok, 10320",
+            "phone_number": "0823456789",
+            "email": "siriwan.poonpipat@example.com",
+            "registration_date": "2024-07-18 11:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 23,
+        "fields": {
+            "first_name": "Viroj",
+            "last_name": "Pongpanit",
+            "address": "879/66 Soi Sukhumvit 42, Bangkok, 10110",
+            "phone_number": "0834567890",
+            "email": "viroj.pongpanit@example.com",
+            "registration_date": "2024-08-25 09:05:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 24,
+        "fields": {
+            "first_name": "Wasan",
+            "last_name": "Tantrakul",
+            "address": "980/77 Soi Ramindra, Bangkok, 10220",
+            "phone_number": "0845678901",
+            "email": "wasan.tantrakul@example.com",
+            "registration_date": "2024-09-30 14:25:00"
+        }
+    },
+    {
+        "model": "paw_n_care.owner",
+        "pk": 25,
+        "fields": {
+            "first_name": "Kanya",
+            "last_name": "Suwanwong",
+            "address": "109/88 Soi Bangna-Trad, Samut Prakan, 10270",
+            "phone_number": "0856789012",
+            "email": "kanya.suwanwong@example.com",
+            "registration_date": "2024-10-05 16:40:00"
+        }
+    }
+]
+
+
