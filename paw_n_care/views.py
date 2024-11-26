@@ -48,28 +48,32 @@ MEDICAL_RECORD_SEARCH_CONFIG = {
     'all_fields': [
         'record_id',
         'appointment__appointment_id',
+        'pet__pet_id',
         'pet__name',
-        'vet__first_name',
         'diagnosis',
         'treatment',
         'prescribed_medication',
-        'visit_date'
+        'visit_date',
+        'notes'
     ],
     'field_mappings': {
         'record_id': 'record_id',
         'appointment_id': 'appointment__appointment_id',
+        'pet_id': 'pet__pet_id',
         'pet_name': 'pet__name',
-        'vet': 'vet__first_name',
         'diagnosis': 'diagnosis',
         'treatment': 'treatment',
-        'visit_date': 'visit_date'
+        'prescribed_medication': 'prescribed_medication',
+        'visit_date': 'visit_date',
+        'notes': 'notes'
+
     },
     'date_fields': ['visit_date'],
-    'select_related': ['appointment', 'pet', 'vet'],
+    'select_related': ['appointment', 'pet', 'vet', 'diagnosis', 'treatment', 'prescribed_medication'],
     'values_fields': [
         'record_id', 'appointment__appointment_id', 'pet__name',
         'pet__pet_id', 'vet__first_name', 'vet__last_name',
-        'visit_date', 'diagnosis', 'treatment', 'prescribed_medication'
+        'visit_date', 'diagnosis', 'treatment', 'prescribed_medication', 'notes'
     ]
 }
 
@@ -254,7 +258,9 @@ def edit_pet(request, pet_id):
         return redirect('paw_n_care:appointments')
     else:
         pet = Pet.objects.get(pk=pet_id)
-        return render(request, 'edit/edit_pet.html', {'pet': pet})
+        owner = pet.owner
+
+        return render(request, 'edit/edit_pet.html', {'pet': pet, owner: owner})
 
 
 def edit_owner(request, owner_id):
@@ -743,7 +749,7 @@ class MedRecHome(TemplateView):
         context = {
             'medical_records': medical_records,
             'search_query': search_query,
-            'search_category': search_category
+            'search_category': search_category,
         }
         return render(request, self.template_name, context)
 
