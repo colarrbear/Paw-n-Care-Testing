@@ -1,0 +1,343 @@
+[
+    {
+        "model": "paw_n_care.billing",
+        "pk": 1,
+        "fields": {
+            "appointment": 11,
+            "total_amount": 1250.50,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2023-01-15 10:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 2,
+        "fields": {
+            "appointment": 12,
+            "total_amount": 875.25,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2023-04-30 14:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 3,
+        "fields": {
+            "appointment": 13,
+            "total_amount": 1520.75,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2023-05-26 11:15:00 "
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 4,
+        "fields": {
+            "appointment": 14,
+            "total_amount": 645.00,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2023-06-12 09:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 5,
+        "fields": {
+            "appointment": 15,
+            "total_amount": 2450.00,
+            "payment_status": "Overdue",
+            "payment_method": "Cash",
+            "payment_date": "2023-08-17 16:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 6,
+        "fields": {
+            "appointment": 16,
+            "total_amount": 3675.50,
+            "payment_status": "Pending",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2023-08-31 13:40:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 7,
+        "fields": {
+            "appointment": 17,
+            "total_amount": 1525.25,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2023-09-14 10:10:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 8,
+        "fields": {
+            "appointment": 18,
+            "total_amount": 1285.75,
+            "payment_status": "Overdue",
+            "payment_method": "Cash",
+            "payment_date": "2023-10-18 15:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 9,
+        "fields": {
+            "appointment": 19,
+            "total_amount": 1210.00,
+            "payment_status": "Pending",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2023-11-05 11:25:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 10,
+        "fields": {
+            "appointment": 20,
+            "total_amount": 1395.50,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2023-11-16 14:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 11,
+        "fields": {
+            "appointment": 1,
+            "total_amount": 980.25,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2023-01-15 09:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 12,
+        "fields": {
+            "appointment": 22,
+            "total_amount": 765.00,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2023-12-20 16:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 13,
+        "fields": {
+            "appointment": 24,
+            "total_amount": 1095.75,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-01-05 10:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 14,
+        "fields": {
+            "appointment": 26,
+            "total_amount": 1775.50,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-02-01 14:40:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 15,
+        "fields": {
+            "appointment": 27,
+            "total_amount": 1350.25,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-02-24 11:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 16,
+        "fields": {
+            "appointment": 28,
+            "total_amount": 1265.00,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-02-25 09:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 17,
+        "fields": {
+            "appointment": 29,
+            "total_amount": 1235.75,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-03-04 15:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 18,
+        "fields": {
+            "appointment": 30,
+            "total_amount": 2420.50,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-03-11 13:25:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 19,
+        "fields": {
+            "appointment": 31,
+            "total_amount": 1085.25,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-03-29 10:40:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 20,
+        "fields": {
+            "appointment": 32,
+            "total_amount": 1210.00,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-03-29 16:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 21,
+        "fields": {
+            "appointment": 33,
+            "total_amount": 1675.50,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-06-18 14:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 22,
+        "fields": {
+            "appointment": 14,
+            "total_amount": 845.75,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-07-20 11:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 23,
+        "fields": {
+            "appointment": 31,
+            "total_amount": 2350.25,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-07-26 15:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 24,
+        "fields": {
+            "appointment": 36,
+            "total_amount": 1565.00,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-08-01 09:55:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 25,
+        "fields": {
+            "appointment": 16,
+            "total_amount": 1985.50,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-08-11 13:40:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 26,
+        "fields": {
+            "appointment": 8,
+            "total_amount": 1249.25,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-09-19 10:15:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 27,
+        "fields": {
+            "appointment": 29,
+            "total_amount": 1610.00,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-09-23 14:50:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 28,
+        "fields": {
+            "appointment": 40,
+            "total_amount": 2390.75,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-10-26 11:30:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 29,
+        "fields": {
+            "appointment": 33,
+            "total_amount": 1875.50,
+            "payment_status": "Overdue",
+            "payment_method": "Bank Transfer",
+            "payment_date": "2024-11-09 16:45:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 30,
+        "fields": {
+            "appointment": 31,
+            "total_amount": 2145.25,
+            "payment_status": "Pending",
+            "payment_method": "Cash",
+            "payment_date": "2024-11-14 09:20:00"
+        }
+    },
+    {
+        "model": "paw_n_care.billing",
+        "pk": 31,
+        "fields": {
+            "appointment": 43,
+            "total_amount": 1445.00,
+            "payment_status": "Paid",
+            "payment_method": "Credit Card",
+            "payment_date": "2024-11-16 15:10:00"
+        }
+    }
+]
