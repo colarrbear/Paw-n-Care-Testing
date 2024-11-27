@@ -48,7 +48,7 @@
             "appointment_date": "2023-02-19",
             "appointment_time": "11:15:00",
             "reason": "The pet experienced loss of appetite.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -74,7 +74,7 @@
             "appointment_date": "2023-02-28",
             "appointment_time": "13:30:00",
             "reason": "The pet was sneezing frequently.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -100,7 +100,7 @@
             "appointment_date": "2023-03-10",
             "appointment_time": "12:00:00",
             "reason": "The pet came with a wound on its paw.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -113,7 +113,7 @@
             "appointment_date": "2023-03-16",
             "appointment_time": "09:00:00",
             "reason": "The pet showed signs of ear infection.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -165,7 +165,7 @@
             "appointment_date": "2023-05-26",
             "appointment_time": "11:00:00",
             "reason": "The pet came with symptoms of Diabetes, excessive thirst and urination.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -191,7 +191,7 @@
             "appointment_date": "2023-08-17",
             "appointment_time": "09:30:00",
             "reason": "The pet came with signs of Heartworm Disease, coughing and lethargy.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -256,7 +256,7 @@
             "appointment_date": "2023-11-16",
             "appointment_time": "15:00:00",
             "reason": "The pet came with symptoms of Chronic Kidney Disease, lethargy and dehydration.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -295,7 +295,7 @@
             "appointment_date": "2023-12-21",
             "appointment_time": "09:30:00",
             "reason": "The pet came with loss of appetite and vomiting.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -321,7 +321,7 @@
             "appointment_date": "2024-01-13",
             "appointment_time": "12:00:00",
             "reason": "The pet came with swollen paws and difficulty walking.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -425,7 +425,7 @@
             "appointment_date": "2024-04-08",
             "appointment_time": "10:15:00",
             "reason": "The pet came with excessive vomiting and loss of appetite.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -503,7 +503,7 @@
             "appointment_date": "2024-05-10",
             "appointment_time": "13:30:00",
             "reason": "The pet came with coughing and nasal discharge.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -620,7 +620,7 @@
             "appointment_date": "2024-08-26",
             "appointment_time": "15:30:00",
             "reason": "The pet showed signs of ear infection with constant scratching.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -659,7 +659,7 @@
             "appointment_date": "2024-10-07",
             "appointment_time": "13:15:00",
             "reason": "The pet came with signs of infection in the gums and bad breath.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {
@@ -685,7 +685,7 @@
             "appointment_date": "2024-11-03",
             "appointment_time": "10:30:00",
             "reason": "The pet had painful urination and blood in the urine.",
-            "status": "Canceled"
+            "status": "Cancelled"
         }
     },
     {

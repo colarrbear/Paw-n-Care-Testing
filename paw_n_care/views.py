@@ -595,7 +595,7 @@ class Statistic(TemplateView):
         completed_count = Appointment.objects.filter(status='Completed',
                                                      appointment_date__gte=timezone.now() - timezone.timedelta(
                                                          days=365)).count()
-        canceled_count = Appointment.objects.filter(status='Canceled',
+        cancelled_count = Appointment.objects.filter(status='Cancelled',
                                                     appointment_date__gte=timezone.now() - timezone.timedelta(
                                                         days=365)).count()
         # Top 3 Diagnoses
@@ -666,7 +666,7 @@ class Statistic(TemplateView):
             'top_vets': top_vet_full_name,
             'scheduled_count': scheduled_count,
             'completed_count': completed_count,
-            'canceled_count': canceled_count,
+            'cancelled_count': cancelled_count,
             'top_3_diagnoses': top_3_diagnoses,
             'top_3_treatments': top_3_treatments,
 
