@@ -133,6 +133,7 @@ Read and follow the instructions in [Installation the Application](Installation.
 
 ## Demo User Accounts
 * `admin` password `admin`
+* `doctor1` password `doctor1`
 
 ## Our Members
 | Name                      | Responsibilities                                  | Github

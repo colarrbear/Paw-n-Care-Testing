@@ -1,0 +1,4 @@
+# Packages required by this application
+django
+django-allauth
+django-tailwind
