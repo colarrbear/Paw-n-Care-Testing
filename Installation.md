@@ -38,7 +38,7 @@ Run migrations to apply database migrations:
 
 ### Install data from the data fixtures
   ``` 
-  python manage.py loaddata paw_n_care\data\appointments.json paw_n_care\data\billings.json paw_n_care\data\medical_records.json paw_n_care\data\owners.json paw_n_care\data\pets.json paw_n_care\data\veterinarians.json paw_n_care\data\users.json
+  python manage.py loaddata paw_n_care\data\pets.json paw_n_care\data\owners.json paw_n_care\data\veterinarians.json paw_n_care\data\users.json paw_n_care\data\appointments.json paw_n_care\data\medical_records.json paw_n_care\data\billings.json
   ```
 
 More detailt of how to running the application is in [readme.md](README.md)
