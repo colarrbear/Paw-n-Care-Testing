@@ -91,7 +91,48 @@ This application allows only Registered Users to use and users must log in befor
 
 Here is the presentation slide: [Presentation](https://github.com/user-attachments/files/17942688/Paw.Care.pdf)
 
-## Installation
+## Requirements
+Required Python and Django packages are listed in [requirements.txt](./requirements.txt).
+
+## Installation the Application
+Read and follow the instructions in [Installation the Application](Installation.md).
+
+## Running the Application
+1. Start the server in the virtual environment. <br>
+  Activate the virtualenv for this project
+   * On Windows:
+   ``` 
+   venv\Scripts\activate
+   ```
+   * On macOS and Linux:
+   ``` 
+   source venv/bin/activate
+   ```
+   Start the django server:
+   ```
+   python manage.py runserver
+   ```
+   This starts a web server listening on port 8000.
+
+2. You should see this message printed in the terminal window:
+   ```
+   Starting development server at http://127.0.0.1:8000/
+   Quit the server with CONTROL-C.
+   ```
+   If you get a message that the port is unavailable, then run the server on a different port (1024 thru 65535) such as:
+   ```
+   python manage.py runserver 12345
+   ```
+
+2. In a web browser, navigate to <http://localhost:8000>
+
+3. To stop the server, press CTRL-C in the terminal window. Exit the virtual environment by closing the window or by typing:
+   ```
+   deactivate
+   ```
+
+## Demo User Accounts
+* `admin` password `admin`
 
 ## Our Members
 | Name                      | Responsibilities                                  | Github
