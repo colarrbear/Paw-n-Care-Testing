@@ -136,11 +136,11 @@ Read and follow the instructions in [Installation the Application](Installation.
 * `doctor1` password `doctor1`
 
 ## Our Members
-| Name                      | Responsibilities                                  | Github
-|---------------------------|--------------------------------------------------| --------------------------------------------------
-| Phumrapee CHAOWANAPRICHA  | Implement `Edit` feature, Implement project model          | [PhumrapeeC](https://github.com/PhumrapeeC)
-| Atikarn KRUAYKRIANGKRAI   | Implement UI for all pages, `Search` feature, Data table (Home page) | [Nanokwok](https://github.com/Nanokwok)
-| Thorung BOONKAEW          | Implement Statistic page, Add new data features  | [thorungb](https://github.com/thorungb)
-| Nicha RUANGRIT            | Design the database schema, SQL query, and Presentation Slide | [nicharr-nn](https://github.com/nicharr-nn)
+| Name                      | Github
+|---------------------------|--------------------------------------------------|
+| Phumrapee CHAOWANAPRICHA  | [PhumrapeeC](https://github.com/PhumrapeeC)
+| Atikarn KRUAYKRIANGKRAI   | [Nanokwok](https://github.com/Nanokwok)
+| Thorung BOONKAEW          | [thorungb](https://github.com/thorungb)
+| Nicha RUANGRIT            | [nicharr-nn](https://github.com/nicharr-nn)
 
 ## Thank you for your attention
