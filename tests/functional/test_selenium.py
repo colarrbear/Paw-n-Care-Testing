@@ -49,12 +49,6 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
     def setUp(self):
         """Set up test data for each test."""
-        # Create a test user
-        # self.user = User.objects.create_user(
-        #     username='testuser',
-        #     password='testpassword'
-        # )
-
         # Create test veterinarian
         self.vet = Veterinarian.objects.create(
             first_name='John',
@@ -129,3 +123,40 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         except TimeoutException as e:
             self.fail(f"Login test failed - element not found: {str(e)}")
+
+    def test_login_with_incorrect_info(self):
+        """Test user login with incorrect credentials."""
+        # Test Case ID: TC02 - Login with incorrect info
+
+        # Step 1: Navigate to login page
+        self.browser.get(f'{self.live_server_url}')
+
+        try:
+            # Step 2: Enter invalid credentials (valid username but invalid password)
+            username_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
+            password_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
+
+            username_input.send_keys('doctor1')
+            password_input.send_keys('wrongpassword')
+
+            # Step 3: Click login button
+            submit_button = self.wait_for_element(By.XPATH,
+                                                  '//*[@id="login-form"]/div/div/button')
+            submit_button.click()
+
+            # Wait for error message to appear
+            error_message = self.wait_for_element(By.CSS_SELECTOR,
+                                                  '.alert-danger',
+                                                  timeout=5)
+
+            # Verify expected result
+            self.assertTrue(error_message.is_displayed(),
+                            "Error message should be displayed")
+            self.assertIn('login', self.browser.current_url,
+                          "User should remain on login page")
+
+        except TimeoutException as e:
+            self.fail(
+                f"Login with incorrect info test failed - element not found: {str(e)}")
