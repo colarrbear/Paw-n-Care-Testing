@@ -3,12 +3,12 @@
     "model": "paw_n_care.veterinarian",
     "pk": 1,
     "fields": {
-        "first_name": "Thorung",
-        "last_name": "Boonkaew",
+        "first_name": "Chayakarn",
+        "last_name": "Hengsuwan",
         "specialization": "Veterinary Public Health",
-        "license_number": "6510545454",
+        "license_number": "6510545322",
         "phone_number": "0899999999",
-        "email": "thorung.b@ku.th"
+        "email": "chayakarn.h@ku.th"
     }
 },
 {
@@ -27,20 +27,20 @@
     "model": "paw_n_care.veterinarian",
     "pk": 3,
     "fields": {
-        "first_name": "Nicha",
-        "last_name": "Ruangrit",
+        "first_name": "Buravit",
+        "last_name": "Yenjit",
         "specialization": "Veterinary Surgery",
-        "license_number": "6510545411",
+        "license_number": "6510545578",
         "phone_number": "0844444444",
-        "email": "nicha.rua@ku.th"
+        "email": "buravit.y@ku.th"
     }
 },
 {
     "model": "paw_n_care.veterinarian",
     "pk": 4,
     "fields": {
-        "first_name": "Phumrapee",
-        "last_name": "Chaowanapricha",
+        "first_name": "Java",
+        "last_name": "Kruaykriangkrai",
         "specialization": "Veterinary Pathology",
         "license_number": "6510545683",
         "phone_number": "0866666666",
