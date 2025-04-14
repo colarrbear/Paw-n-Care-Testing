@@ -87,3 +87,45 @@ class PetModelTest(TestCase):
         self.assertEqual(self.pet.species, "Cat")
         self.assertEqual(self.pet.owner.first_name, "John")
         self.assertEqual(str(self.pet), "Fluffy (1)")
+
+class AppointmentModelTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="John",
+            last_name="Doe",
+            address="123 Pet St",
+            phone_number="1234567890",
+            email="john@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner,
+            name="Fluffy",
+            species="Cat",
+            breed="Persian",
+            date_of_birth=datetime.now() - timedelta(days=365*3),
+            gender="Female",
+            weight=4.5
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Jane",
+            last_name="Smith",
+            specialization="Feline",
+            license_number="VET123",
+            phone_number="0987654321",
+            email="jane@example.com"
+        )
+        self.appointment = Appointment.objects.create(
+            pet=self.pet,
+            owner=self.owner,
+            vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=datetime.now().time(),
+            reason="Annual checkup",
+            status="Scheduled"
+        )
+
+    def test_appointment_creation(self):
+        self.assertEqual(self.appointment.reason, "Annual checkup")
+        self.assertEqual(self.appointment.vet.full_name, "Jane Smith")
+        self.assertEqual(str(self.appointment), "Appointment 1 for Fluffy")
