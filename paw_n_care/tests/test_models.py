@@ -231,3 +231,23 @@ class BillingModelTest(TestCase):
         self.assertEqual(self.billing.total_amount, 100.00)
         self.assertEqual(self.billing.payment_status, "Paid")
         self.assertEqual(str(self.billing), "Bill 1 for Appointment 1")
+
+class LoginTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username="admin",
+                                             password="admin123")
+
+    def test_login_with_correct_info(self):
+        response = self.client.post(reverse('paw_n_care:login'), {
+            'username': 'admin',
+            'password': 'admin123'
+        })
+        self.assertRedirects(response, '/')
+
+    def test_login_with_incorrect_info(self):
+        response = self.client.post(reverse('paw_n_care:login'), {
+            'username': 'admin',
+            'password': 'wrongpass'
+        })
+        self.assertRedirects(response, reverse('paw_n_care:login'))
