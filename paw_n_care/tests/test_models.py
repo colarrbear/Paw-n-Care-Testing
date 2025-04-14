@@ -396,3 +396,19 @@ class StatisticPageTest(TestCase):
         response = self.client.get(reverse('paw_n_care:statistic'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Statistic")
+
+class OwnerUpdateTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="John",
+            last_name="Doe",
+            email="john@example.com",
+            phone_number="1234567890",
+            registration_date=datetime.now()
+        )
+
+    def test_owner_update(self):
+        self.owner.first_name = "Jonathan"
+        self.owner.save()
+        updated = Owner.objects.get(pk=self.owner.pk)
+        self.assertEqual(updated.first_name, "Jonathan")
