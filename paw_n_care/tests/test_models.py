@@ -285,3 +285,51 @@ class AppointmentStatusUpdateTest(TestCase):
         response = self.client.get(reverse('paw_n_care:appointments'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Bobby")
+
+class MedicalRecordViewTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="Alex", last_name="Lee", address="XYZ Road",
+            phone_number="5555555555", email="alex@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner, name="Bobby", species="Dog", breed="Beagle",
+            date_of_birth=datetime.now() - timedelta(days=365),
+            gender="Male", weight=15.2
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Sara", last_name="Connor", specialization="Canine",
+            license_number="VET999", phone_number="2222222222", email="sara@example.com"
+        )
+        self.appointment = Appointment.objects.create(
+            pet=self.pet, owner=self.owner, vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=datetime.now().time(),
+            reason="Routine Check", status="Completed"
+        )
+        self.medical_record = MedicalRecord.objects.create(
+            appointment=self.appointment,
+            pet=self.pet,
+            vet=self.vet,
+            visit_date=datetime.now(),
+            diagnosis="Allergy",
+            treatment="Antihistamine",
+            prescribed_medication="Cetirizine",
+            notes="Monitor"
+        )
+
+    def test_view_medical_record_details(self):
+        user = User.objects.create_user(username="testuser",
+                                        password="password")
+        self.client.login(username="testuser", password="password")
+
+        response = self.client.get(reverse('paw_n_care:medical-records'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,
+                            "Medical Records")
+
+        record = MedicalRecord.objects.filter(diagnosis="Allergy").first()
+        self.assertIsNotNone(record)
+        self.assertEqual(record.diagnosis, "Allergy")
