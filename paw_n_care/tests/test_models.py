@@ -436,3 +436,23 @@ class PetCreationTest(TestCase):
         self.assertEqual(pet.name, "Max")
         self.assertEqual(pet.species, "Dog")
         self.assertEqual(pet.owner, self.owner)
+
+class VeterinarianStatisticsTest(TestCase):
+    def setUp(self):
+        self.vet = Veterinarian.objects.create(
+            first_name="Sarah",
+            last_name="Johnson",
+            specialization="Canine",
+            license_number="VET456",
+            phone_number="1234567890",
+            email="sarah@example.com"
+        )
+
+    def test_statistic_page_includes_vets(self):
+        response = self.client.get(reverse('paw_n_care:statistic'))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Statistic")
+
+        self.assertIn('vets', response.context)
+        self.assertEqual(response.context['vets'].count(), 1)
