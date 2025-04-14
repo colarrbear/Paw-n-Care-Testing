@@ -333,3 +333,54 @@ class MedicalRecordViewTest(TestCase):
         record = MedicalRecord.objects.filter(diagnosis="Allergy").first()
         self.assertIsNotNone(record)
         self.assertEqual(record.diagnosis, "Allergy")
+
+class BillingUpdateTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="Alex", last_name="Lee", address="XYZ Road",
+            phone_number="5555555555", email="alex@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner, name="Bobby", species="Dog", breed="Beagle",
+            date_of_birth=datetime.now() - timedelta(days=365),
+            gender="Male", weight=15.2
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Sara", last_name="Connor", specialization="Canine",
+            license_number="VET999", phone_number="2222222222", email="sara@example.com"
+        )
+        self.appointment = Appointment.objects.create(
+            pet=self.pet, owner=self.owner, vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=datetime.now().time(),
+            reason="Routine Check", status="Completed"
+        )
+        self.billing = Billing.objects.create(
+            appointment=self.appointment,
+            total_amount=150.00,
+            payment_status="Pending",
+            payment_method="Cash",
+            payment_date=datetime.now()
+        )
+
+    def test_update_payment_status(self):
+        self.billing.payment_status = "Paid"
+        self.billing.save()
+        updated = Billing.objects.get(pk=self.billing.pk)
+        self.assertEqual(updated.payment_status, "Paid")
+
+    def test_view_billing_list(self):
+        user = User.objects.create_user(username="testuser",
+                                        password="password")
+        self.client.login(username="testuser", password="password")
+
+        response = self.client.get(reverse('paw_n_care:billing'))
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Billing")
+
+        billing = Billing.objects.filter(total_amount=150.00).first()
+        self.assertIsNotNone(billing)
+        self.assertEqual(billing.total_amount, 150.00)
