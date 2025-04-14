@@ -1,4 +1,10 @@
 # Packages required by this application
-django
+django~=5.2
 django-allauth
 django-tailwind
+
+# Packages required for development
+decouple~=0.0.7
+dotenv~=0.9.9
+python-dotenv~=1.1.0
+dj-config-url~=0.1.1
