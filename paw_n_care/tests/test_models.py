@@ -412,3 +412,27 @@ class OwnerUpdateTest(TestCase):
         self.owner.save()
         updated = Owner.objects.get(pk=self.owner.pk)
         self.assertEqual(updated.first_name, "Jonathan")
+
+class PetCreationTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="John",
+            last_name="Doe",
+            email="john@example.com",
+            phone_number="1234567890",
+            registration_date=datetime.now()
+        )
+
+    def test_pet_creation_all_fields(self):
+        pet = Pet.objects.create(
+            owner=self.owner,
+            name="Max",
+            species="Dog",
+            breed="Labrador",
+            date_of_birth=datetime.now() - timedelta(days=365 * 2),
+            gender="Male",
+            weight=25.5
+        )
+        self.assertEqual(pet.name, "Max")
+        self.assertEqual(pet.species, "Dog")
+        self.assertEqual(pet.owner, self.owner)
