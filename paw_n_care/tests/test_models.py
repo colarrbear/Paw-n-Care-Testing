@@ -251,3 +251,37 @@ class LoginTest(TestCase):
             'password': 'wrongpass'
         })
         self.assertRedirects(response, reverse('paw_n_care:login'))
+
+class AppointmentStatusUpdateTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="Alex", last_name="Lee", address="XYZ Road",
+            phone_number="5555555555", email="alex@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner, name="Bobby", species="Dog", breed="Beagle",
+            date_of_birth=datetime.now() - timedelta(days=365),
+            gender="Male", weight=15.2
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Sara", last_name="Connor", specialization="Canine",
+            license_number="VET999", phone_number="2222222222", email="sara@example.com"
+        )
+        self.appointment = Appointment.objects.create(
+            pet=self.pet, owner=self.owner, vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=datetime.now().time(),
+            reason="Routine Check", status="Scheduled"
+        )
+
+    def test_update_appointment_status(self):
+        self.appointment.status = "Completed"
+        self.appointment.save()
+        updated = Appointment.objects.get(pk=self.appointment.pk)
+        self.assertEqual(updated.status, "Completed")
+
+    def test_view_appointment_list(self):
+        response = self.client.get(reverse('paw_n_care:appointments'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Bobby")
