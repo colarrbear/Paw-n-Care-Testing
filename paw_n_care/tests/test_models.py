@@ -62,3 +62,28 @@ class OwnerModelTest(TestCase):
         self.assertContains(response, owner.first_name)
         self.assertContains(response, owner.last_name)
 
+class PetModelTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="John",
+            last_name="Doe",
+            address="123 Pet St",
+            phone_number="1234567890",
+            email="john@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner,
+            name="Fluffy",
+            species="Cat",
+            breed="Persian",
+            date_of_birth=datetime.now() - timedelta(days=365*3),
+            gender="Female",
+            weight=4.5
+        )
+
+    def test_pet_creation(self):
+        self.assertEqual(self.pet.name, "Fluffy")
+        self.assertEqual(self.pet.species, "Cat")
+        self.assertEqual(self.pet.owner.first_name, "John")
+        self.assertEqual(str(self.pet), "Fluffy (1)")
