@@ -384,3 +384,15 @@ class BillingUpdateTest(TestCase):
         billing = Billing.objects.filter(total_amount=150.00).first()
         self.assertIsNotNone(billing)
         self.assertEqual(billing.total_amount, 150.00)
+
+class StatisticPageTest(TestCase):
+    def setUp(self):
+        self.vet = Veterinarian.objects.create(
+            first_name="Eva", last_name="Jones", specialization="Exotic",
+            license_number="VET321", phone_number="1111222233", email="eva@example.com"
+        )
+
+    def test_view_statistic_page(self):
+        response = self.client.get(reverse('paw_n_care:statistic'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Statistic")
