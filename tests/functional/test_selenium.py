@@ -153,82 +153,81 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             self.fail(
                 f"Login with incorrect info test failed - element not found: {str(e)}")
 
-    # def test_create_new_owner(self):
-    #     """Test creating a new owner with valid information.
-    #     #TODO: Fix this
-    #     """
-    #     # Test Case ID: TC03 - Create new owner
-    #
-    #     # First login as staff
-    #     self.browser.get(f'{self.live_server_url}')
-    #
-    #     try:
-    #         # Login (using your existing login test as base)
-    #         username_input = self.wait_for_element(By.XPATH,
-    #                                                '//*[@id="login-form"]/div/div/div[3]/div/input')
-    #         password_input = self.wait_for_element(By.XPATH,
-    #                                                '//*[@id="login-form"]/div/div/div[4]/div/input')
-    #         username_input.send_keys('doctor1')  # Using existing credentials
-    #         password_input.send_keys('doctor1')
-    #
-    #         submit_button = self.wait_for_element(By.XPATH,
-    #                                               '//*[@id="login-form"]/div/div/button')
-    #         submit_button.click()
-    #
-    #         # navigate to appointments page
-    #         self.browser.get(f'{self.live_server_url}/appointments/')
-    #
-    #         # Scroll down to owner section
-    #         self.browser.execute_script(
-    #             "window.scrollTo(0, document.body.scrollHeight)")
-    #
-    #         # Click "Add a new owner" button
-    #         add_owner_btn = self.wait_for_element(By.XPATH, '//*[@id="addNewOwnerBtn"]')
-    #         add_owner_btn.click()
-    #
-    #         # Fill in owner information
-    #         test_owner_data = {
-    #             'first_name': 'NewTest',
-    #             'last_name': 'Owner',
-    #             'address': '456 Test Street',
-    #             'phone_number': '555-123-7890',
-    #             'email': 'newtest@example.com'
-    #         }
-    #
-    #         self.wait_for_element(By.NAME, 'first_name').send_keys(
-    #             test_owner_data['first_name'])
-    #         self.browser.find_element(By.NAME, 'last_name').send_keys(
-    #             test_owner_data['last_name'])
-    #         self.browser.find_element(By.NAME, 'address').send_keys(
-    #             test_owner_data['address'])
-    #         self.browser.find_element(By.NAME, 'phone').send_keys(
-    #             test_owner_data['phone_number'])
-    #         self.browser.find_element(By.NAME, 'email').send_keys(
-    #             test_owner_data['email'])
-    #
-    #         # Submit the form (this would typically be part of the appointment submission)
-    #         # For testing owner creation, we can verify the data was entered correctly
-    #         self.browser.find_element(By.XPATH,
-    #                                   '//*[@id="appointments-form"]/div/div/div/div/div[2]/button').click()
-    #
-    #
-    #
-    #         # Verify the owner was created in the database
-    #         created_owner = Owner.objects.filter(last_name='Owner').first()
-    #         self.assertIsNotNone(created_owner, "Owner should exist in database")
-    #         self.assertEqual(created_owner.email, test_owner_data['email'])
-    #
-    #         # Verify the owner appears in the dropdown if we switch to "Choose existing owner"
-    #         choose_owner_btn = self.wait_for_element(By.ID, 'chooseOwnerBtn')
-    #         choose_owner_btn.click()
-    #
-    #         owner_dropdown = self.wait_for_element(By.NAME, 'existing_owner')
-    #         self.assertIn('NewTest Owner', owner_dropdown.text,
-    #                       "New owner should appear in dropdown")
-    #
-    #     except TimeoutException as e:
-    #         self.fail(
-    #             f"Create new owner test failed - element not found: {str(e)}")
+    def test_create_new_owner(self):
+        """Test creating a new owner with valid information."""
+        # Test Case ID: TC03 - Create new owner
+
+        # First login as staff
+        self.browser.get(f'{self.live_server_url}')
+
+        try:
+            # Login (using your existing login test as base)
+            username_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
+            password_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
+            username_input.send_keys('doctor1')  # Using existing credentials
+            password_input.send_keys('doctor1')
+
+            submit_button = self.wait_for_element(By.XPATH,
+                                                  '//*[@id="login-form"]/div/div/button')
+            submit_button.click()
+
+            # navigate to appointments page
+            self.browser.get(f'{self.live_server_url}/appointments/')
+
+            # Scroll down to owner section
+            self.browser.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight)")
+
+            # Click "Add a new owner" button
+            add_owner_btn = self.wait_for_element(By.XPATH, '//*[@id="addNewOwnerBtn"]')
+            add_owner_btn.click()
+
+            # Fill in owner information
+            test_owner_data = {
+                'first_name': 'NewTest',
+                'last_name': 'Owner',
+                'address': '456 Test Street',
+                'phone_number': '555-123-7890',
+                'email': 'newtest@example.com'
+            }
+
+            self.wait_for_element(By.NAME, 'first_name').send_keys(
+                test_owner_data['first_name'])
+            self.browser.find_element(By.NAME, 'last_name').send_keys(
+                test_owner_data['last_name'])
+            self.browser.find_element(By.NAME, 'address').send_keys(
+                test_owner_data['address'])
+            self.browser.find_element(By.NAME, 'phone').send_keys(
+                test_owner_data['phone_number'])
+            self.browser.find_element(By.NAME, 'email').send_keys(
+                test_owner_data['email'])
+
+            # Submit the form (this would typically be part of the appointment submission)
+            # For testing owner creation, we can verify the data was entered correctly
+            self.browser.find_element(By.XPATH,
+                                      '//*[@id="appointments-form"]/div/div/div/div/div[2]/button').click()
+
+            # wait for database update
+            time.sleep(0.5)
+
+            # Verify the owner was created in the database
+            created_owner = Owner.objects.filter(last_name='Owner').first()
+            self.assertIsNotNone(created_owner, "Owner should exist in database")
+            self.assertEqual(created_owner.email, test_owner_data['email'])
+
+            # Verify the owner appears in the dropdown if we switch to "Choose existing owner"
+            choose_owner_btn = self.wait_for_element(By.ID, 'chooseOwnerBtn')
+            choose_owner_btn.click()
+
+            owner_dropdown = self.wait_for_element(By.NAME, 'existing_owner')
+            self.assertIn('NewTest Owner', owner_dropdown.text,
+                          "New owner should appear in dropdown")
+
+        except TimeoutException as e:
+            self.fail(
+                f"Create new owner test failed - element not found: {str(e)}")
 
     def test_update_owner_info(self):
         """Test updating owner information."""
