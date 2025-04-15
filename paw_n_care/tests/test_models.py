@@ -456,3 +456,94 @@ class VeterinarianStatisticsTest(TestCase):
 
         self.assertIn('vets', response.context)
         self.assertEqual(response.context['vets'].count(), 1)
+
+
+class MedicalRecordUpdateTest(TestCase):
+    """Test Case ID: TC10 - Update medical record"""
+
+    def setUp(self):
+        # Create necessary related objects
+        self.owner = Owner.objects.create(
+            first_name="John",
+            last_name="Doe",
+            address="123 Pet St",
+            phone_number="1234567890",
+            email="john@example.com",
+            registration_date=timezone.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner,
+            name="Fluffy",
+            species="Cat",
+            breed="Persian",
+            date_of_birth=timezone.now() - timedelta(days=365 * 3),
+            gender="Female",
+            weight=4.5
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Jane",
+            last_name="Smith",
+            specialization="Feline",
+            license_number="VET123",
+            phone_number="0987654321",
+            email="jane@example.com"
+        )
+        self.appointment = Appointment.objects.create(
+            pet=self.pet,
+            owner=self.owner,
+            vet=self.vet,
+            appointment_date=timezone.now().date(),
+            appointment_time=timezone.now().time(),
+            reason="Annual checkup",
+            status="Completed"
+        )
+        self.medical_record = MedicalRecord.objects.create(
+            appointment=self.appointment,
+            pet=self.pet,
+            vet=self.vet,
+            visit_date=timezone.now(),
+            diagnosis="Healthy",
+            treatment="Vaccination",
+            prescribed_medication="None",
+            notes="Initial checkup completed"
+        )
+
+        # Create test user
+        self.user = User.objects.create_user(
+            username='vetuser',
+            password='vetpass123'
+        )
+        self.client = Client()
+
+    def test_update_medical_record(self):
+        """Verify that existing medical records can be updated"""
+        # Log in the user (simulating vet privileges)
+        self.client.login(username='vetuser', password='vetpass123')
+
+        # Original values
+        original_treatment = self.medical_record.treatment
+        original_notes = self.medical_record.notes
+
+        # New test data to update
+        updated_treatment = "Vaccination and deworming"
+        updated_notes = "Pet responded well to treatment. Needs follow-up in 6 months."
+
+        # Update the medical record
+        self.medical_record.treatment = updated_treatment
+        self.medical_record.notes = updated_notes
+        self.medical_record.save()
+
+        # Retrieve the updated record from database
+        updated_record = MedicalRecord.objects.get(pk=self.medical_record.pk)
+
+        # Verify the record was updated
+        self.assertEqual(updated_record.treatment, updated_treatment)
+        self.assertEqual(updated_record.notes, updated_notes)
+        self.assertNotEqual(updated_record.treatment, original_treatment)
+        self.assertNotEqual(updated_record.notes, original_notes)
+
+        # Verify the original diagnosis and other fields remain unchanged
+        self.assertEqual(updated_record.diagnosis, "Healthy")
+        self.assertEqual(updated_record.prescribed_medication, "None")
+        self.assertEqual(updated_record.pet, self.pet)
+        self.assertEqual(updated_record.vet, self.vet)
