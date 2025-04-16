@@ -397,3 +397,136 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 f"Update appointment status test failed - element not found: {str(e)}")
         except Exception as e:
             self.fail(f"Test failed with exception: {str(e)}")
+
+    def test_create_appointment(self):
+        """Verify that appointments can be scheduled successfully."""
+        print("\nRunning TC06: Create appointment")
+
+        # Navigate to appointment scheduling
+        self.browser.get(f'{self.live_server_url}/appointments/')
+
+        # Step 1: Select pet (choose existing pet)
+        try:
+            choose_pet_btn = self.wait_for_element(By.ID, 'choosePetBtn')
+            choose_pet_btn.click()
+
+            pet_dropdown = self.wait_for_element(By.NAME, 'existing_pet')
+            select_pet = Select(pet_dropdown)
+            select_pet.select_by_visible_text(
+                f"{self.pet.name} | owner: {self.owner.first_name} (Pet ID: {self.pet.pet_id})")
+            print(f"Selected pet: {self.pet.name}")
+        except Exception as e:
+            self.fail(f"Failed to select pet: {str(e)}")
+
+        # Step 2: Select veterinarian
+        try:
+            vet_dropdown = self.wait_for_element(By.NAME, 'vet')
+            select_vet = Select(vet_dropdown)
+            select_vet.select_by_visible_text(
+                f"Dr.{self.vet.first_name} {self.vet.last_name} (Vet ID: {self.vet.vet_id})")
+        except Exception as e:
+            self.fail(f"Failed to select veterinarian: {str(e)}")
+
+        # Step 3: Select status (this was missing!)
+        try:
+            status_dropdown = self.wait_for_element(By.NAME, 'status')
+            select_status = Select(status_dropdown)
+            select_status.select_by_visible_text('Scheduled')
+            print("Selected status: Scheduled")
+        except Exception as e:
+            self.fail(f"Failed to select status: {str(e)}")
+
+        # Step 4: Choose date and time
+        try:
+            appointment_date = (
+                        timezone.now() + datetime.timedelta(days=7)).strftime(
+                '%Y-%m-%d')
+            # print(f"appointment_date: {appointment_date}")
+            date_input = self.wait_for_element(By.NAME, 'appointment_date')
+            # date_input.clear()
+            # date_input.send_keys(appointment_date)
+            self.browser.execute_script("arguments[0].value = arguments[1];",
+                                        date_input, appointment_date)
+
+            appointment_time = (datetime.datetime.now() + datetime.timedelta(
+                hours=1)).strftime('%H:%M')
+            time_input = self.wait_for_element(By.NAME, 'appointment_time')
+            # time_input.clear()
+            # time_input.send_keys(appointment_time)
+            self.browser.execute_script("arguments[0].value = arguments[1];",
+                                        time_input, appointment_time)
+
+        except Exception as e:
+            self.fail(f"Failed to set date/time: {str(e)}")
+
+        # Step 5: Fill in reason
+        try:
+            reason_input = self.wait_for_element(By.NAME, 'reason')
+            reason_input.clear()  # Clear any existing text
+            reason_input.send_keys("Annual checkup - TC06")
+        except Exception as e:
+            self.fail(f"Failed to set appointment reason: {str(e)}")
+
+        # Step 6: Submit appointment
+        try:
+            # Capture current appointment count before submission
+            initial_count = Appointment.objects.count()
+            print(f"Initial appointment count: {initial_count}")
+
+            # Get the form and submit it directly
+            form = self.wait_for_element(By.ID, 'appointments-form')
+            self.browser.execute_script("arguments[0].scrollIntoView(true);", form)
+
+            # Click the submit button
+            submit_button = self.wait_for_element(By.XPATH,
+                                                  '//button[contains(text(), "Add appointment")]')
+            self.browser.execute_script("arguments[0].scrollIntoView(true);",
+                                        submit_button)
+            time.sleep(1)  # Give time for any JS to initialize
+
+            # Submit the form using JavaScript to avoid any click event issues
+            self.browser.execute_script("arguments[0].click();", submit_button)
+
+            # Wait for submission to complete and redirect
+            time.sleep(5)  # Increased wait time significantly
+
+            # Check if there are any error messages on the page
+            try:
+                error_messages = self.browser.find_elements(By.CLASS_NAME, "error")
+                if error_messages:
+                    error_text = [msg.text for msg in error_messages]
+                    print(f"Form validation errors: {error_text}")
+            except:
+                pass
+
+            # Verify appointment was created
+            new_count = Appointment.objects.count()
+            print(f"New appointment count: {new_count}")
+
+            self.assertEqual(new_count, initial_count + 1,
+                             "Appointment count should increase by 1")
+
+            # Verify the latest appointment has our details
+            latest_appt = Appointment.objects.latest('appointment_id')
+            self.assertEqual(latest_appt.pet.pet_id, self.pet.pet_id)
+            self.assertEqual(latest_appt.vet.vet_id, self.vet.vet_id)
+            self.assertEqual(latest_appt.reason, "Annual checkup - TC06")
+
+            print(
+                f"Successfully created appointment ID: {latest_appt.appointment_id}")
+        except Exception as e:
+            # Get page source for debugging
+            page_source = self.browser.page_source
+            print(
+                f"Page source after form submission: {page_source[:500]}...")  # First 500 chars
+
+            # Print console errors
+            console_logs = self.browser.get_log('browser')
+            if console_logs:
+                print("Browser console errors:")
+                for log in console_logs:
+                    print(log)
+
+            self.fail(f"Failed to submit appointment: {str(e)}")
+
+        print("TC06 Completed")
