@@ -127,7 +127,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
     def test_login_with_incorrect_info(self):
         """Test user login with incorrect credentials."""
-        # Test Case ID: TC02 - Login with incorrect info -- Must FAILED
+        # Test Case ID: TC02 - Login with incorrect info
 
         # Step 1: Navigate to login page
         self.browser.get(f'{self.live_server_url}')
@@ -311,92 +311,71 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             self.fail(
                 f"Update owner info test failed - element not found: {str(e)}")
 
-    def test_update_appointment_status(self):
-        """Test updating appointment status."""
-        # Test Case ID: TC05 - Appointment Status Update
+    # TC05 - View owner info
+    def test_view_owner_info(self):
+        """Test Case ID: TC05 - View owner data (via Edit page if no View exists)"""
 
-        # First login as staff
-        self.browser.get(f'{self.live_server_url}')
+        self.browser.get(f'{self.live_server_url}/')
 
         try:
-            # Login (using existing credentials)
+            # Step 1: Login
             username_input = self.wait_for_element(By.XPATH,
                                                    '//*[@id="login-form"]/div/div/div[3]/div/input')
             password_input = self.wait_for_element(By.XPATH,
                                                    '//*[@id="login-form"]/div/div/div[4]/div/input')
             username_input.send_keys('doctor1')
             password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
 
-            # Navigate to appointment management section
-            self.browser.get(f'{self.live_server_url}/home/')
+            # Step 2: Navigate to owner list
+            self.browser.get(f'{self.live_server_url}/home/owner/')
 
-            # Find the edit button for our test appointment
-            appointment_id = '#1'
-            edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
+            # Step 3: Find the Edit link for our test owner
+            edit_buttons = self.browser.find_elements(By.XPATH, '/html/body/main/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[8]/a')
+            clicked = False
             for button in edit_buttons:
-                row = button.find_element(By.XPATH, './ancestor::tr')
-                if appointment_id in row.text:
+                if str(self.owner.owner_id) in button.get_attribute('href'):
                     button.click()
+                    clicked = True
                     break
 
-            # Wait for the edit form to load
-            time.sleep(0.5)
+            self.assertTrue(clicked,
+                            "Could not find Edit button for the owner.")
 
-            # Change status to "Completed"
-            select_elements = self.browser.find_elements(By.TAG_NAME, 'select')
-            for select in select_elements:
-                if select.get_attribute('name') == 'status':
-                    select.click()
-                    # Select the "Completed" option
-                    options = select.find_elements(By.TAG_NAME, 'option')
-                    for option in options:
-                        if option.text == 'Completed':
-                            option.click()
-                            break
-                    break
+            # Step 4: Wait for owner data to load
+            self.wait_for_element(By.NAME, 'first_name')
 
-            # Save changes
-            submit_button = self.wait_for_element(By.CSS_SELECTOR,
-                                                  'button[type="submit"]')
-            submit_button.click()
-
-            # Wait for update and navigate back to appointment list
-            time.sleep(0.5)
-            self.browser.get(f'{self.live_server_url}/home/')
-            time.sleep(0.5)
-
-            headers = self.browser.find_elements(By.CSS_SELECTOR, 'thead th')
-            print(f"Found {len(headers)} table headers:")
-            for i, header in enumerate(headers):
-                print(f"Header {i + 1}: '{header.text}'")
-
-            # Find the updated appointment in the table
-            rows = self.browser.find_elements(By.CSS_SELECTOR, 'tbody tr')
-            updated_row = None
-
-            for row in rows:
-                if appointment_id in row.text:
-                    updated_row = row
-                    break
-
-            self.assertIsNotNone(updated_row, "Appointment row should exist")
-
-            # Use the fixed status column index
-            status_cell = updated_row.find_element(By.XPATH,
-                                                   f'/html/body/main/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[3]')
-            self.assertEqual(status_cell.text, 'Completed',
-                             "Status should be updated to Completed")
-
-            # Verify in database
-            updated_appointment = Appointment.objects.get(
-                appointment_id=appointment_id.replace('#', ''))
-            self.assertEqual(updated_appointment.status, 'Completed')
+            # Step 5: Check if fields contain correct data
+            self.assertEqual(
+                self.browser.find_element(By.NAME, 'first_name').get_attribute(
+                    'value'),
+                self.owner.first_name
+            )
+            self.assertEqual(
+                self.browser.find_element(By.NAME, 'last_name').get_attribute(
+                    'value'),
+                self.owner.last_name
+            )
+            self.assertEqual(
+                self.browser.find_element(By.NAME, 'address').get_attribute(
+                    'value'),
+                self.owner.address
+            )
+            self.assertEqual(
+                self.browser.find_element(By.NAME, 'phone').get_attribute(
+                    'value'),
+                self.owner.phone_number
+            )
+            self.assertEqual(
+                self.browser.find_element(By.NAME, 'email').get_attribute(
+                    'value'),
+                self.owner.email
+            )
 
         except TimeoutException as e:
-            self.fail(
-                f"Update appointment status test failed - element not found: {str(e)}")
-        except Exception as e:
-            self.fail(f"Test failed with exception: {str(e)}")
+            self.fail(f"TC05 failed due to missing element: {str(e)}")
+        except AssertionError as e:
+            self.fail(f"TC05 failed: {str(e)}")
 
     def test_create_appointment(self):
         """Verify that appointments can be scheduled successfully."""
@@ -529,4 +508,90 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             self.fail(f"Failed to submit appointment: {str(e)}")
 
-        print("TC06 Completed")
+
+    def test_update_appointment_status(self):
+        """Test updating appointment status."""
+        # Test Case ID: TC07 - Appointment Status Update
+
+        # First login as staff
+        self.browser.get(f'{self.live_server_url}')
+
+        try:
+            # Login (using existing credentials)
+            username_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
+            password_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+
+            # Navigate to appointment management section
+            self.browser.get(f'{self.live_server_url}/home/')
+
+            # Find the edit button for our test appointment
+            appointment_id = '#1'
+            edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
+            for button in edit_buttons:
+                row = button.find_element(By.XPATH, './ancestor::tr')
+                if appointment_id in row.text:
+                    button.click()
+                    break
+
+            # Wait for the edit form to load
+            time.sleep(0.5)
+
+            # Change status to "Completed"
+            select_elements = self.browser.find_elements(By.TAG_NAME, 'select')
+            for select in select_elements:
+                if select.get_attribute('name') == 'status':
+                    select.click()
+                    # Select the "Completed" option
+                    options = select.find_elements(By.TAG_NAME, 'option')
+                    for option in options:
+                        if option.text == 'Completed':
+                            option.click()
+                            break
+                    break
+
+            # Save changes
+            submit_button = self.wait_for_element(By.CSS_SELECTOR,
+                                                  'button[type="submit"]')
+            submit_button.click()
+
+            # Wait for update and navigate back to appointment list
+            time.sleep(0.5)
+            self.browser.get(f'{self.live_server_url}/home/')
+            time.sleep(0.5)
+
+            headers = self.browser.find_elements(By.CSS_SELECTOR, 'thead th')
+            print(f"Found {len(headers)} table headers:")
+            for i, header in enumerate(headers):
+                print(f"Header {i + 1}: '{header.text}'")
+
+            # Find the updated appointment in the table
+            rows = self.browser.find_elements(By.CSS_SELECTOR, 'tbody tr')
+            updated_row = None
+
+            for row in rows:
+                if appointment_id in row.text:
+                    updated_row = row
+                    break
+
+            self.assertIsNotNone(updated_row, "Appointment row should exist")
+
+            # Use the fixed status column index
+            status_cell = updated_row.find_element(By.XPATH,
+                                                   f'/html/body/main/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[3]')
+            self.assertEqual(status_cell.text, 'Completed',
+                             "Status should be updated to Completed")
+
+            # Verify in database
+            updated_appointment = Appointment.objects.get(
+                appointment_id=appointment_id.replace('#', ''))
+            self.assertEqual(updated_appointment.status, 'Completed')
+
+        except TimeoutException as e:
+            self.fail(
+                f"Update appointment status test failed - element not found: {str(e)}")
+        except Exception as e:
+            self.fail(f"Test failed with exception: {str(e)}")
