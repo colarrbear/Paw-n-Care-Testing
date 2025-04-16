@@ -11,7 +11,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -310,3 +311,207 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             self.fail(
                 f"Update owner info test failed - element not found: {str(e)}")
 
+    # def test_update_appointment_status(self):
+    #     """Test updating appointment status."""
+    #     # Test Case ID: TC05 - Appointment Status Update
+    #
+    #     # First login as staff
+    #     self.browser.get(f'{self.live_server_url}')
+    #
+    #     try:
+    #         # Login (using existing credentials)
+    #         username_input = self.wait_for_element(By.XPATH,
+    #                                                '//*[@id="login-form"]/div/div/div[3]/div/input')
+    #         password_input = self.wait_for_element(By.XPATH,
+    #                                                '//*[@id="login-form"]/div/div/div[4]/div/input')
+    #         username_input.send_keys('doctor1')
+    #         password_input.send_keys('doctor1')
+    #
+    #         # Navigate to appointment management section (the home page is already showing appointments)
+    #         self.browser.get(f'{self.live_server_url}/home/')
+    #
+    #         # print(f"Current URL after navigation: {self.browser.current_url}")
+    #
+    #         # Find the edit button for our test appointment (APT2025042010)
+    #         appointment_id = '#1'
+    #         edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
+    #         for button in edit_buttons:
+    #             row = button.find_element(By.XPATH, './ancestor::tr')
+    #             if appointment_id.replace('APT', '#') in row.text:
+    #                 button.click()
+    #                 break
+    #
+    #         # Wait for the edit form to load
+    #         time.sleep(0.2)
+    #
+    #         # Change status to "Completed"
+    #         select_elements = self.browser.find_elements(By.TAG_NAME,
+    #                                                      'select')
+    #         for select in select_elements:
+    #             if select.get_attribute('name') == 'status':
+    #                 select.click()
+    #                 # Select the "Completed" option
+    #                 options = select.find_elements(By.TAG_NAME, 'option')
+    #                 for option in options:
+    #                     if option.text == 'Completed':
+    #                         option.click()
+    #                         break
+    #                 break
+    #
+    #         # Save changes
+    #         submit_button = self.wait_for_element(By.CSS_SELECTOR,
+    #                                               'button[type="submit"]')
+    #         submit_button.click()
+    #
+    #         # Wait briefly for the update to process
+    #         time.sleep(0.5)
+    #
+    #         # Verify status update in appointment list
+    #         updated_row = None
+    #         rows = self.browser.find_elements(By.CSS_SELECTOR, 'tbody tr')
+    #         for row in rows:
+    #             if appointment_id.replace('APT', '#') in row.text:
+    #                 updated_row = row
+    #                 break
+    #
+    #         self.assertIsNotNone(updated_row,
+    #                              "Appointment row should exist")
+    #         status_cell = updated_row.find_element(By.XPATH,
+    #                                                './td[4]')  # 4th column is status
+    #         self.assertEqual(status_cell.text, 'Completed',
+    #                          "Status should be updated to Completed")
+    #
+    #         # Verify in database
+    #         updated_appointment = Appointment.objects.get(
+    #             appointment_id=appointment_id.replace('APT', ''))
+    #         self.assertEqual(updated_appointment.status, 'Completed')
+    #
+    #
+    #         # Submit the form
+    #         submit_button = self.wait_for_element(By.CSS_SELECTOR,
+    #                                               'button[type="submit"]')
+    #         submit_button.click()
+    #
+    #         # Wait for database update
+    #         time.sleep(0.5)
+    #
+    #         # Navigate back to the appointments list to verify the change
+    #         self.browser.get(f'{self.live_server_url}/home/')
+    #
+    #         # Find the updated appointment in the table
+    #         appointment_rows = self.browser.find_elements(By.XPATH,
+    #                                                       '//table/tbody/tr')
+    #         updated_status = None
+    #
+    #         for row in appointment_rows:
+    #             if appointment_id.replace('APT', '#') in row.text:
+    #                 status_cell = row.find_element(By.XPATH,
+    #                                                './td[4]')  # Status is in the 4th column
+    #                 updated_status = status_cell.text.strip()
+    #                 break
+    #
+    #         # Verify that the status was updated to "Completed"
+    #         self.assertEqual(updated_status, 'Completed')
+    #
+    #         # Also verify the data in the database
+    #         from paw_n_care.models import \
+    #             Appointment  # Make sure to import your model
+    #         updated_appointment = Appointment.objects.get(
+    #             appointment_id=appointment_id.replace('APT', ''))
+    #         self.assertEqual(updated_appointment.status, 'Completed')
+    #
+    #     except TimeoutException as e:
+    #         self.fail(
+    #             f"Update appointment status test failed - element not found: {str(e)}")
+
+    def test_update_appointment_status(self):
+        """Test updating appointment status."""
+        # Test Case ID: TC05 - Appointment Status Update
+
+        # First login as staff
+        self.browser.get(f'{self.live_server_url}')
+
+        try:
+            # Login (using existing credentials)
+            username_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
+            password_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+
+            # Navigate to appointment management section
+            self.browser.get(f'{self.live_server_url}/home/')
+
+            # Find the edit button for our test appointment
+            appointment_id = '#1'
+            edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
+            for button in edit_buttons:
+                row = button.find_element(By.XPATH, './ancestor::tr')
+                if appointment_id in row.text:
+                    button.click()
+                    break
+
+            # Wait for the edit form to load
+            time.sleep(0.5)
+
+            # Change status to "Completed"
+            select_elements = self.browser.find_elements(By.TAG_NAME, 'select')
+            for select in select_elements:
+                if select.get_attribute('name') == 'status':
+                    select.click()
+                    # Select the "Completed" option
+                    options = select.find_elements(By.TAG_NAME, 'option')
+                    for option in options:
+                        if option.text == 'Completed':
+                            option.click()
+                            break
+                    break
+
+            # Save changes
+            submit_button = self.wait_for_element(By.CSS_SELECTOR,
+                                                  'button[type="submit"]')
+            submit_button.click()
+
+            # Wait for update and navigate back to appointment list
+            time.sleep(0.5)
+            self.browser.get(f'{self.live_server_url}/home/')
+            time.sleep(0.5)
+
+            # Debug: Print all column headers
+            headers = self.browser.find_elements(By.CSS_SELECTOR, 'thead th')
+            print(f"Found {len(headers)} table headers:")
+            for i, header in enumerate(headers):
+                print(f"Header {i + 1}: '{header.text}'")
+
+            # Hard-code status column index based on the HTML we've seen
+            # Based on the example HTML in your original post, status is the 4th column (index 3)
+            status_col_index = 4  # Adjust this if needed
+
+            # Find the updated appointment in the table
+            rows = self.browser.find_elements(By.CSS_SELECTOR, 'tbody tr')
+            updated_row = None
+
+            for row in rows:
+                if appointment_id in row.text:
+                    updated_row = row
+                    break
+
+            self.assertIsNotNone(updated_row, "Appointment row should exist")
+
+            # Use the fixed status column index
+            status_cell = updated_row.find_element(By.XPATH,
+                                                   f'/html/body/main/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[3]')
+            self.assertEqual(status_cell.text, 'Completed',
+                             "Status should be updated to Completed")
+
+            # Verify in database
+            updated_appointment = Appointment.objects.get(
+                appointment_id=appointment_id.replace('#', ''))
+            self.assertEqual(updated_appointment.status, 'Completed')
+
+        except TimeoutException as e:
+            self.fail(
+                f"Update appointment status test failed - element not found: {str(e)}")
+        except Exception as e:
+            self.fail(f"Test failed with exception: {str(e)}")
