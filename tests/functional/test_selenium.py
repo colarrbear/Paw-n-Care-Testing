@@ -508,7 +508,6 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             self.fail(f"Failed to submit appointment: {str(e)}")
 
-
     def test_update_appointment_status(self):
         """Test updating appointment status."""
         # Test Case ID: TC07 - Appointment Status Update
@@ -595,3 +594,51 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 f"Update appointment status test failed - element not found: {str(e)}")
         except Exception as e:
             self.fail(f"Test failed with exception: {str(e)}")
+
+    def test_view_appointment_list(self):
+        """Test Case ID: TC08 - View appointment list"""
+
+        self.browser.get(f'{self.live_server_url}/')
+
+        try:
+            # Step 1: Log in
+            username_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
+            password_input = self.wait_for_element(By.XPATH,
+                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
+
+            # Step 2: Navigate to appointment section
+            self.browser.get(f'{self.live_server_url}/home/')
+
+            # Wait for page to load, maybe check title or heading
+            time.sleep(1)
+            body_text = self.browser.find_element(By.TAG_NAME,
+                                                  'body').text.lower()
+            self.assertNotIn("request method:", body_text,
+                             "Page load failed - unexpected error response.")
+
+            # Step 3: Wait for the appointment table to load
+            table = self.wait_for_element(By.TAG_NAME, 'table')
+
+            # Step 4: Validate that at least one row (excluding header) is present
+            rows = table.find_elements(By.TAG_NAME, 'tr')
+            self.assertGreater(len(rows), 1,
+                               "No appointment records found in the table.")
+
+            # Step 5: Optionally check that expected fields exist in the header row
+            headers = [th.text.strip().lower() for th in
+                       rows[0].find_elements(By.TAG_NAME, 'th')]
+            print("Header row:", headers)  # helpful for debugging
+
+            expected_fields = ['date', 'time', 'pet', 'vet', 'status']
+            for field in expected_fields:
+                self.assertTrue(any(field in h for h in headers),
+                                f"Missing expected column: {field}")
+
+        except TimeoutException as e:
+            self.fail(f"TC08 failed due to missing element: {str(e)}")
+        except AssertionError as e:
+            self.fail(f"TC08 failed: {str(e)}")
