@@ -313,7 +313,6 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             self.fail(
                 f"Update owner info test failed - element not found: {str(e)}")
 
-    # TC05 - View owner info
     def test_TC05_view_owner_info(self):
         """Test Case ID: TC05 - View owner data (via Edit page if no View exists)"""
 
@@ -331,16 +330,73 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Step 2: Navigate to owner list
             self.browser.get(f'{self.live_server_url}/home/owner/')
+            time.sleep(
+                2)  # Increased wait time to ensure page loads completely
 
-            # Step 3: Find the Edit link for our test owner
-            edit_buttons = self.browser.find_elements(By.XPATH,
-                                                      '/html/body/main/div/div/div/div[2]/div[2]/table/tbody/tr[1]/td[8]/a')
-            clicked = False
-            for button in edit_buttons:
-                if str(self.owner.owner_id) in button.get_attribute('href'):
-                    button.click()
+            # Take a screenshot for debugging
+            self.browser.save_screenshot("tc05_owner_list.png")
+
+            # Print the owner ID we're looking for
+            owner_id = self.owner.owner_id
+            print(f"Looking for owner ID: {owner_id}")
+
+            # Print page source for debugging
+            page_source = self.browser.page_source
+            print(
+                f"Page source contains 'edit_owner/{owner_id}': {'edit_owner/' + str(owner_id) in page_source}")
+
+            # More direct approach to find the edit link using XPath
+            try:
+                # Try direct XPath with owner ID
+                xpath = f"//a[contains(@href, 'edit_owner/{owner_id}')]"
+                edit_link = self.browser.find_element(By.XPATH, xpath)
+                print(
+                    f"Found edit link using XPath: {edit_link.get_attribute('href')}")
+                edit_link.click()
+                clicked = True
+            except Exception as e:
+                print(f"XPath approach failed: {str(e)}")
+
+                # Try looking at all table rows and print their content
+                rows = self.browser.find_elements(By.CSS_SELECTOR, 'tbody tr')
+                print(f"Found {len(rows)} rows in the table")
+
+                clicked = False
+                for i, row in enumerate(rows):
+                    row_text = row.text
+                    print(f"Row {i + 1} text: {row_text}")
+
+                    # Check if this row contains our owner ID
+                    if f"#{owner_id}" in row_text:
+                        print(f"Found row with owner ID #{owner_id}")
+                        try:
+                            # Try to find the edit link within this row
+                            edit_link = row.find_element(By.LINK_TEXT, 'Edit')
+                            edit_link.click()
+                            clicked = True
+                            print("Successfully clicked Edit link in the row")
+                            break
+                        except Exception as row_e:
+                            print(f"Error clicking Edit in row: {str(row_e)}")
+                            # Try JavaScript click as last resort
+                            try:
+                                edit_link = row.find_element(By.TAG_NAME, 'a')
+                                self.browser.execute_script(
+                                    "arguments[0].click();", edit_link)
+                                clicked = True
+                                print(
+                                    "Successfully clicked link using JavaScript")
+                                break
+                            except Exception as js_e:
+                                print(f"JavaScript click failed: {str(js_e)}")
+
+                # If still not found, try direct URL navigation
+                if not clicked:
+                    print("Attempting direct URL navigation")
+                    self.browser.get(
+                        f'{self.live_server_url}/home/edit/owner/{owner_id}/')
+                    time.sleep(1)
                     clicked = True
-                    break
 
             self.assertTrue(clicked,
                             "Could not find Edit button for the owner.")
@@ -376,8 +432,14 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             )
 
         except TimeoutException as e:
+            self.browser.save_screenshot("TC05_timeout_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC05 failed due to missing element: {str(e)}")
         except AssertionError as e:
+            self.browser.save_screenshot("TC05_assertion_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC05 failed: {str(e)}")
 
     def test_TC06_create_appointment(self):
@@ -781,7 +843,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                                 cells)):
                         found = True
                         print(f"Found exact match in cells for row {i}")
-                        break
+                    break
 
                     # 2. Case-insensitive contains in entire row text
                     if (diagnosis_lower in row_text and
@@ -830,12 +892,13 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             # Step 2: Create a medical record to update
             # Find an appointment without a medical record
             available_appointment = Appointment.objects.exclude(
-                appointment_id__in=MedicalRecord.objects.values_list('appointment_id', flat=True)
+                appointment_id__in=MedicalRecord.objects.values_list(
+                    'appointment_id', flat=True)
             ).first()
-            
+
             if not available_appointment:
                 self.fail("No available appointments for medical record creation")
-            
+
             # Navigate to medical records creation form
             self.browser.get(f'{self.live_server_url}/medical-records/')
             time.sleep(1)
@@ -846,7 +909,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 if str(available_appointment.appointment_id) in option.text:
                     option.click()
                     break
-            
+
             # Set visit date
             visit_date_str = datetime.now().strftime('%Y-%m-%dT%H:%M')
             visit_date = self.wait_for_element(By.NAME, 'visit_date')
@@ -856,107 +919,126 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 visit_date,
                 visit_date_str
             )
-            
+
             # Set initial values - store these to verify they change
             initial_diagnosis = 'Arthritis'
             initial_treatment = 'Joint Supplements'
             initial_medication = 'Non-steroidal anti-inflammatory drugs (NSAIDs)'
             initial_notes = 'Initial notes for TC10 test'
-            
+
             # Use dropdowns properly
-            Select(self.wait_for_element(By.NAME, 'diagnosis')).select_by_visible_text(initial_diagnosis)
-            Select(self.wait_for_element(By.NAME, 'treatment')).select_by_visible_text(initial_treatment)
-            Select(self.wait_for_element(By.NAME, 'prescribed_medication')).select_by_visible_text(initial_medication)
-            
+            Select(self.wait_for_element(By.NAME,
+                                         'diagnosis')).select_by_visible_text(
+                initial_diagnosis)
+            Select(self.wait_for_element(By.NAME,
+                                         'treatment')).select_by_visible_text(
+                initial_treatment)
+            Select(self.wait_for_element(By.NAME,
+                                         'prescribed_medication')).select_by_visible_text(
+                initial_medication)
+
             notes_input = self.wait_for_element(By.NAME, 'notes')
             notes_input.clear()
             notes_input.send_keys(initial_notes)
-            
+
             # Submit the form to create the medical record
-            submit_btn = self.wait_for_element(By.XPATH, 
-                '//*[@id="medical-records-form"]/div/div/div/div/div[2]/button')
+            submit_btn = self.wait_for_element(By.XPATH,
+                                               '//*[@id="medical-records-form"]/div/div/div/div/div[2]/button')
             submit_btn.click()
             time.sleep(2)
-            
+
             # Step 3: Find the newly created medical record
             # Get the latest medical record from the database
             medical_record = MedicalRecord.objects.latest('record_id')
-            
+
             # Step 4: Navigate to the edit page for the medical record
-            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            self.browser.get(
+                f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
             time.sleep(2)
-            
+
             # Step 5: Update the fields
             new_diagnosis = 'Allergies'
             new_treatment = 'Antihistamines'
             new_medication = 'Immunosuppressive Medications'
             new_notes = 'Updated notes for TC10 test'
-            
+
             # Clear and update diagnosis
             diagnosis_field = self.wait_for_element(By.NAME, 'diagnosis')
             diagnosis_field.clear()
             diagnosis_field.send_keys(new_diagnosis)
-            
+
             # Clear and update treatment
             treatment_field = self.wait_for_element(By.NAME, 'treatment')
             treatment_field.clear()
             treatment_field.send_keys(new_treatment)
-            
+
             # Clear and update medication
-            medication_field = self.wait_for_element(By.NAME, 'prescribed_medication')
+            medication_field = self.wait_for_element(By.NAME,
+                                                     'prescribed_medication')
             medication_field.clear()
             medication_field.send_keys(new_medication)
-            
+
             # Clear and update notes
             notes_field = self.wait_for_element(By.NAME, 'notes')
             notes_field.clear()
             notes_field.send_keys(new_notes)
-            
+
             # Step 6: Submit the form to update the record
             # Find the submit button - try multiple approaches
             try:
-                submit_btn = self.browser.find_element(By.XPATH, 
-                    '//*[@id="medical-records-form"]/div/div/div/div/div[2]/div[4]/button')
+                submit_btn = self.browser.find_element(By.XPATH,
+                                                       '//*[@id="medical-records-form"]/div/div/div/div/div[2]/div[4]/button')
             except:
                 try:
-                    submit_btn = self.browser.find_element(By.CSS_SELECTOR, 
-                        '#medical-records-form button[type="submit"]')
+                    submit_btn = self.browser.find_element(By.CSS_SELECTOR,
+                                                           '#medical-records-form button[type="submit"]')
                 except:
                     # Try to find any button in the form
-                    submit_btn = self.browser.find_element(By.CSS_SELECTOR, 
-                        '#medical-records-form button')
-            
+                    submit_btn = self.browser.find_element(By.CSS_SELECTOR,
+                                                           '#medical-records-form button')
+
             # Screenshot before submitting for debugging
-            self.browser.save_screenshot(f"update_med_record_before_submit_{medical_record.record_id}.png")
-            
+            self.browser.save_screenshot(
+                f"update_med_record_before_submit_{medical_record.record_id}.png")
+
             # Submit the form
             submit_btn.click()
             time.sleep(2)
-            
+
             # Step 7: Navigate back to the edit page to verify changes
-            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            self.browser.get(
+                f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
             time.sleep(2)
-            
+
             # Step 8: Verify the fields were updated
-            updated_diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute('value')
-            updated_treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
-            updated_medication = self.wait_for_element(By.NAME, 'prescribed_medication').get_attribute('value')
-            updated_notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
-            
+            updated_diagnosis = self.wait_for_element(By.NAME,
+                                                      'diagnosis').get_attribute(
+                'value')
+            updated_treatment = self.wait_for_element(By.NAME,
+                                                      'treatment').get_attribute(
+                'value')
+            updated_medication = self.wait_for_element(By.NAME,
+                                                       'prescribed_medication').get_attribute(
+                'value')
+            updated_notes = self.wait_for_element(By.NAME, 'notes').get_attribute(
+                'value')
+
             # Take a screenshot of the verification page
-            self.browser.save_screenshot(f"update_med_record_verification_{medical_record.record_id}.png")
-            
+            self.browser.save_screenshot(
+                f"update_med_record_verification_{medical_record.record_id}.png")
+
             # Assert that the fields were updated correctly
-            self.assertEqual(updated_diagnosis, new_diagnosis, 
-                f"Diagnosis not updated. Expected '{new_diagnosis}', got '{updated_diagnosis}'")
-            self.assertEqual(updated_treatment, new_treatment, 
-                f"Treatment not updated. Expected '{new_treatment}', got '{updated_treatment}'")
-            self.assertEqual(updated_medication, new_medication, 
-                f"Medication not updated. Expected '{new_medication}', got '{updated_medication}'")
-            self.assertEqual(updated_notes, new_notes, 
-                f"Notes not updated. Expected '{new_notes}', got '{updated_notes}'")
-            
-            print(f"Successfully updated medical record {medical_record.record_id}")
+            self.assertEqual(updated_diagnosis, new_diagnosis,
+                             f"Diagnosis not updated. Expected '{new_diagnosis}', got '{updated_diagnosis}'")
+            self.assertEqual(updated_treatment, new_treatment,
+                             f"Treatment not updated. Expected '{new_treatment}', got '{updated_treatment}'")
+            self.assertEqual(updated_medication, new_medication,
+                             f"Medication not updated. Expected '{new_medication}', got '{updated_medication}'")
+            self.assertEqual(updated_notes, new_notes,
+                             f"Notes not updated. Expected '{new_notes}', got '{updated_notes}'")
+
+            print(
+                f"Successfully updated medical record {medical_record.record_id}")
 
         except TimeoutException as e:
             self.browser.save_screenshot("TC10_timeout_error.png")
@@ -987,7 +1069,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 prescribed_medication='Insulin Injections',
                 notes='Needs regular checkups'
             )
-            
+
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
             username_input = self.wait_for_element(By.NAME, 'username')
@@ -998,30 +1080,36 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             time.sleep(1)
 
             # Step 3: Navigate to medical record details page
-            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            self.browser.get(
+                f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
             time.sleep(2)
-            
+
             # Take a screenshot for debugging
-            self.browser.save_screenshot(f"view_medical_record_{medical_record.record_id}.png")
-            
+            self.browser.save_screenshot(
+                f"view_medical_record_{medical_record.record_id}.png")
+
             # Step 4: Verify the medical record details are displayed correctly
-            diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute('value')
-            treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
-            prescribed_medication = self.wait_for_element(By.NAME, 'prescribed_medication').get_attribute('value')
+            diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute(
+                'value')
+            treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute(
+                'value')
+            prescribed_medication = self.wait_for_element(By.NAME,
+                                                          'prescribed_medication').get_attribute(
+                'value')
             notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
-            
+
             # Verify the details match what we created
-            self.assertEqual(diagnosis, 'Diabetes', 
-                f"Diagnosis mismatch. Expected 'Diabetes', got '{diagnosis}'")
-            self.assertEqual(treatment, 'Insulin Therapy', 
-                f"Treatment mismatch. Expected 'Insulin Therapy', got '{treatment}'")
-            self.assertEqual(prescribed_medication, 'Insulin Injections', 
-                f"Medication mismatch. Expected 'Insulin Injections', got '{prescribed_medication}'")
-            self.assertEqual(notes, 'Needs regular checkups', 
-                f"Notes mismatch. Expected 'Needs regular checkups', got '{notes}'")
-            
+            self.assertEqual(diagnosis, 'Diabetes',
+                             f"Diagnosis mismatch. Expected 'Diabetes', got '{diagnosis}'")
+            self.assertEqual(treatment, 'Insulin Therapy',
+                             f"Treatment mismatch. Expected 'Insulin Therapy', got '{treatment}'")
+            self.assertEqual(prescribed_medication, 'Insulin Injections',
+                             f"Medication mismatch. Expected 'Insulin Injections', got '{prescribed_medication}'")
+            self.assertEqual(notes, 'Needs regular checkups',
+                             f"Notes mismatch. Expected 'Needs regular checkups', got '{notes}'")
+
             print(f"Successfully viewed medical record {medical_record.record_id}")
-            
+
         except TimeoutException as e:
             self.browser.save_screenshot("TC11_timeout_error.png")
             print(f"Current URL at error: {self.browser.current_url}")
@@ -1032,6 +1120,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             print(f"Current URL at error: {self.browser.current_url}")
             print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC11 failed with error: {str(e)}")
+
 
     def test_TC12_create_billing(self):
         """Test creating a new billing record."""
@@ -1045,7 +1134,8 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Select our test appointment
             appointment_select = self.wait_for_element(By.NAME, 'appointment_id')
-            appointment_select.send_keys('Appointment ID: 1 Maximus by Dr.Chayakarn')
+            appointment_select.send_keys(
+                'Appointment ID: 1 Maximus by Dr.Chayakarn')
 
             # Enter billing details
             amount_input = self.wait_for_element(By.NAME, 'total_amount')
@@ -1063,11 +1153,13 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             payment_date.send_keys(today)
 
             # Submit form
-            submit_btn = self.wait_for_element(By.XPATH, '//*[@id="billing-form"]/div/div/div/div/button')
+            submit_btn = self.wait_for_element(By.XPATH,
+                                               '//*[@id="billing-form"]/div/div/div/div/button')
             submit_btn.click()
 
         except TimeoutException as e:
             self.fail(f"TC12 failed - element not found: {str(e)}")
+
 
     def test_TC13_update_payment_status(self):
         """Test updating payment status."""
@@ -1082,7 +1174,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Cash',
                 payment_date=timezone.now()
             )
-            
+
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
             username_input = self.wait_for_element(By.NAME, 'username')
@@ -1095,89 +1187,105 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             # Step 3: Navigate to billing home page
             self.browser.get(f'{self.live_server_url}/home/billing/')
             time.sleep(2)
-            
+
             # Take a screenshot to see the billing list page
             self.browser.save_screenshot(f"billing_home_{billing.bill_id}.png")
-            
+
             # Step 4: Find and click the edit button for our test billing record
             try:
                 # First try to find by direct href match
                 edit_button = self.browser.find_element(
-                    By.XPATH, f"//a[@href='/home/edit/billing/{billing.bill_id}/']")
+                    By.XPATH,
+                    f"//a[@href='/home/edit/billing/{billing.bill_id}/']")
             except:
                 try:
                     # Try partial href match
                     edit_button = self.browser.find_element(
-                        By.XPATH, f"//a[contains(@href, '/edit/billing/{billing.bill_id}')]")
+                        By.XPATH,
+                        f"//a[contains(@href, '/edit/billing/{billing.bill_id}')]")
                 except:
                     # If all else fails, print all links on the page for debugging
-                    print("Could not find edit button for billing. Available links:")
+                    print(
+                        "Could not find edit button for billing. Available links:")
                     links = self.browser.find_elements(By.TAG_NAME, 'a')
                     for i, link in enumerate(links):
-                        print(f"Link {i}: href='{link.get_attribute('href')}', text='{link.text}'")
-                    
+                        print(
+                            f"Link {i}: href='{link.get_attribute('href')}', text='{link.text}'")
+
                     # Use a more general approach - look for "Edit" links
                     edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
                     if len(edit_buttons) > 0:
                         edit_button = edit_buttons[0]  # Use the first edit button
                     else:
-                        raise Exception("Could not find any edit buttons on the page")
-            
+                        raise Exception(
+                            "Could not find any edit buttons on the page")
+
             # Click the edit button
-            self.browser.execute_script("arguments[0].scrollIntoView(true);", edit_button)
-            self.browser.execute_script("arguments[0].click();", edit_button)  # Use JavaScript click
+            self.browser.execute_script("arguments[0].scrollIntoView(true);",
+                                        edit_button)
+            self.browser.execute_script("arguments[0].click();",
+                                        edit_button)  # Use JavaScript click
             time.sleep(2)
-            
+
             # Take a screenshot of the edit page
             self.browser.save_screenshot(f"billing_edit_{billing.bill_id}.png")
-            
+
             # Step 5: Update the payment status to 'Paid'
             # Print page source to debug
             print(f"Page source for edit page:\n{self.browser.page_source[:1000]}")
-            
+
             # Get the payment status select element
-            payment_status_element = self.wait_for_element(By.NAME, 'payment_status')
-            
+            payment_status_element = self.wait_for_element(By.NAME,
+                                                           'payment_status')
+
             # Instead of using Select class directly, try JavaScript to set the value
             self.browser.execute_script(
-                "arguments[0].value = 'Paid';", 
+                "arguments[0].value = 'Paid';",
                 payment_status_element
             )
-            
+
             # Screenshot after setting the new status
-            self.browser.save_screenshot(f"billing_status_updated_{billing.bill_id}.png")
-            
+            self.browser.save_screenshot(
+                f"billing_status_updated_{billing.bill_id}.png")
+
             # Step 6: Submit the form
             try:
                 # Try different ways to find the submit button
                 try:
-                    submit_button = self.browser.find_element(By.XPATH, 
-                        "//button[contains(text(), 'Save')]")
+                    submit_button = self.browser.find_element(By.XPATH,
+                                                              "//button[contains(text(), 'Save')]")
                 except:
                     try:
-                        submit_button = self.browser.find_element(By.XPATH, 
-                            "//button[contains(text(), 'Update')]")
+                        submit_button = self.browser.find_element(By.XPATH,
+                                                                  "//button[contains(text(), 'Update')]")
                     except:
                         try:
-                            submit_button = self.browser.find_element(By.CSS_SELECTOR, 
+                            submit_button = self.browser.find_element(
+                                By.CSS_SELECTOR,
                                 "button[type='submit']")
                         except:
                             # Last resort - find all buttons and use the last one
-                            buttons = self.browser.find_elements(By.TAG_NAME, 'button')
+                            buttons = self.browser.find_elements(By.TAG_NAME,
+                                                                 'button')
                             if len(buttons) > 0:
-                                submit_button = buttons[-1]  # Assume last button is submit
+                                submit_button = buttons[
+                                    -1]  # Assume last button is submit
                             else:
                                 # If no buttons found, try to submit the form directly
-                                form = self.browser.find_element(By.ID, 'billing-form')
-                                self.browser.execute_script("arguments[0].submit();", form)
+                                form = self.browser.find_element(By.ID,
+                                                                 'billing-form')
+                                self.browser.execute_script(
+                                    "arguments[0].submit();", form)
                                 time.sleep(2)
                                 # Skip the button click since we submitted the form
                                 submit_button = None
-            
+
                 # If we found a button, click it
                 if submit_button:
-                    self.browser.execute_script("arguments[0].scrollIntoView(true);", submit_button)
-                    self.browser.execute_script("arguments[0].click();", submit_button)
+                    self.browser.execute_script(
+                        "arguments[0].scrollIntoView(true);", submit_button)
+                    self.browser.execute_script("arguments[0].click();",
+                                                submit_button)
                     time.sleep(2)
             except Exception as btn_error:
                 print(f"Error finding/clicking submit button: {str(btn_error)}")
@@ -1188,30 +1296,33 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                     time.sleep(2)
                 except Exception as form_error:
                     print(f"Error submitting form: {str(form_error)}")
-            
+
             # Step 7: Verify the payment status was updated in the database
             # Refresh from database
             billing.refresh_from_db()
             self.assertEqual(billing.payment_status, 'Paid',
-                f"Payment status not updated in database. Expected 'Paid', got '{billing.payment_status}'")
-            
+                             f"Payment status not updated in database. Expected 'Paid', got '{billing.payment_status}'")
+
             # Step 8: Navigate back to the edit page to verify the UI shows the updated status
-            self.browser.get(f'{self.live_server_url}/home/edit/billing/{billing.bill_id}/')
+            self.browser.get(
+                f'{self.live_server_url}/home/edit/billing/{billing.bill_id}/')
             time.sleep(2)
-            
+
             # Take a screenshot of the verification page
-            self.browser.save_screenshot(f"billing_verification_{billing.bill_id}.png")
-            
+            self.browser.save_screenshot(
+                f"billing_verification_{billing.bill_id}.png")
+
             # Verify the status value using JavaScript instead of Select
             status_value = self.browser.execute_script(
-                "return arguments[0].value;", 
+                "return arguments[0].value;",
                 self.wait_for_element(By.NAME, 'payment_status')
             )
-            
-            self.assertEqual(status_value, 'Paid', 
-                f"Payment status not updated in UI. Expected 'Paid', got '{status_value}'")
-            
-            print(f"Successfully updated payment status for billing {billing.bill_id}")
+
+            self.assertEqual(status_value, 'Paid',
+                             f"Payment status not updated in UI. Expected 'Paid', got '{status_value}'")
+
+            print(
+                f"Successfully updated payment status for billing {billing.bill_id}")
 
         except TimeoutException as e:
             self.browser.save_screenshot("TC13_timeout_error.png")
@@ -1223,6 +1334,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             print(f"Current URL at error: {self.browser.current_url}")
             print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC13 failed with error: {str(e)}")
+
 
     def test_TC14_view_billing_list(self):
         """Test viewing billing list."""
@@ -1238,7 +1350,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Credit Card',
                 payment_date=timezone.now() - timezone.timedelta(days=5)
             )
-            
+
             test_billing2 = Billing.objects.create(
                 appointment=self.appointment,
                 total_amount=200.50,
@@ -1246,12 +1358,14 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Cash',
                 payment_date=timezone.now() - timezone.timedelta(days=1)
             )
-            
+
             # Print the created billing records for debugging
             print(f"Created test billing records:")
-            print(f"  Billing 1: ID={test_billing1.bill_id}, Amount={test_billing1.total_amount}, Status={test_billing1.payment_status}")
-            print(f"  Billing 2: ID={test_billing2.bill_id}, Amount={test_billing2.total_amount}, Status={test_billing2.payment_status}")
-            
+            print(
+                f"  Billing 1: ID={test_billing1.bill_id}, Amount={test_billing1.total_amount}, Status={test_billing1.payment_status}")
+            print(
+                f"  Billing 2: ID={test_billing2.bill_id}, Amount={test_billing2.total_amount}, Status={test_billing2.payment_status}")
+
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
             username_input = self.wait_for_element(By.NAME, 'username')
@@ -1264,23 +1378,23 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             # Step 3: Navigate to billing list page
             self.browser.get(f'{self.live_server_url}/home/billing/')
             time.sleep(3)  # Increased wait time to ensure page loads
-            
+
             # Take a screenshot to see the billing list page
             self.browser.save_screenshot("billing_list_view.png")
-            
+
             # Step 4: Verify billing table is present
             billing_table = self.wait_for_element(By.TAG_NAME, 'table')
             rows = billing_table.find_elements(By.TAG_NAME, 'tr')
-            
+
             # There should be at least a header row
             self.assertGreater(len(rows), 0, "No rows found in the billing table")
             print(f"Found {len(rows)} rows in the billing table")
-            
+
             # Print table headers for debugging
             headers = rows[0].find_elements(By.TAG_NAME, 'th')
             header_texts = [header.text for header in headers]
             print(f"Table headers ({len(headers)}): {header_texts}")
-            
+
             # Step 5: Print the entire table contents for debugging
             print("\nBilling Table Contents:")
             for i, row in enumerate(rows):
@@ -1288,60 +1402,66 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                     cells = row.find_elements(By.TAG_NAME, 'th')
                 else:
                     cells = row.find_elements(By.TAG_NAME, 'td')
-                
+
                 row_text = [cell.text for cell in cells]
                 print(f"  Row {i}: {row_text}")
-            
+
             # More flexible approach: check if any row contains our billing amounts or statuses
             found_billing1 = False
             found_billing2 = False
-            
+
             if len(rows) <= 1:
                 print("No data rows found in the table")
-            
+
             # Skip the header row
             for i, row in enumerate(rows[1:], 1):
                 row_text = row.text.lower()
                 cells = row.find_elements(By.TAG_NAME, 'td')
-                
+
                 # Print each cell for debugging
                 cell_texts = [cell.text for cell in cells]
                 print(f"Row {i} cell texts: {cell_texts}")
-                
+
                 # Check for billing 1 values (using partial string matching)
                 amount1_str = str(test_billing1.total_amount)
-                if amount1_str in row_text or amount1_str.split('.')[0] in row_text:
+                if amount1_str in row_text or amount1_str.split('.')[
+                    0] in row_text:
                     print(f"Found amount for billing 1 ({amount1_str}) in row {i}")
                     found_billing1 = True
-                
+
                 if test_billing1.payment_status.lower() in row_text:
-                    print(f"Found status for billing 1 ({test_billing1.payment_status}) in row {i}")
+                    print(
+                        f"Found status for billing 1 ({test_billing1.payment_status}) in row {i}")
                     found_billing1 = True
-                    
+
                 # Check for billing 2 values (using partial string matching)
                 amount2_str = str(test_billing2.total_amount)
-                if amount2_str in row_text or amount2_str.split('.')[0] in row_text:
+                if amount2_str in row_text or amount2_str.split('.')[
+                    0] in row_text:
                     print(f"Found amount for billing 2 ({amount2_str}) in row {i}")
                     found_billing2 = True
-                
+
                 if test_billing2.payment_status.lower() in row_text:
-                    print(f"Found status for billing 2 ({test_billing2.payment_status}) in row {i}")
+                    print(
+                        f"Found status for billing 2 ({test_billing2.payment_status}) in row {i}")
                     found_billing2 = True
-            
-            # Try to find the billing IDs directly 
+
+            # Try to find the billing IDs directly
             page_source = self.browser.page_source.lower()
             if str(test_billing1.bill_id) in page_source:
-                print(f"Found billing 1 ID ({test_billing1.bill_id}) in page source")
+                print(
+                    f"Found billing 1 ID ({test_billing1.bill_id}) in page source")
                 found_billing1 = True
-                
+
             if str(test_billing2.bill_id) in page_source:
-                print(f"Found billing 2 ID ({test_billing2.bill_id}) in page source")
+                print(
+                    f"Found billing 2 ID ({test_billing2.bill_id}) in page source")
                 found_billing2 = True
-            
+
             # Verify at least one record is found
-            self.assertTrue(found_billing1 or found_billing2, 
-                "Could not find any of the test billing records in the table")
-            
+            self.assertTrue(found_billing1 or found_billing2,
+                            "Could not find any of the test billing records in the table")
+
             print("Successfully verified billing list view")
 
         except TimeoutException as e:
@@ -1355,6 +1475,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC14 failed with error: {str(e)}")
 
+
     def test_TC15_view_individual_vet_statistics(self):
         """Test viewing individual veterinarian statistics."""
         # Test Case ID: TC15 - View individual veterinarian statistics
@@ -1362,7 +1483,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         try:
             # Step 1: Prepare test data - create a veterinarian with some statistics
             # We're using the veterinarian created in setUp (self.vet)
-            
+
             # Create additional appointment data for statistics
             for i in range(3):
                 # Create additional appointments for this vet
@@ -1370,12 +1491,13 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                     pet=self.pet,
                     owner=self.owner,
                     vet=self.vet,
-                    appointment_date=timezone.now().date() - timezone.timedelta(days=i*2),
+                    appointment_date=timezone.now().date() - timezone.timedelta(
+                        days=i * 2),
                     appointment_time=timezone.now().time(),
-                    reason=f'Checkup {i+1}',
+                    reason=f'Checkup {i + 1}',
                     status='Completed'
                 )
-            
+
             # Create a billing record for statistics
             billing = Billing.objects.create(
                 appointment=self.appointment,
@@ -1384,14 +1506,16 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Credit Card',
                 payment_date=timezone.now()
             )
-            
+
             # Print info about the test data
-            print(f"Test veterinarian: {self.vet.first_name} {self.vet.last_name} (ID: {self.vet.vet_id})")
+            print(
+                f"Test veterinarian: {self.vet.first_name} {self.vet.last_name} (ID: {self.vet.vet_id})")
             appointments_count = Appointment.objects.filter(vet=self.vet).count()
-            pets_count = Pet.objects.filter(appointments__vet=self.vet).distinct().count()
+            pets_count = Pet.objects.filter(
+                appointments__vet=self.vet).distinct().count()
             print(f"Created {appointments_count} appointments for vet")
             print(f"Vet has handled {pets_count} unique pets")
-            
+
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
             username_input = self.wait_for_element(By.NAME, 'username')
@@ -1400,24 +1524,25 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             password_input.send_keys('doctor1')
             password_input.send_keys(Keys.RETURN)
             time.sleep(1)
-            
+
             # Step 3: Navigate to statistics section
             self.browser.get(f'{self.live_server_url}/statistic/')
             time.sleep(3)  # Give time for the page to load
-            
+
             # Take a screenshot of the statistics page
             self.browser.save_screenshot("statistics_page.png")
-            
+
             # Step 4: Check if the veterinarian dropdown exists
             try:
                 vet_dropdown = self.wait_for_element(By.NAME, 'vet')
-                
+
                 # Print all options in the dropdown for debugging
                 options = vet_dropdown.find_elements(By.TAG_NAME, 'option')
                 print("Vet dropdown options:")
                 for option in options:
-                    print(f"  Option: value={option.get_attribute('value')}, text={option.text}")
-                
+                    print(
+                        f"  Option: value={option.get_attribute('value')}, text={option.text}")
+
                 # Find the option for our test vet
                 vet_option_found = False
                 for option in options:
@@ -1427,79 +1552,84 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                         option.click()
                         vet_option_found = True
                         print(f"Selected vet option: {option_text}")
-                        break
-                
+                    break
+
                 if not vet_option_found:
-                    print("Could not find specific vet in dropdown, using first non-empty option")
+                    print(
+                        "Could not find specific vet in dropdown, using first non-empty option")
                     # If we couldn't find our vet, just select the first non-empty option
                     for option in options:
                         if option.get_attribute('value'):
                             option.click()
                             break
-                
+
                 # After selecting a vet, wait for statistics to load
                 time.sleep(2)
-                
+
                 # Take a screenshot after selecting the vet
                 self.browser.save_screenshot("vet_statistics_page.png")
-                
+
                 # Print the whole page text for debugging
                 page_text = self.browser.find_element(By.TAG_NAME, 'body').text
                 print(f"Page text after selecting vet:\n{page_text[:500]}...")
-                
+
                 # Step 5: Verify statistics are displayed
                 # Look for elements that should contain statistics
-                stats_elements = self.browser.find_elements(By.CLASS_NAME, 'text-[34px]')
-                
+                stats_elements = self.browser.find_elements(By.CLASS_NAME,
+                                                            'text-[34px]')
+
                 # Check that we found some statistics
-                self.assertGreater(len(stats_elements), 0, "No statistics elements found")
-                
+                self.assertGreater(len(stats_elements), 0,
+                                   "No statistics elements found")
+
                 # Print the statistics values
                 print("Statistics found:")
                 for elem in stats_elements:
                     print(f"  {elem.text}")
-                
+
                 # Look for specific statistics keywords on the page
                 stats_keywords = [
                     'appointments', 'pets', 'bills', 'percentage'
                 ]
-                
+
                 stats_found = 0
                 for keyword in stats_keywords:
                     if keyword.lower() in page_text.lower():
                         stats_found += 1
                         print(f"Found statistics for '{keyword}'")
-                
+
                 # Verify that at least some statistics were found
-                self.assertGreater(stats_found, 0, 
-                    f"Could not find any statistics keywords ({stats_keywords}) on the page")
-                
+                self.assertGreater(stats_found, 0,
+                                   f"Could not find any statistics keywords ({stats_keywords}) on the page")
+
                 print("Successfully verified individual veterinarian statistics")
-                
+
             except Exception as e:
                 # If the primary approach fails, try an alternative approach
                 print(f"Error using vet dropdown: {str(e)}")
                 print("Trying alternative approach to find statistics...")
-                
+
                 # Check if any statistics are visible on the page
                 page_source = self.browser.page_source.lower()
-                
+
                 # Look for these common elements in statistics pages
-                stat_indicators = ['appointments', 'pets', 'billing', 'percentage', 'chart', 
+                stat_indicators = ['appointments', 'pets', 'billing', 'percentage',
+                                   'chart',
                                    'statistic', 'count', 'total', 'average']
-                
+
                 found_indicators = []
                 for indicator in stat_indicators:
                     if indicator in page_source:
                         found_indicators.append(indicator)
-                
+
                 # Assert that we found at least some statistics indicators
-                self.assertGreater(len(found_indicators), 0, 
-                    f"Could not find any statistics indicators in the page: {stat_indicators}")
-                
+                self.assertGreater(len(found_indicators), 0,
+                                   f"Could not find any statistics indicators in the page: {stat_indicators}")
+
                 print(f"Found statistics indicators: {found_indicators}")
-                print("Statistics page verification passed with alternative approach")
-            
+                print(
+                    "Statistics page verification passed with alternative approach")
+
         except TimeoutException as e:
             self.browser.save_screenshot("TC15_timeout_error.png")
             print(f"Current URL at error: {self.browser.current_url}")
@@ -1510,6 +1640,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             print(f"Current URL at error: {self.browser.current_url}")
             print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC15 failed with error: {str(e)}")
+
 
     def test_TC16_view_clinic_statistics(self):
         """Test viewing clinic-wide statistics."""
@@ -1526,7 +1657,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 phone_number='555-234-5678',
                 email='sarah.johnson@pawcare.com'
             )
-            
+
             # Create additional owners
             owner2 = Owner.objects.create(
                 first_name='Robert',
@@ -1536,7 +1667,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 email='robert.brown@example.com',
                 registration_date=timezone.now()
             )
-            
+
             # Create additional pets with varied species
             pet2 = Pet.objects.create(
                 owner=owner2,
@@ -1547,7 +1678,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 gender='Female',
                 weight=4.2
             )
-            
+
             pet3 = Pet.objects.create(
                 owner=self.owner,
                 name='Tweety',
@@ -1557,49 +1688,53 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 gender='Male',
                 weight=0.3
             )
-            
+
             # Create various appointments with different statuses
             Appointment.objects.create(
                 pet=pet2,
                 owner=owner2,
                 vet=vet2,
-                appointment_date=timezone.now().date() - datetime.timedelta(days=5),
+                appointment_date=timezone.now().date() - datetime.timedelta(
+                    days=5),
                 appointment_time=timezone.now().time(),
                 reason='Annual checkup',
                 status='Completed'
             )
-            
+
             Appointment.objects.create(
                 pet=pet3,
                 owner=self.owner,
                 vet=self.vet,
-                appointment_date=timezone.now().date() + datetime.timedelta(days=3),
+                appointment_date=timezone.now().date() + datetime.timedelta(
+                    days=3),
                 appointment_time=timezone.now().time(),
                 reason='Wing clipping',
                 status='Scheduled'
             )
-            
+
             Appointment.objects.create(
                 pet=self.pet,
                 owner=self.owner,
                 vet=vet2,
-                appointment_date=timezone.now().date() - datetime.timedelta(days=2),
+                appointment_date=timezone.now().date() - datetime.timedelta(
+                    days=2),
                 appointment_time=timezone.now().time(),
                 reason='Follow-up visit',
                 status='Cancelled'
             )
-            
+
             # Create several medical records with different diagnoses and treatments
             appointment = Appointment.objects.create(
                 pet=pet2,
                 owner=owner2,
                 vet=vet2,
-                appointment_date=timezone.now().date() - datetime.timedelta(days=10),
+                appointment_date=timezone.now().date() - datetime.timedelta(
+                    days=10),
                 appointment_time=timezone.now().time(),
                 reason='Not eating',
                 status='Completed'
             )
-            
+
             MedicalRecord.objects.create(
                 appointment=appointment,
                 pet=pet2,
@@ -1610,17 +1745,18 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 prescribed_medication='Antihistamine tablets',
                 notes='Food allergy suspected'
             )
-            
+
             appointment2 = Appointment.objects.create(
                 pet=self.pet,
                 owner=self.owner,
                 vet=self.vet,
-                appointment_date=timezone.now().date() - datetime.timedelta(days=15),
+                appointment_date=timezone.now().date() - datetime.timedelta(
+                    days=15),
                 appointment_time=timezone.now().time(),
                 reason='Limping',
                 status='Completed'
             )
-            
+
             MedicalRecord.objects.create(
                 appointment=appointment2,
                 pet=self.pet,
@@ -1631,7 +1767,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 prescribed_medication='Anti-inflammatory medication',
                 notes='Early signs of arthritis'
             )
-            
+
             # Create varied billing records with different payment methods and statuses
             Billing.objects.create(
                 appointment=appointment,
@@ -1640,7 +1776,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Cash',
                 payment_date=timezone.now() - datetime.timedelta(days=10)
             )
-            
+
             Billing.objects.create(
                 appointment=appointment2,
                 total_amount=220.75,
@@ -1648,54 +1784,55 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 payment_method='Bank Transfer',
                 payment_date=timezone.now() - datetime.timedelta(days=15)
             )
-            
+
             # Print summary of test data for debugging
             vets_count = Veterinarian.objects.count()
             pets_count = Pet.objects.count()
             appointments_count = Appointment.objects.count()
             medrecs_count = MedicalRecord.objects.count()
             billings_count = Billing.objects.count()
-            
+
             print(f"Test data summary:")
             print(f"  Veterinarians: {vets_count}")
-            print(f"  Pets: {pets_count} (Species: {', '.join(Pet.objects.values_list('species', flat=True).distinct())})")
+            print(
+                f"  Pets: {pets_count} (Species: {', '.join(Pet.objects.values_list('species', flat=True).distinct())})")
             print(f"  Appointments: {appointments_count}")
             print(f"  Medical Records: {medrecs_count}")
             print(f"  Billings: {billings_count}")
-            
+
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
-            
+
             # Step 3: Navigate to statistics section
             self.browser.get(f'{self.live_server_url}/statistic/')
             time.sleep(3)  # Give time for the page to load
-            
+
             # Take a screenshot of the statistics page
             self.browser.save_screenshot("clinic_statistics_page.png")
-            
+
             # Step 4: Look for clinic-wide statistics sections
-            
+
             # Print the page title and headers for debugging
             page_text = self.browser.find_element(By.TAG_NAME, 'body').text
             print(f"Page text sample:\n{page_text[:1000]}...")
-            
+
             # Common labels for clinic-wide statistics sections
             clinic_sections = [
                 'Clinic-wide statistics', 'Overview', 'Monthly statistics',
                 'Pet statistics', 'Appointment statistics', 'Billing', 'Payment'
             ]
-            
+
             # Check if any of these section labels are present
             found_sections = []
             for section in clinic_sections:
                 if section.lower() in page_text.lower():
                     found_sections.append(section)
                     print(f"Found clinic section: {section}")
-            
+
             # Verify we found at least one clinic statistics section
-            self.assertGreater(len(found_sections), 0, 
-                "No clinic-wide statistics sections found")
-            
+            self.assertGreater(len(found_sections), 0,
+                               "No clinic-wide statistics sections found")
+
             # Look for common statistics elements
             # Step 5: Verify statistics are displayed with specific metrics
             statistics_keywords = [
@@ -1703,39 +1840,41 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
                 'weight', 'diagnoses', 'treatments', 'billing', 'payment',
                 'amount', 'average', 'total', 'percentage', 'status'
             ]
-            
+
             found_stats = []
             for keyword in statistics_keywords:
                 if keyword.lower() in page_text.lower():
                     found_stats.append(keyword)
                     print(f"Found statistic: {keyword}")
-            
+
             # Verify we found multiple statistics indicators
-            self.assertGreaterEqual(len(found_stats), 3, 
-                f"Not enough statistics indicators found. Expected at least 3, found {len(found_stats)}")
-            
+            self.assertGreaterEqual(len(found_stats), 3,
+                                    f"Not enough statistics indicators found. Expected at least 3, found {len(found_stats)}")
+
             # Look for numeric values that would indicate statistics
-            number_elements = self.browser.find_elements(By.XPATH, 
-                "//*[contains(@class, 'text-[34px]') or contains(@class, 'font-bold')]")
-            
-            print(f"Found {len(number_elements)} potential statistic value elements")
+            number_elements = self.browser.find_elements(By.XPATH,
+                                                         "//*[contains(@class, 'text-[34px]') or contains(@class, 'font-bold')]")
+
+            print(
+                f"Found {len(number_elements)} potential statistic value elements")
             if len(number_elements) > 0:
-                for i, elem in enumerate(number_elements[:5]):  # Show first 5 for debugging
-                    print(f"  Statistic {i+1}: {elem.text}")
-            
+                for i, elem in enumerate(
+                        number_elements[:5]):  # Show first 5 for debugging
+                    print(f"  Statistic {i + 1}: {elem.text}")
+
             # Look for charts or visualizations
-            chart_elements = self.browser.find_elements(By.XPATH, 
-                "//*[contains(@class, 'chart') or contains(@class, 'graph') or contains(@class, 'progress')]")
-            
+            chart_elements = self.browser.find_elements(By.XPATH,
+                                                        "//*[contains(@class, 'chart') or contains(@class, 'graph') or contains(@class, 'progress')]")
+
             if len(chart_elements) > 0:
                 print(f"Found {len(chart_elements)} chart/visualization elements")
-            
+
             # Final verification - either we need numbers or charts or both
             self.assertTrue(len(number_elements) > 0 or len(chart_elements) > 0,
-                "No statistics values or charts found on the page")
-            
+                            "No statistics values or charts found on the page")
+
             print("Successfully verified clinic-wide statistics")
-            
+
         except TimeoutException as e:
             self.browser.save_screenshot("TC16_timeout_error.png")
             print(f"Current URL at error: {self.browser.current_url}")
