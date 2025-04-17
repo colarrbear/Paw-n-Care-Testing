@@ -135,12 +135,12 @@ Read and follow the instructions in [Installation the Application](Installation.
 * `admin` password `admin`
 * `doctor1` password `doctor1`
 
-## Our Members
-| Name                      | Github
+## Our Members for **SOFTWARE TESTING**'s Paw and Care Test Project
+| Name                      | Student ID
 |---------------------------|--------------------------------------------------|
-| Phumrapee CHAOWANAPRICHA  | [PhumrapeeC](https://github.com/PhumrapeeC)
-| Atikarn KRUAYKRIANGKRAI   | [Nanokwok](https://github.com/Nanokwok)
-| Thorung BOONKAEW          | [thorungb](https://github.com/thorungb)
-| Nicha RUANGRIT            | [nicharr-nn](https://github.com/nicharr-nn)
+| Chayakarn HENGSUWAN  | 6510545322
+| Buravit YENJIT          | 6510545578
+| Atikarn KRUAYKRIANGKRAI   | 6510545799
+
 
 ## Thank you for your attention
