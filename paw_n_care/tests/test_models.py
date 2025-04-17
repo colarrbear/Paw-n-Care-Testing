@@ -35,7 +35,17 @@ class OwnerModelTest(TestCase):
         self.assertEqual(str(self.owner), "John Doe")
 
     def test_phone_number_validation(self):
-        self.owner.phone_number = "1234567890123456"
+        """Validate that phone numbers respect max_length constraint (10 digits)."""
+
+        # Valid phone number (10 digits) should not raise an error
+        self.owner.phone_number = "1234567890"
+        try:
+            self.owner.full_clean()
+        except ValidationError:
+            self.fail("Valid phone number raised ValidationError")
+
+        # Invalid phone number (11 digits) should raise ValidationError
+        self.owner.phone_number = "12345678901"
         with self.assertRaises(ValidationError):
             self.owner.full_clean()
 
