@@ -414,40 +414,66 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
     def test_TC11_view_medical_record_details(self):
         """Test viewing medical record details."""
         # Test Case ID: TC11 - View medical record details
-
-        # Create a medical record first
-        visit_date_initial = timezone.now()
-        medical_record = MedicalRecord.objects.create(
-            appointment=self.appointment,
-            vet=self.vet,
-            pet=self.pet,
-            visit_date=visit_date_initial,
-            diagnosis='Diabetes',
-            treatment='Insulin Therapy',
-            prescribed_medication='Insulin Injections',
-            notes='Needs regular checkups'
-        )
+        from datetime import datetime
 
         try:
-            self.test_login()
+            # Step 1: Create a medical record to view
+            visit_date_initial = timezone.now()
+            medical_record = MedicalRecord.objects.create(
+                appointment=self.appointment,
+                vet=self.vet,
+                pet=self.pet,
+                visit_date=visit_date_initial,
+                diagnosis='Diabetes',
+                treatment='Insulin Therapy',
+                prescribed_medication='Insulin Injections',
+                notes='Needs regular checkups'
+            )
+            
+            # Step 2: Login
+            self.browser.get(f'{self.live_server_url}/')
+            username_input = self.wait_for_element(By.NAME, 'username')
+            password_input = self.wait_for_element(By.NAME, 'password')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
+            time.sleep(1)
 
-            # Navigate directly to medical records home page
-            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
-            # Verify the details of the medical record
-            visit_date_str = self.wait_for_element(By.NAME, 'visit_date').get_attribute('value')
-            visit_date = parse_datetime(visit_date_str)
+            # Step 3: Navigate to medical record details page
+            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            time.sleep(2)
+            
+            # Take a screenshot for debugging
+            self.browser.save_screenshot(f"view_medical_record_{medical_record.record_id}.png")
+            
+            # Step 4: Verify the medical record details are displayed correctly
             diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute('value')
             treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
             prescribed_medication = self.wait_for_element(By.NAME, 'prescribed_medication').get_attribute('value')
             notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
-            # self.assertEqual(visit_date.replace(microsecond=0), visit_date_initial.replace(microsecond=0))
-            self.assertEqual(diagnosis, 'Diabetes')
-            self.assertEqual(treatment, 'Insulin Therapy')
-            self.assertEqual(prescribed_medication, 'Insulin Injections')
-            self.assertEqual(notes, 'Needs regular checkups')
-
+            
+            # Verify the details match what we created
+            self.assertEqual(diagnosis, 'Diabetes', 
+                f"Diagnosis mismatch. Expected 'Diabetes', got '{diagnosis}'")
+            self.assertEqual(treatment, 'Insulin Therapy', 
+                f"Treatment mismatch. Expected 'Insulin Therapy', got '{treatment}'")
+            self.assertEqual(prescribed_medication, 'Insulin Injections', 
+                f"Medication mismatch. Expected 'Insulin Injections', got '{prescribed_medication}'")
+            self.assertEqual(notes, 'Needs regular checkups', 
+                f"Notes mismatch. Expected 'Needs regular checkups', got '{notes}'")
+            
+            print(f"Successfully viewed medical record {medical_record.record_id}")
+            
         except TimeoutException as e:
+            self.browser.save_screenshot("TC11_timeout_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC11 failed - element not found: {str(e)}")
+        except Exception as e:
+            self.browser.save_screenshot("TC11_general_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
+            self.fail(f"TC11 failed with error: {str(e)}")
 
     def test_TC12_create_billing(self):
         """Test creating a new billing record."""
