@@ -4,7 +4,7 @@ from ..models import Owner, Pet, Veterinarian, Appointment, MedicalRecord, Billi
 from datetime import datetime, timedelta
 from django.urls import reverse
 from django.test import Client
-
+from datetime import datetime, timedelta, time
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -284,6 +284,75 @@ class AppointmentStatusUpdateTest(TestCase):
         response = self.client.get(reverse('paw_n_care:appointments'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Bobby")
+
+
+class AppointmentOverlapTest(TestCase):
+    def setUp(self):
+        self.owner = Owner.objects.create(
+            first_name="Alex", last_name="Lee", address="XYZ Road",
+            phone_number="5555555555", email="alex@example.com",
+            registration_date=datetime.now()
+        )
+        self.pet = Pet.objects.create(
+            owner=self.owner, name="Bobby", species="Dog", breed="Beagle",
+            date_of_birth=datetime.now() - timedelta(days=365),
+            gender="Male", weight=15.2
+        )
+        self.vet = Veterinarian.objects.create(
+            first_name="Sara", last_name="Connor", specialization="Canine",
+            license_number="VET999", phone_number="2222222222",
+            email="sara@example.com"
+        )
+
+        # Create first appointment from 10:00 to 10:30
+        self.appointment_time = time(10, 0)
+        self.appointment1 = Appointment.objects.create(
+            pet=self.pet, owner=self.owner, vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=self.appointment_time,
+            reason="Checkup", status="Scheduled"
+        )
+
+    def test_back_to_back_appointments(self):
+        # Create second appointment exactly at end time of first appointment (assuming 30 min duration)
+        second_appointment_time = (datetime.combine(datetime.now().date(),
+                                                    self.appointment_time) +
+                                   timedelta(minutes=30)).time()
+
+        # This should be allowed (no overlap)
+        appointment2 = Appointment.objects.create(
+            pet=self.pet, owner=self.owner, vet=self.vet,
+            appointment_date=datetime.now().date(),
+            appointment_time=second_appointment_time,
+            reason="Vaccination", status="Scheduled"
+        )
+
+        # Verify both appointments exist
+        appointments = Appointment.objects.filter(
+            vet=self.vet,
+            appointment_date=datetime.now().date()
+        ).order_by('appointment_time')
+
+        self.assertEqual(appointments.count(), 2)
+        self.assertEqual(appointments[0].appointment_time,
+                         self.appointment_time)
+        self.assertEqual(appointments[1].appointment_time,
+                         second_appointment_time)
+
+    def test_overlapping_appointments(self):
+        # Create second appointment 15 minutes before first appointment ends (assuming 30 min duration)
+        overlapping_time = (datetime.combine(datetime.now().date(),
+                                             self.appointment_time) +
+                            timedelta(minutes=15)).time()
+
+        # This should raise an exception or fail validation
+        with self.assertRaises(Exception):
+            Appointment.objects.create(
+                pet=self.pet, owner=self.owner, vet=self.vet,
+                appointment_date=datetime.now().date(),
+                appointment_time=overlapping_time,
+                reason="Emergency", status="Scheduled"
+            )
 
 class MedicalRecordViewTest(TestCase):
     def setUp(self):
