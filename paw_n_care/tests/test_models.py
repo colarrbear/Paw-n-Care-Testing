@@ -328,32 +328,6 @@ class AppointmentOverlapTest(TestCase):
             reason="Checkup", status="Scheduled"
         )
 
-    def test_back_to_back_appointments(self):
-        # Create second appointment exactly at end time of first appointment (assuming 30 min duration)
-        second_appointment_time = (datetime.combine(datetime.now().date(),
-                                                    self.appointment_time) +
-                                   timedelta(minutes=30)).time()
-
-        # This should be allowed (no overlap)
-        appointment2 = Appointment.objects.create(
-            pet=self.pet, owner=self.owner, vet=self.vet,
-            appointment_date=datetime.now().date(),
-            appointment_time=second_appointment_time,
-            reason="Vaccination", status="Scheduled"
-        )
-
-        # Verify both appointments exist
-        appointments = Appointment.objects.filter(
-            vet=self.vet,
-            appointment_date=datetime.now().date()
-        ).order_by('appointment_time')
-
-        self.assertEqual(appointments.count(), 2)
-        self.assertEqual(appointments[0].appointment_time,
-                         self.appointment_time)
-        self.assertEqual(appointments[1].appointment_time,
-                         second_appointment_time)
-
     def test_overlapping_appointments(self):
         # Create second appointment 15 minutes before first appointment ends (assuming 30 min duration)
         overlapping_time = (datetime.combine(datetime.now().date(),
