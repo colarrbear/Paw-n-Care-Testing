@@ -100,6 +100,23 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             EC.visibility_of_element_located((by, value))
         )
 
+    def login(self, username, password):
+        self.ensure_logged_out()
+        self.browser.get(f'{self.live_server_url}/')
+        username_input = self.wait_for_element(By.NAME, 'username')
+        password_input = self.wait_for_element(By.NAME, 'password')
+        username_input.send_keys(username)
+        password_input.send_keys(password)
+        password_input.send_keys(Keys.RETURN)
+        time.sleep(1)
+
+    def ensure_logged_out(self):
+        self.browser.get(
+            f'{self.live_server_url}/logout/')  # If you have a logout URL
+        time.sleep(0.5)
+        self.browser.get(f'{self.live_server_url}/')
+        time.sleep(0.5)
+
     def test_TC01_login(self):
         """Test user login functionality."""
         # Test Case ID: TC01 - Login with correct info
@@ -158,21 +175,13 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         """Test creating a new owner with valid information."""
         # Test Case ID: TC03 - Create new owner
 
+        self.ensure_logged_out()
+
         # First login as staff
         self.browser.get(f'{self.live_server_url}')
 
         try:
-            # Login (using your existing login test as base)
-            username_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
-            password_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
-            username_input.send_keys('doctor1')  # Using existing credentials
-            password_input.send_keys('doctor1')
-
-            submit_button = self.wait_for_element(By.XPATH,
-                                                  '//*[@id="login-form"]/div/div/button')
-            submit_button.click()
+            self.login('doctor1', 'doctor1')
 
             # navigate to appointments page
             self.browser.get(f'{self.live_server_url}/appointments/')
@@ -241,12 +250,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         try:
             # Login (using existing credentials)
-            username_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
-            password_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
+            self.login('doctor1', 'doctor1')
 
             # Navigate to owners page
             self.browser.get(f'{self.live_server_url}/home/owner/')
@@ -320,13 +324,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         try:
             # Step 1: Login
-            username_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
-            password_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
 
             # Step 2: Navigate to owner list
             self.browser.get(f'{self.live_server_url}/home/owner/')
@@ -584,12 +582,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         try:
             # Login (using existing credentials)
-            username_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
-            password_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
+            self.login('doctor1', 'doctor1')
 
             # Navigate to appointment management section
             self.browser.get(f'{self.live_server_url}/home/')
@@ -672,13 +665,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         try:
             # Step 1: Log in
-            username_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[3]/div/input')
-            password_input = self.wait_for_element(By.XPATH,
-                                                   '//*[@id="login-form"]/div/div/div[4]/div/input')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
 
             # Step 2: Navigate to appointment section
             self.browser.get(f'{self.live_server_url}/home/')
@@ -721,12 +708,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
         try:
             # Login
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
-            time.sleep(1)
+            self.login('doctor1', 'doctor1')
 
             # Go to medical records page
             self.browser.get(f'{self.live_server_url}/medical-records/')
@@ -885,12 +867,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         try:
             # Step 1: Login first
             self.browser.get(f'{self.live_server_url}/')
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
-            time.sleep(1)
+            self.login('doctor1', 'doctor1')
 
             # Step 2: Create a medical record to update
             # Find an appointment without a medical record
@@ -1077,11 +1054,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
             time.sleep(1)
 
             # Step 3: Navigate to medical record details page
@@ -1135,7 +1108,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         # Test Case ID: TC12 - Create billing
 
         try:
-            self.test_TC01_login()
+            self.login('doctor1', 'doctor1')
 
             # Navigate directly to billing creation page
             self.browser.get(f'{self.live_server_url}/billing/')
@@ -1172,6 +1145,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
     def test_TC13_update_payment_status(self):
         """Test updating payment status."""
         # Test Case ID: TC13 - Update payment status
+        self.ensure_logged_out()
 
         try:
             # Step 1: Create a billing record first
@@ -1185,11 +1159,8 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
+
             time.sleep(1)
 
             # Step 3: Navigate to billing home page
@@ -1379,11 +1350,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
             time.sleep(1)
 
             # Step 3: Navigate to billing list page
@@ -1532,11 +1499,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
 
             # Step 2: Login
             self.browser.get(f'{self.live_server_url}/')
-            username_input = self.wait_for_element(By.NAME, 'username')
-            password_input = self.wait_for_element(By.NAME, 'password')
-            username_input.send_keys('doctor1')
-            password_input.send_keys('doctor1')
-            password_input.send_keys(Keys.RETURN)
+            self.login('doctor1', 'doctor1')
             time.sleep(1)
 
             # Step 3: Navigate to statistics section
@@ -1703,11 +1666,7 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             # Step 2: Login using a more robust approach
             self.browser.get(f'{self.live_server_url}/')
             try:
-                username_input = self.wait_for_element(By.NAME, 'username')
-                password_input = self.wait_for_element(By.NAME, 'password')
-                username_input.send_keys('doctor1')
-                password_input.send_keys('doctor1')
-                password_input.send_keys(Keys.RETURN)
+                self.login('doctor1', 'doctor1')
                 time.sleep(1)
             except Exception as login_error:
                 print(
