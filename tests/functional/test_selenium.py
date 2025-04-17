@@ -20,6 +20,8 @@ from selenium.common.exceptions import TimeoutException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 from django.utils import timezone
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
 
 import time
 import datetime
@@ -255,75 +257,159 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
     def test_TC10_update_medical_record(self):
         """Test updating an existing medical record."""
         # Test Case ID: TC10 - Update medical record
-
-        self.load_data()
-
-        # Login first
-        self.test_login()
-
-        available_appointment = Appointment.objects.exclude(
-            appointment_id__in=MedicalRecord.objects.values_list('appointment_id', flat=True)
-        ).first()
-
-        # Create a medical record first
-        self.browser.get(f'http://127.0.0.1:8000/medical-records/')
-        appointment_id_input = self.wait_for_element(By.NAME, 'appointment_id')
-        appointment_id_input.send_keys(available_appointment.appointment_id)
-
-        date_input = self.wait_for_element(By.NAME, 'visit_date')
-        date_input.send_keys(available_appointment.appointment_date.strftime('%Y-%m-%dT%H:%M'))
-
-        diagnosis_input = self.wait_for_element(By.NAME, 'diagnosis')
-        diagnosis_input.send_keys('Arthritis')
-
-        treatment_input = self.wait_for_element(By.NAME, 'treatment')
-        treatment_input.send_keys('Joint Supplements')
-
-        prescribed_medication_input = self.wait_for_element(By.NAME, 'prescribed_medication')
-        prescribed_medication_input.send_keys('Non-steroidal anti-inflammatory drugs (NSAIDs)')
-
-        notes_input = self.wait_for_element(By.NAME, 'notes')
-        notes_input.send_keys('Regular checkups recommended')
-
-        # Submit form
-        submit_btn = self.wait_for_element(By.XPATH,
-                                           '//*[@id="medical-records-form"]/div/div/div/div/div[2]/button')
-        submit_btn.click()
-
-        medical_record = MedicalRecord.objects.latest('record_id')
+        from datetime import datetime
 
         try:
-
-            # Navigate to medical records home
-            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
-
-            # Update treatment information
-            treatment_select = self.wait_for_element(By.NAME, 'treatment')
-            treatment_select.clear()
-            treatment_select.send_keys('New Test Treatment')
-
-            # Add notes
-            notes_field = self.wait_for_element(By.NAME, 'notes')
-            notes_field.clear()
-            notes_field.send_keys('Additional test notes')
-
-            # Submit form
-            submit_btn = self.wait_for_element(By.XPATH,
-                                               '//*[@id="medical-records-form"]/div/div/div/div/div[2]/div[4]/button')
-            submit_btn.click()
-
+            # Step 1: Login first
+            self.browser.get(f'{self.live_server_url}/')
+            username_input = self.wait_for_element(By.NAME, 'username')
+            password_input = self.wait_for_element(By.NAME, 'password')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
             time.sleep(1)
 
-            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
+            # Step 2: Create a medical record to update
+            # Find an appointment without a medical record
+            available_appointment = Appointment.objects.exclude(
+                appointment_id__in=MedicalRecord.objects.values_list('appointment_id', flat=True)
+            ).first()
+            
+            if not available_appointment:
+                self.fail("No available appointments for medical record creation")
+            
+            # Navigate to medical records creation form
+            self.browser.get(f'{self.live_server_url}/medical-records/')
+            time.sleep(1)
 
-            # Verify updated treatment information
+            # Fill the form to create a medical record
+            select = Select(self.wait_for_element(By.NAME, 'appointment_id'))
+            for option in select.options:
+                if str(available_appointment.appointment_id) in option.text:
+                    option.click()
+                    break
+            
+            # Set visit date
+            visit_date_str = datetime.now().strftime('%Y-%m-%dT%H:%M')
+            visit_date = self.wait_for_element(By.NAME, 'visit_date')
+            visit_date.clear()
+            self.browser.execute_script(
+                "arguments[0].value = arguments[1];",
+                visit_date,
+                visit_date_str
+            )
+            
+            # Set initial values - store these to verify they change
+            initial_diagnosis = 'Arthritis'
+            initial_treatment = 'Joint Supplements'
+            initial_medication = 'Non-steroidal anti-inflammatory drugs (NSAIDs)'
+            initial_notes = 'Initial notes for TC10 test'
+            
+            # Use dropdowns properly
+            Select(self.wait_for_element(By.NAME, 'diagnosis')).select_by_visible_text(initial_diagnosis)
+            Select(self.wait_for_element(By.NAME, 'treatment')).select_by_visible_text(initial_treatment)
+            Select(self.wait_for_element(By.NAME, 'prescribed_medication')).select_by_visible_text(initial_medication)
+            
+            notes_input = self.wait_for_element(By.NAME, 'notes')
+            notes_input.clear()
+            notes_input.send_keys(initial_notes)
+            
+            # Submit the form to create the medical record
+            submit_btn = self.wait_for_element(By.XPATH, 
+                '//*[@id="medical-records-form"]/div/div/div/div/div[2]/button')
+            submit_btn.click()
+            time.sleep(2)
+            
+            # Step 3: Find the newly created medical record
+            # Get the latest medical record from the database
+            medical_record = MedicalRecord.objects.latest('record_id')
+            
+            # Step 4: Navigate to the edit page for the medical record
+            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            time.sleep(2)
+            
+            # Step 5: Update the fields
+            new_diagnosis = 'Allergies'
+            new_treatment = 'Antihistamines'
+            new_medication = 'Immunosuppressive Medications'
+            new_notes = 'Updated notes for TC10 test'
+            
+            # Clear and update diagnosis
+            diagnosis_field = self.wait_for_element(By.NAME, 'diagnosis')
+            diagnosis_field.clear()
+            diagnosis_field.send_keys(new_diagnosis)
+            
+            # Clear and update treatment
+            treatment_field = self.wait_for_element(By.NAME, 'treatment')
+            treatment_field.clear()
+            treatment_field.send_keys(new_treatment)
+            
+            # Clear and update medication
+            medication_field = self.wait_for_element(By.NAME, 'prescribed_medication')
+            medication_field.clear()
+            medication_field.send_keys(new_medication)
+            
+            # Clear and update notes
+            notes_field = self.wait_for_element(By.NAME, 'notes')
+            notes_field.clear()
+            notes_field.send_keys(new_notes)
+            
+            # Step 6: Submit the form to update the record
+            # Find the submit button - try multiple approaches
+            try:
+                submit_btn = self.browser.find_element(By.XPATH, 
+                    '//*[@id="medical-records-form"]/div/div/div/div/div[2]/div[4]/button')
+            except:
+                try:
+                    submit_btn = self.browser.find_element(By.CSS_SELECTOR, 
+                        '#medical-records-form button[type="submit"]')
+                except:
+                    # Try to find any button in the form
+                    submit_btn = self.browser.find_element(By.CSS_SELECTOR, 
+                        '#medical-records-form button')
+            
+            # Screenshot before submitting for debugging
+            self.browser.save_screenshot(f"update_med_record_before_submit_{medical_record.record_id}.png")
+            
+            # Submit the form
+            submit_btn.click()
+            time.sleep(2)
+            
+            # Step 7: Navigate back to the edit page to verify changes
+            self.browser.get(f'{self.live_server_url}/home/edit/medical-record/{medical_record.record_id}/')
+            time.sleep(2)
+            
+            # Step 8: Verify the fields were updated
+            updated_diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute('value')
             updated_treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
+            updated_medication = self.wait_for_element(By.NAME, 'prescribed_medication').get_attribute('value')
             updated_notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
-            self.assertEqual(updated_treatment, 'New Test Treatment')
-            self.assertEqual(updated_notes, 'Additional test notes')
+            
+            # Take a screenshot of the verification page
+            self.browser.save_screenshot(f"update_med_record_verification_{medical_record.record_id}.png")
+            
+            # Assert that the fields were updated correctly
+            self.assertEqual(updated_diagnosis, new_diagnosis, 
+                f"Diagnosis not updated. Expected '{new_diagnosis}', got '{updated_diagnosis}'")
+            self.assertEqual(updated_treatment, new_treatment, 
+                f"Treatment not updated. Expected '{new_treatment}', got '{updated_treatment}'")
+            self.assertEqual(updated_medication, new_medication, 
+                f"Medication not updated. Expected '{new_medication}', got '{updated_medication}'")
+            self.assertEqual(updated_notes, new_notes, 
+                f"Notes not updated. Expected '{new_notes}', got '{updated_notes}'")
+            
+            print(f"Successfully updated medical record {medical_record.record_id}")
 
         except TimeoutException as e:
+            self.browser.save_screenshot("TC10_timeout_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC10 failed - element not found: {str(e)}")
+        except Exception as e:
+            self.browser.save_screenshot("TC10_general_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
+            self.fail(f"TC10 failed with error: {str(e)}")
 
     def test_TC11_view_medical_record_details(self):
         """Test viewing medical record details."""
