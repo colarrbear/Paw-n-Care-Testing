@@ -515,38 +515,153 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         """Test updating payment status."""
         # Test Case ID: TC13 - Update payment status
 
-        # Create a billing record first
-        billing = Billing.objects.create(
-            appointment=self.appointment,
-            total_amount=300,
-            payment_status='Pending',
-            payment_method='Cash',
-            payment_date=timezone.now()
-        )
-
         try:
-            self.test_login()
+            # Step 1: Create a billing record first
+            billing = Billing.objects.create(
+                appointment=self.appointment,
+                total_amount=300,
+                payment_status='Pending',
+                payment_method='Cash',
+                payment_date=timezone.now()
+            )
+            
+            # Step 2: Login
+            self.browser.get(f'{self.live_server_url}/')
+            username_input = self.wait_for_element(By.NAME, 'username')
+            password_input = self.wait_for_element(By.NAME, 'password')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
+            time.sleep(1)
 
-            # Navigate to billing home
+            # Step 3: Navigate to billing home page
             self.browser.get(f'{self.live_server_url}/home/billing/')
-
-            # Click edit on our test billing record
-            edit_btn = self.wait_for_element(
-                By.XPATH, f'//a[@href="/home/edit/billing/{billing.bill_id}/"]')
-            edit_btn.click()
-
-            # Update payment status
-            status_select = self.wait_for_element(By.NAME, 'payment_status')
-            status_select.send_keys('Paid')
-
-            # Submit form
-            submit_btn = self.wait_for_element(By.XPATH, '//*[@id="billing-form"]/div/div/div/div/div[7]/button')
-            submit_btn.click()
-
-            # Verify the status was updated
-            self.browser.get(f'http://127.0.0.1:8000/home/edit/billing/{billing.bill_id}/')
-            updated_status = self.wait_for_element(By.NAME, 'payment_status').get_attribute('value')
-            self.assertEqual(updated_status, 'Paid')
+            time.sleep(2)
+            
+            # Take a screenshot to see the billing list page
+            self.browser.save_screenshot(f"billing_home_{billing.bill_id}.png")
+            
+            # Step 4: Find and click the edit button for our test billing record
+            try:
+                # First try to find by direct href match
+                edit_button = self.browser.find_element(
+                    By.XPATH, f"//a[@href='/home/edit/billing/{billing.bill_id}/']")
+            except:
+                try:
+                    # Try partial href match
+                    edit_button = self.browser.find_element(
+                        By.XPATH, f"//a[contains(@href, '/edit/billing/{billing.bill_id}')]")
+                except:
+                    # If all else fails, print all links on the page for debugging
+                    print("Could not find edit button for billing. Available links:")
+                    links = self.browser.find_elements(By.TAG_NAME, 'a')
+                    for i, link in enumerate(links):
+                        print(f"Link {i}: href='{link.get_attribute('href')}', text='{link.text}'")
+                    
+                    # Use a more general approach - look for "Edit" links
+                    edit_buttons = self.browser.find_elements(By.LINK_TEXT, 'Edit')
+                    if len(edit_buttons) > 0:
+                        edit_button = edit_buttons[0]  # Use the first edit button
+                    else:
+                        raise Exception("Could not find any edit buttons on the page")
+            
+            # Click the edit button
+            self.browser.execute_script("arguments[0].scrollIntoView(true);", edit_button)
+            self.browser.execute_script("arguments[0].click();", edit_button)  # Use JavaScript click
+            time.sleep(2)
+            
+            # Take a screenshot of the edit page
+            self.browser.save_screenshot(f"billing_edit_{billing.bill_id}.png")
+            
+            # Step 5: Update the payment status to 'Paid'
+            # Print page source to debug
+            print(f"Page source for edit page:\n{self.browser.page_source[:1000]}")
+            
+            # Get the payment status select element
+            payment_status_element = self.wait_for_element(By.NAME, 'payment_status')
+            
+            # Instead of using Select class directly, try JavaScript to set the value
+            self.browser.execute_script(
+                "arguments[0].value = 'Paid';", 
+                payment_status_element
+            )
+            
+            # Screenshot after setting the new status
+            self.browser.save_screenshot(f"billing_status_updated_{billing.bill_id}.png")
+            
+            # Step 6: Submit the form
+            try:
+                # Try different ways to find the submit button
+                try:
+                    submit_button = self.browser.find_element(By.XPATH, 
+                        "//button[contains(text(), 'Save')]")
+                except:
+                    try:
+                        submit_button = self.browser.find_element(By.XPATH, 
+                            "//button[contains(text(), 'Update')]")
+                    except:
+                        try:
+                            submit_button = self.browser.find_element(By.CSS_SELECTOR, 
+                                "button[type='submit']")
+                        except:
+                            # Last resort - find all buttons and use the last one
+                            buttons = self.browser.find_elements(By.TAG_NAME, 'button')
+                            if len(buttons) > 0:
+                                submit_button = buttons[-1]  # Assume last button is submit
+                            else:
+                                # If no buttons found, try to submit the form directly
+                                form = self.browser.find_element(By.ID, 'billing-form')
+                                self.browser.execute_script("arguments[0].submit();", form)
+                                time.sleep(2)
+                                # Skip the button click since we submitted the form
+                                submit_button = None
+            
+                # If we found a button, click it
+                if submit_button:
+                    self.browser.execute_script("arguments[0].scrollIntoView(true);", submit_button)
+                    self.browser.execute_script("arguments[0].click();", submit_button)
+                    time.sleep(2)
+            except Exception as btn_error:
+                print(f"Error finding/clicking submit button: {str(btn_error)}")
+                # Try direct form submission as fallback
+                try:
+                    form = self.browser.find_element(By.TAG_NAME, 'form')
+                    self.browser.execute_script("arguments[0].submit();", form)
+                    time.sleep(2)
+                except Exception as form_error:
+                    print(f"Error submitting form: {str(form_error)}")
+            
+            # Step 7: Verify the payment status was updated in the database
+            # Refresh from database
+            billing.refresh_from_db()
+            self.assertEqual(billing.payment_status, 'Paid',
+                f"Payment status not updated in database. Expected 'Paid', got '{billing.payment_status}'")
+            
+            # Step 8: Navigate back to the edit page to verify the UI shows the updated status
+            self.browser.get(f'{self.live_server_url}/home/edit/billing/{billing.bill_id}/')
+            time.sleep(2)
+            
+            # Take a screenshot of the verification page
+            self.browser.save_screenshot(f"billing_verification_{billing.bill_id}.png")
+            
+            # Verify the status value using JavaScript instead of Select
+            status_value = self.browser.execute_script(
+                "return arguments[0].value;", 
+                self.wait_for_element(By.NAME, 'payment_status')
+            )
+            
+            self.assertEqual(status_value, 'Paid', 
+                f"Payment status not updated in UI. Expected 'Paid', got '{status_value}'")
+            
+            print(f"Successfully updated payment status for billing {billing.bill_id}")
 
         except TimeoutException as e:
+            self.browser.save_screenshot("TC13_timeout_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC13 failed - element not found: {str(e)}")
+        except Exception as e:
+            self.browser.save_screenshot("TC13_general_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
+            self.fail(f"TC13 failed with error: {str(e)}")
