@@ -4,7 +4,6 @@ from ..models import Owner, Pet, Veterinarian, Appointment, MedicalRecord, Billi
 from datetime import datetime, timedelta
 from django.urls import reverse
 from django.test import Client
-from django.contrib.auth.models import User
 
 from django.contrib.auth.models import User
 from django.utils import timezone
