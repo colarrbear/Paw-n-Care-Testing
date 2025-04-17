@@ -952,3 +952,245 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             print(f"Current URL at error: {self.browser.current_url}")
             print(f"Page source at error:\n{self.browser.page_source[:2000]}")
             self.fail(f"TC15 failed with error: {str(e)}")
+
+    def test_TC16_view_clinic_statistics(self):
+        """Test viewing clinic-wide statistics."""
+        # Test Case ID: TC16 - View full clinic statistics
+
+        try:
+            # Step 1: Prepare test data - create a variety of records for clinic statistics
+            # Create additional veterinarians
+            vet2 = Veterinarian.objects.create(
+                first_name='Sarah',
+                last_name='Johnson',
+                specialization='Cardiology',
+                license_number='VET67890',
+                phone_number='555-234-5678',
+                email='sarah.johnson@pawcare.com'
+            )
+            
+            # Create additional owners
+            owner2 = Owner.objects.create(
+                first_name='Robert',
+                last_name='Brown',
+                address='456 Oak St, Anytown',
+                phone_number='555-876-5432',
+                email='robert.brown@example.com',
+                registration_date=timezone.now()
+            )
+            
+            # Create additional pets with varied species
+            pet2 = Pet.objects.create(
+                owner=owner2,
+                name='Whiskers',
+                species='cat',
+                breed='siamese',
+                date_of_birth=timezone.now().date() - datetime.timedelta(days=365),
+                gender='Female',
+                weight=4.2
+            )
+            
+            pet3 = Pet.objects.create(
+                owner=self.owner,
+                name='Tweety',
+                species='bird',
+                breed='canary',
+                date_of_birth=timezone.now().date() - datetime.timedelta(days=180),
+                gender='Male',
+                weight=0.3
+            )
+            
+            # Create various appointments with different statuses
+            Appointment.objects.create(
+                pet=pet2,
+                owner=owner2,
+                vet=vet2,
+                appointment_date=timezone.now().date() - datetime.timedelta(days=5),
+                appointment_time=timezone.now().time(),
+                reason='Annual checkup',
+                status='Completed'
+            )
+            
+            Appointment.objects.create(
+                pet=pet3,
+                owner=self.owner,
+                vet=self.vet,
+                appointment_date=timezone.now().date() + datetime.timedelta(days=3),
+                appointment_time=timezone.now().time(),
+                reason='Wing clipping',
+                status='Scheduled'
+            )
+            
+            Appointment.objects.create(
+                pet=self.pet,
+                owner=self.owner,
+                vet=vet2,
+                appointment_date=timezone.now().date() - datetime.timedelta(days=2),
+                appointment_time=timezone.now().time(),
+                reason='Follow-up visit',
+                status='Cancelled'
+            )
+            
+            # Create several medical records with different diagnoses and treatments
+            appointment = Appointment.objects.create(
+                pet=pet2,
+                owner=owner2,
+                vet=vet2,
+                appointment_date=timezone.now().date() - datetime.timedelta(days=10),
+                appointment_time=timezone.now().time(),
+                reason='Not eating',
+                status='Completed'
+            )
+            
+            MedicalRecord.objects.create(
+                appointment=appointment,
+                pet=pet2,
+                vet=vet2,
+                visit_date=timezone.now() - datetime.timedelta(days=10),
+                diagnosis='Allergies',
+                treatment='Antihistamines',
+                prescribed_medication='Antihistamine tablets',
+                notes='Food allergy suspected'
+            )
+            
+            appointment2 = Appointment.objects.create(
+                pet=self.pet,
+                owner=self.owner,
+                vet=self.vet,
+                appointment_date=timezone.now().date() - datetime.timedelta(days=15),
+                appointment_time=timezone.now().time(),
+                reason='Limping',
+                status='Completed'
+            )
+            
+            MedicalRecord.objects.create(
+                appointment=appointment2,
+                pet=self.pet,
+                vet=self.vet,
+                visit_date=timezone.now() - datetime.timedelta(days=15),
+                diagnosis='Arthritis',
+                treatment='Joint Supplements',
+                prescribed_medication='Anti-inflammatory medication',
+                notes='Early signs of arthritis'
+            )
+            
+            # Create varied billing records with different payment methods and statuses
+            Billing.objects.create(
+                appointment=appointment,
+                total_amount=175.50,
+                payment_status='Paid',
+                payment_method='Cash',
+                payment_date=timezone.now() - datetime.timedelta(days=10)
+            )
+            
+            Billing.objects.create(
+                appointment=appointment2,
+                total_amount=220.75,
+                payment_status='Pending',
+                payment_method='Bank Transfer',
+                payment_date=timezone.now() - datetime.timedelta(days=15)
+            )
+            
+            # Print summary of test data for debugging
+            vets_count = Veterinarian.objects.count()
+            pets_count = Pet.objects.count()
+            appointments_count = Appointment.objects.count()
+            medrecs_count = MedicalRecord.objects.count()
+            billings_count = Billing.objects.count()
+            
+            print(f"Test data summary:")
+            print(f"  Veterinarians: {vets_count}")
+            print(f"  Pets: {pets_count} (Species: {', '.join(Pet.objects.values_list('species', flat=True).distinct())})")
+            print(f"  Appointments: {appointments_count}")
+            print(f"  Medical Records: {medrecs_count}")
+            print(f"  Billings: {billings_count}")
+            
+            # Step 2: Login
+            self.browser.get(f'{self.live_server_url}/')
+            username_input = self.wait_for_element(By.NAME, 'username')
+            password_input = self.wait_for_element(By.NAME, 'password')
+            username_input.send_keys('doctor1')
+            password_input.send_keys('doctor1')
+            password_input.send_keys(Keys.RETURN)
+            time.sleep(1)
+            
+            # Step 3: Navigate to statistics section
+            self.browser.get(f'{self.live_server_url}/statistic/')
+            time.sleep(3)  # Give time for the page to load
+            
+            # Take a screenshot of the statistics page
+            self.browser.save_screenshot("clinic_statistics_page.png")
+            
+            # Step 4: Look for clinic-wide statistics sections
+            
+            # Print the page title and headers for debugging
+            page_text = self.browser.find_element(By.TAG_NAME, 'body').text
+            print(f"Page text sample:\n{page_text[:1000]}...")
+            
+            # Common labels for clinic-wide statistics sections
+            clinic_sections = [
+                'Clinic-wide statistics', 'Overview', 'Monthly statistics',
+                'Pet statistics', 'Appointment statistics', 'Billing', 'Payment'
+            ]
+            
+            # Check if any of these section labels are present
+            found_sections = []
+            for section in clinic_sections:
+                if section.lower() in page_text.lower():
+                    found_sections.append(section)
+                    print(f"Found clinic section: {section}")
+            
+            # Verify we found at least one clinic statistics section
+            self.assertGreater(len(found_sections), 0, 
+                "No clinic-wide statistics sections found")
+            
+            # Look for common statistics elements
+            # Step 5: Verify statistics are displayed with specific metrics
+            statistics_keywords = [
+                'appointments', 'pets', 'species', 'owners', 'returning',
+                'weight', 'diagnoses', 'treatments', 'billing', 'payment',
+                'amount', 'average', 'total', 'percentage', 'status'
+            ]
+            
+            found_stats = []
+            for keyword in statistics_keywords:
+                if keyword.lower() in page_text.lower():
+                    found_stats.append(keyword)
+                    print(f"Found statistic: {keyword}")
+            
+            # Verify we found multiple statistics indicators
+            self.assertGreaterEqual(len(found_stats), 3, 
+                f"Not enough statistics indicators found. Expected at least 3, found {len(found_stats)}")
+            
+            # Look for numeric values that would indicate statistics
+            number_elements = self.browser.find_elements(By.XPATH, 
+                "//*[contains(@class, 'text-[34px]') or contains(@class, 'font-bold')]")
+            
+            print(f"Found {len(number_elements)} potential statistic value elements")
+            if len(number_elements) > 0:
+                for i, elem in enumerate(number_elements[:5]):  # Show first 5 for debugging
+                    print(f"  Statistic {i+1}: {elem.text}")
+            
+            # Look for charts or visualizations
+            chart_elements = self.browser.find_elements(By.XPATH, 
+                "//*[contains(@class, 'chart') or contains(@class, 'graph') or contains(@class, 'progress')]")
+            
+            if len(chart_elements) > 0:
+                print(f"Found {len(chart_elements)} chart/visualization elements")
+            
+            # Final verification - either we need numbers or charts or both
+            self.assertTrue(len(number_elements) > 0 or len(chart_elements) > 0,
+                "No statistics values or charts found on the page")
+            
+            print("Successfully verified clinic-wide statistics")
+            
+        except TimeoutException as e:
+            self.browser.save_screenshot("TC16_timeout_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
+            self.fail(f"TC16 failed - element not found: {str(e)}")
+        except Exception as e:
+            self.browser.save_screenshot("TC16_general_error.png")
+            print(f"Current URL at error: {self.browser.current_url}")
+            print(f"Page source at error:\n{self.browser.page_source[:2000]}")
+            self.fail(f"TC16 failed with error: {str(e)}")
