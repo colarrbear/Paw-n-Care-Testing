@@ -1,5 +1,8 @@
 import os
 
+from django.core.management import call_command
+from django.utils.dateparse import parse_datetime
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'database_project.settings')
 
 import django
@@ -98,6 +101,18 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
         return WebDriverWait(self.browser, timeout).until(
             EC.visibility_of_element_located((by, value))
         )
+
+    @staticmethod
+    def load_data():
+        """Load initial data for the tests."""
+        # Load test data into the database
+        call_command('loaddata', 'paw_n_care/data/users.json')
+        call_command('loaddata', 'paw_n_care/data/veterinarians.json')
+        call_command('loaddata', 'paw_n_care/data/owners.json')
+        call_command('loaddata', 'paw_n_care/data/pets.json')
+        call_command('loaddata', 'paw_n_care/data/appointments.json')
+        call_command('loaddata', 'paw_n_care/data/medical_records.json')
+        call_command('loaddata', 'paw_n_care/data/billings.json')
 
     def test_login(self):
         """Test user login functionality."""
@@ -237,3 +252,189 @@ class PawNCareSeleniumTests(StaticLiveServerTestCase):
             self.fail(
                 f"Create new owner test failed - element not found: {str(e)}")
 
+    def test_TC10_update_medical_record(self):
+        """Test updating an existing medical record."""
+        # Test Case ID: TC10 - Update medical record
+
+        self.load_data()
+
+        # Login first
+        self.test_login()
+
+        available_appointment = Appointment.objects.exclude(
+            appointment_id__in=MedicalRecord.objects.values_list('appointment_id', flat=True)
+        ).first()
+
+        # Create a medical record first
+        self.browser.get(f'http://127.0.0.1:8000/medical-records/')
+        appointment_id_input = self.wait_for_element(By.NAME, 'appointment_id')
+        appointment_id_input.send_keys(available_appointment.appointment_id)
+
+        date_input = self.wait_for_element(By.NAME, 'visit_date')
+        date_input.send_keys(available_appointment.appointment_date.strftime('%Y-%m-%dT%H:%M'))
+
+        diagnosis_input = self.wait_for_element(By.NAME, 'diagnosis')
+        diagnosis_input.send_keys('Arthritis')
+
+        treatment_input = self.wait_for_element(By.NAME, 'treatment')
+        treatment_input.send_keys('Joint Supplements')
+
+        prescribed_medication_input = self.wait_for_element(By.NAME, 'prescribed_medication')
+        prescribed_medication_input.send_keys('Non-steroidal anti-inflammatory drugs (NSAIDs)')
+
+        notes_input = self.wait_for_element(By.NAME, 'notes')
+        notes_input.send_keys('Regular checkups recommended')
+
+        # Submit form
+        submit_btn = self.wait_for_element(By.XPATH,
+                                           '//*[@id="medical-records-form"]/div/div/div/div/div[2]/button')
+        submit_btn.click()
+
+        medical_record = MedicalRecord.objects.latest('record_id')
+
+        try:
+
+            # Navigate to medical records home
+            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
+
+            # Update treatment information
+            treatment_select = self.wait_for_element(By.NAME, 'treatment')
+            treatment_select.clear()
+            treatment_select.send_keys('New Test Treatment')
+
+            # Add notes
+            notes_field = self.wait_for_element(By.NAME, 'notes')
+            notes_field.clear()
+            notes_field.send_keys('Additional test notes')
+
+            # Submit form
+            submit_btn = self.wait_for_element(By.XPATH,
+                                               '//*[@id="medical-records-form"]/div/div/div/div/div[2]/div[4]/button')
+            submit_btn.click()
+
+            time.sleep(1)
+
+            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
+
+            # Verify updated treatment information
+            updated_treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
+            updated_notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
+            self.assertEqual(updated_treatment, 'New Test Treatment')
+            self.assertEqual(updated_notes, 'Additional test notes')
+
+        except TimeoutException as e:
+            self.fail(f"TC10 failed - element not found: {str(e)}")
+
+    def test_TC11_view_medical_record_details(self):
+        """Test viewing medical record details."""
+        # Test Case ID: TC11 - View medical record details
+
+        # Create a medical record first
+        visit_date_initial = timezone.now()
+        medical_record = MedicalRecord.objects.create(
+            appointment=self.appointment,
+            vet=self.vet,
+            pet=self.pet,
+            visit_date=visit_date_initial,
+            diagnosis='Diabetes',
+            treatment='Insulin Therapy',
+            prescribed_medication='Insulin Injections',
+            notes='Needs regular checkups'
+        )
+
+        try:
+            self.test_login()
+
+            # Navigate directly to medical records home page
+            self.browser.get(f'http://127.0.0.1:8000/home/edit/medical-record/{medical_record.record_id}/')
+            # Verify the details of the medical record
+            visit_date_str = self.wait_for_element(By.NAME, 'visit_date').get_attribute('value')
+            visit_date = parse_datetime(visit_date_str)
+            diagnosis = self.wait_for_element(By.NAME, 'diagnosis').get_attribute('value')
+            treatment = self.wait_for_element(By.NAME, 'treatment').get_attribute('value')
+            prescribed_medication = self.wait_for_element(By.NAME, 'prescribed_medication').get_attribute('value')
+            notes = self.wait_for_element(By.NAME, 'notes').get_attribute('value')
+            # self.assertEqual(visit_date.replace(microsecond=0), visit_date_initial.replace(microsecond=0))
+            self.assertEqual(diagnosis, 'Diabetes')
+            self.assertEqual(treatment, 'Insulin Therapy')
+            self.assertEqual(prescribed_medication, 'Insulin Injections')
+            self.assertEqual(notes, 'Needs regular checkups')
+
+        except TimeoutException as e:
+            self.fail(f"TC11 failed - element not found: {str(e)}")
+
+    def test_TC12_create_billing(self):
+        """Test creating a new billing record."""
+        # Test Case ID: TC12 - Create billing
+
+        try:
+            self.test_login()
+
+            # Navigate directly to billing creation page
+            self.browser.get(f'{self.live_server_url}/billing/')
+
+            # Select our test appointment
+            appointment_select = self.wait_for_element(By.NAME, 'appointment_id')
+            appointment_select.send_keys('Appointment ID: 1 Maximus by Dr.Chayakarn')
+
+            # Enter billing details
+            amount_input = self.wait_for_element(By.NAME, 'total_amount')
+            amount_input.send_keys('500')
+
+            payment_status = self.wait_for_element(By.NAME, 'payment_status')
+            payment_status.send_keys('Pending')
+
+            payment_method = self.wait_for_element(By.NAME, 'payment_method')
+            payment_method.send_keys('Credit Card')
+
+            # Set payment date to today
+            today = timezone.now().strftime('%Y-%m-%dT%H:%M')
+            payment_date = self.wait_for_element(By.NAME, 'payment_date')
+            payment_date.send_keys(today)
+
+            # Submit form
+            submit_btn = self.wait_for_element(By.XPATH, '//*[@id="billing-form"]/div/div/div/div/button')
+            submit_btn.click()
+
+        except TimeoutException as e:
+            self.fail(f"TC12 failed - element not found: {str(e)}")
+
+    def test_TC13_update_payment_status(self):
+        """Test updating payment status."""
+        # Test Case ID: TC13 - Update payment status
+
+        # Create a billing record first
+        billing = Billing.objects.create(
+            appointment=self.appointment,
+            total_amount=300,
+            payment_status='Pending',
+            payment_method='Cash',
+            payment_date=timezone.now()
+        )
+
+        try:
+            self.test_login()
+
+            # Navigate to billing home
+            self.browser.get(f'{self.live_server_url}/home/billing/')
+
+            # Click edit on our test billing record
+            edit_btn = self.wait_for_element(
+                By.XPATH, f'//a[@href="/home/edit/billing/{billing.bill_id}/"]')
+            edit_btn.click()
+
+            # Update payment status
+            status_select = self.wait_for_element(By.NAME, 'payment_status')
+            status_select.send_keys('Paid')
+
+            # Submit form
+            submit_btn = self.wait_for_element(By.XPATH, '//*[@id="billing-form"]/div/div/div/div/div[7]/button')
+            submit_btn.click()
+
+            # Verify the status was updated
+            self.browser.get(f'http://127.0.0.1:8000/home/edit/billing/{billing.bill_id}/')
+            updated_status = self.wait_for_element(By.NAME, 'payment_status').get_attribute('value')
+            self.assertEqual(updated_status, 'Paid')
+
+        except TimeoutException as e:
+            self.fail(f"TC13 failed - element not found: {str(e)}")
