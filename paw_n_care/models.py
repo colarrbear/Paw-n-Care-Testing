@@ -6,7 +6,7 @@ class Owner(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     address = models.TextField()
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=10)
     email = models.EmailField(max_length=255)
     registration_date = models.DateTimeField()
 
